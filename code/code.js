@@ -96,7 +96,7 @@
 // /* map 사용방법 */
 
 // arr.map((arr_item)=>{
-//     // 모든 배열의 원소에게 반복실행할 코드	
+//     // 모든 배열의 원소에게 반복실행할 코드
 // })
 
 // /* map의 예제 */
@@ -408,3 +408,26 @@
 
 // > 결과 <
 // true
+
+/* every의 사용방법 */
+// const 콜백함수 = (arr_item)=>{//판별하고싶은 것}
+
+//     arr.every(//콜백함수)
+
+
+// const array = [2,4,6,8]
+// const elFunc = (item)=>{return item%2===o}
+
+// console.log(array.every(elFunc))
+
+// > 결과 <
+// true
+
+
+// **/* fill의 사용방법 */**
+// arr.fill(채울원소, 시작인덱스,끝인덱스)
+
+
+// **/* fill의 사용방법 */**
+// arr.fill(채울원소, 시작인덱스,끝인덱스)
+

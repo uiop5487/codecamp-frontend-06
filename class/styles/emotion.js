@@ -21,3 +21,5 @@ export const TextboxName = styled.div`
 export const Box = styled.input`
     width: 200px
 `
+
+
