@@ -203,9 +203,10 @@ export const SignupBtn = styled.button`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ffd600;
     font-size: 16px;
     cursor: pointer;
+
+    background-color: ${(props) => (props.isActive ? "#ffd600" : "none")};
 `;
 
 export const SignupbtnWrapper = styled.div`

@@ -7,6 +7,7 @@ import WriteNewPageUI from "./write-presenter";
 export default function WriteNewPage() {
     const router = useRouter();
     const [createBoard] = useMutation(CREATE_BOARD);
+    const [isActive, setIActive] = useState(false);
     const [saveName, setSaveName] = useState("");
     const [savePassWord, setSavePassWord] = useState("");
     const [saveTitle, setSaveTitle] = useState("");
@@ -29,12 +30,34 @@ export default function WriteNewPage() {
         if (saveName !== "") {
             setNameError("");
         }
+        if (
+            event.target.value !== "" &&
+            savePassWord !== "" &&
+            saveTitle !== "" &&
+            saveContent !== "" &&
+            saveAdress !== ""
+        ) {
+            setIActive(true);
+        } else {
+            setIActive(false);
+        }
     };
 
     const savedPassWord = (event) => {
         setSavePassWord(event.target.value);
         if (savePassWord !== "") {
             setPasswordError("");
+        }
+        if (
+            saveName !== "" &&
+            event.target.value !== "" &&
+            saveTitle !== "" &&
+            saveContent !== "" &&
+            saveAdress !== ""
+        ) {
+            setIActive(true);
+        } else {
+            setIActive(false);
         }
     };
 
@@ -43,6 +66,17 @@ export default function WriteNewPage() {
         if (saveTitle !== "") {
             setTitleError("");
         }
+        if (
+            saveName !== "" &&
+            savePassWord !== "" &&
+            event.target.value !== "" &&
+            saveContent !== "" &&
+            saveAdress !== ""
+        ) {
+            setIActive(true);
+        } else {
+            setIActive(false);
+        }
     };
 
     const savedContet = (event) => {
@@ -50,12 +84,34 @@ export default function WriteNewPage() {
         if (saveContent !== "") {
             setContentError("");
         }
+        if (
+            saveName !== "" &&
+            savePassWord !== "" &&
+            saveTitle !== "" &&
+            event.target.value !== "" &&
+            saveAdress !== ""
+        ) {
+            setIActive(true);
+        } else {
+            setIActive(false);
+        }
     };
 
     const savedAdress = (event) => {
         setSaveAdress(event.target.value);
         if (saveAdress !== "") {
             setAdressError("");
+        }
+        if (
+            saveName !== "" &&
+            savePassWord !== "" &&
+            saveTitle !== "" &&
+            saveContent !== "" &&
+            event.target.value !== ""
+        ) {
+            setIActive(true);
+        } else {
+            setIActive(false);
         }
     };
 
@@ -142,6 +198,7 @@ export default function WriteNewPage() {
             sumbitBtn={sumbitBtn}
             titleError={titleError}
             adressError={adressError}
+            isActive={isActive}
         />
     );
 }

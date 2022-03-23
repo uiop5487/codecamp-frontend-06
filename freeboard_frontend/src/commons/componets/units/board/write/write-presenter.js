@@ -93,7 +93,9 @@ export default function WriteNewPageUI(props) {
                     </s.RadioBtnbox>
                 </s.RadioBtnWrapper>
                 <s.SignupbtnWrapper>
-                    <s.SignupBtn onClick={props.sumbitBtn}>등록하기</s.SignupBtn>
+                    <s.SignupBtn onClick={props.sumbitBtn} isActive={props.isActive}>
+                        등록하기
+                    </s.SignupBtn>
                 </s.SignupbtnWrapper>
             </s.Warpper>
         </s.BackGround>
