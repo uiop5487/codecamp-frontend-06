@@ -1,7 +1,8 @@
 import * as s from "./board-list-styles";
 import { getDate } from "../../../commons/libraries/utils";
+import { BoardListEl, IBoardListUIProps } from "./board-list-typescript";
 
-const WriteBoardListPresenter = (props) => {
+const WriteBoardListPresenter = (props: IBoardListUIProps) => {
     return (
         <s.BackGround>
             <s.Warrper>
@@ -26,9 +27,11 @@ const WriteBoardListPresenter = (props) => {
                             <s.BoardListBasicTitle>작성자</s.BoardListBasicTitle>
                             <s.BoardListBasicTitle>날짜</s.BoardListBasicTitle>
                         </s.BoardListTilte>
-                        {props.data?.fetchBoards.map((el, index) => (
+                        {props.data?.fetchBoards.map((el: BoardListEl, index: number) => (
                             <s.BoardListDetail key={el._id}>
-                                <s.BoardListBasicName>{10 - index}</s.BoardListBasicName>
+                                <s.BoardListBasicName>
+                                    {props.data.fetchBoards.length - index}
+                                </s.BoardListBasicName>
                                 <s.BoardListDetailName
                                     onClick={props.onClickMoveDetail}
                                     id={el._id}

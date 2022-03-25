@@ -233,6 +233,10 @@ export const ChangeBtn = styled.button`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    :hover {
+        background-color: #ffd600;
+    }
 `;
 
 export const ChangeBtnCenter = styled.button`
@@ -247,4 +251,8 @@ export const ChangeBtnCenter = styled.button`
     justify-content: center;
     align-items: center;
     margin: 0px 24px 0px 24px;
+    cursor: pointer;
+    :hover {
+        background-color: #ffd600;
+    }
 `;
