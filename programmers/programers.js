@@ -224,3 +224,204 @@ function solution(s) {
   answer.reverse();
   return answer.join("");
 }
+
+a = "a";
+b = "b";
+
+// 아스키코드
+
+// 1. 각각의 문자들이 대체되는 유니코드 번호를 가지게 된다.
+// 2. 문자열끼리 비교할 때는 유니코드의 번호를 가지고 대소괸계를 비교
+
+a.charCodeAt();
+b.charCodeAt();
+"z".charCodeAt();
+
+// 알파벳 소문자의 유니코드
+// 97 ~ 122
+
+"A".charCodeAt();
+"Z".charCodeAt();
+
+// 알파벳 대문자의 유니코드
+// 65 ~ 90
+
+"A" > "a";
+"a" > "Z";
+
+function solution(a) {
+  const answer = a
+    .split("")
+    .sort((a, b) => {
+      return a > b ? 1 : -1;
+    })
+    .join("");
+  return answer;
+}
+solution(a);
+
+// k 번째 수
+array = [1, 5, 2, 6, 3, 7, 4];
+commands = [
+  [2, 5, 3],
+  [4, 4, 1],
+  [1, 7, 3],
+];
+
+function solution(array, commands) {
+  const answer = [];
+
+  for (let idx = 0; idx < commands.length; idx++) {
+    const i = commands[idx][0];
+    const j = commands[idx][1];
+    const k = commands[idx][2];
+
+    const result = array.slice(i - 1, j).sort((a, b) => {
+      return a - b;
+    });
+    answer.push(result[k - 1]);
+  }
+  return answer;
+}
+
+// map을 사용
+function solution(array, commands) {
+  const answer = commands.map((el) => {
+    const result = array.slice(el[0] - 1, el[1]).sort((a, b) => {
+      return a - b;
+    });
+    return result[el[2] - 1];
+  });
+  return answer;
+}
+
+array = [1, 5, 2, 6, 3, 7, 4];
+commands = [
+  [2, 5, 3],
+  [4, 4, 1],
+  [1, 7, 3],
+];
+
+function solution(array, commands) {
+  const answer = [];
+
+  for (let idx = 0; idx < commands.length; idx++) {
+    const i = commands[idx][0];
+    const j = commands[idx][1];
+    const k = commands[idx][2];
+
+    const result = array.slice(i - 1, j).sort((a, b) => {
+      return a - b;
+    });
+    answer.push(result[k - 1]);
+  }
+  return answer;
+}
+// sort는 인자로 고차함수를 사용하지 않으면 첫번째 자리만 비교 한다
+// 숫자를 사용할때는 b - a // 내림차순, a - b // 오름차순 => 문자열에서 작동하지않음
+
+solution(array, commands);
+
+// a > b ? -1 : 1 내림차순
+// a > b ? 1 : -1 오름차순
+
+// 문자열 내 p와 y의 개수
+
+function solution(s) {
+  let ppp = "";
+  let yyy = "";
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "p" || s[i] === "P") {
+      ppp += s[i];
+    } else if (s[i] === "y" || s[i] === "Y") {
+      yyy += s[i];
+    }
+  }
+  return ppp.length === yyy.length;
+}
+
+function solution(s) {
+  let ppp = 0;
+  let yyy = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "p" || s[i] === "P") {
+      ppp++;
+    } else if (s[i] === "y" || s[i] === "Y") {
+      yyy++;
+    }
+  }
+  return ppp === yyy;
+}
+// 소문자로 변경
+function solution(s) {
+  s = s.toLowerCase();
+  let ppp = 0;
+  let yyy = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "p") {
+      ppp++;
+    } else if (s[i] === "y") {
+      yyy++;
+    }
+  }
+  return ppp === yyy;
+}
+
+// forEach 사용
+
+function solution(s) {
+  // p와 y 의 개수를 저장하는 객체
+  const check = {};
+  s.toLowerCase() // 1. 소문자로 변환
+    .split("") // 2. 배열로 변환
+    .forEach((str) => {
+      // 3. 배열 메서드인 forEach사용
+      check[str] === undefined // 객체에 해당 키값이 없는지 검증
+        ? (check[str] = 1) // 없다면 초기값 1로 지정
+        : check[str]++; // 있다면 기존 값에 1 더함
+    });
+  return check.p === check.y;
+}
+
+// 이상한 문자 만들기
+
+function solution(s) {
+  let answer = "";
+
+  // 단어별로 인덱스를 구분하기 위한 변수
+  let idx = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === " ") {
+      // 공백을 만났을 경우
+      answer += s[i]; // " "
+      idx = 0;
+    } else {
+      answer +=
+        idx % 2 === 1
+          ? s[i].toLowerCase() // 홀수일때는 소문자 변환해서 넣어준다
+          : s[i].toUpperCase(); // 짝수일때는 대문자로 변형해서 넣어줌
+      idx++;
+    }
+  }
+  return answer;
+}
+
+// 맵을 이용
+
+function solution(s) {
+  const answer = s
+    .split(" ")
+    .map((str) => {
+      return str
+        .split("")
+        .map((letter, i) => {
+          return i % 2 === 0 ? letter.toUpperCase() : letter.toLowerCase();
+        })
+        .join("");
+    })
+    .join(" ");
+  return answer;
+}

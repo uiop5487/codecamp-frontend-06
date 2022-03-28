@@ -1,3 +1,4 @@
+import ReactPlayer from "react-player";
 import { IBoardWriteUIProps } from "./writedetail-typescript";
 import * as s from "./writedetail.styles";
 
@@ -36,15 +37,26 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
           <s.Contets>{props.data?.fetchBoard.contents}</s.Contets>
         </s.ContentsWrapper>
         <s.YoutubeWrapper>
-          <s.Youtube src={props.data?.fetchBoard.youtubeUrl}></s.Youtube>
+          <ReactPlayer
+            url={props.data?.fetchBoard?.youtubeUrl}
+            width={486}
+            height={240}
+          />
+          {/* <s.Youtube></s.Youtube> */}
         </s.YoutubeWrapper>
         <s.LikeWrapper>
           <s.LikeBox>
-            <s.LikeImg src="/img/like.png"></s.LikeImg>
+            <s.LikeImg
+              src="/img/like.png"
+              onClick={props.onClickLike}
+            ></s.LikeImg>
             <s.LikeCount>{props.data?.fetchBoard.likeCount}</s.LikeCount>
           </s.LikeBox>
           <s.DisLikeBox>
-            <s.DisLikeImg src="/img/dislike.png"></s.DisLikeImg>
+            <s.DisLikeImg
+              src="/img/dislike.png"
+              onClick={props.onClickDisLike}
+            ></s.DisLikeImg>
             <s.DisLikeCount>
               {props.data?.fetchBoard.dislikeCount}
             </s.DisLikeCount>

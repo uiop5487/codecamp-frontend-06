@@ -73,8 +73,8 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
           <s.LinkInput
             type="text"
             placeholder="링크를 복사해주세요."
-            onChange={props.savedYoutebUrl}
-            defaultValue={props.data?.fetchBoard.youtubeUrl}
+            onChange={props.saveYoutubeUrl}
+            defaultValue={props.data?.fetchBoard?.youtubeUrl}
           />
         </s.LinkWrapper>
         <s.UploadWrapper>

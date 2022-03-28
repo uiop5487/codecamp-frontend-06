@@ -9,11 +9,24 @@ import {
   IMyVariables,
   IWriteNew,
 } from "./write-typescript";
+import {
+  IBoard,
+  IMutation,
+  IMutationCreateBoardArgs,
+  IMutationUpdateBoardArgs,
+  IUpdateBoardInput,
+} from "../../../../types/generated/types";
 
 export default function WriteNewPage(props: IWriteNew) {
   const router = useRouter();
-  const [createBoard] = useMutation(CREATE_BOARD);
-  const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [createBoard] = useMutation<
+    Pick<IMutation, "createBoard">,
+    IMutationCreateBoardArgs
+  >(CREATE_BOARD);
+  const [updateBoard] = useMutation<
+    Pick<IMutation, "updateBoard">,
+    IMutationUpdateBoardArgs
+  >(UPDATE_BOARD);
   const [isActive, setIsActive] = useState(false);
   const [saveName, setSaveName] = useState("");
   const [savePassWord, setSavePassWord] = useState("");
@@ -167,7 +180,7 @@ export default function WriteNewPage(props: IWriteNew) {
       saveAdress !== ""
     ) {
       try {
-        const myData = await createBoard({
+        const myData: any = await createBoard({
           variables: {
             createBoardInput: {
               writer: saveName,
@@ -175,7 +188,7 @@ export default function WriteNewPage(props: IWriteNew) {
               title: saveTitle,
               contents: saveContent,
               youtubeUrl: saveYoutubeUrl,
-              images: saveImg,
+              images: [saveImg],
               boardAddress: {
                 zipcode: saveZipCode,
                 address: saveAdress,
@@ -217,7 +230,7 @@ export default function WriteNewPage(props: IWriteNew) {
         variables: {
           updateBoardInput: myVariables,
           password: savePassWord,
-          boardId: router.query.boardid,
+          boardId: String(router.query.boardid),
         },
       });
       alert("상세페이지로 이동하시겠습니까?");
