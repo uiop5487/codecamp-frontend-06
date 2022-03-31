@@ -1,5 +1,6 @@
 import { Router, useRouter } from "next/router";
 import { useQuery, useMutation } from "@apollo/client";
+import { Modal } from "antd";
 import {
   FETCH_BOARD,
   DELETE_BOARD,
@@ -37,7 +38,9 @@ export default function DetailPageContain() {
     deleteBoard({
       variables: { boardId: String(router.query.boardid) },
     });
-    alert("게시글 목록으로 이동하시겠습니까?");
+    Modal.success({
+      content: "게시글 목록으로 이동",
+    });
     router.push("/boards");
   };
   const editButton = () => {

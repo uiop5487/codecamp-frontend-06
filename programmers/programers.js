@@ -425,3 +425,141 @@ function solution(s) {
     .join(" ");
   return answer;
 }
+// 자연수 뒤집어 배열로 만들기
+// 내가 쓴거
+function solution(n) {
+  let answer = String(n).split("").reverse();
+  let result = [];
+  for (let i = 0; i < answer.length; i++) {
+    result.push(Number(answer[i]));
+  }
+  return result;
+}
+
+function solution(n) {
+  const answer = [];
+  n = String(n);
+  for (let i = n.length - 1; i >= 0; i--) {
+    answer.push(Number(n[i]));
+  }
+  return answer;
+}
+// 메서드를 사용
+function solution(n) {
+  return n
+    .toString()
+    .split("")
+    .reverse()
+    .map((str) => {
+      return Number(str);
+    });
+}
+
+// 나누어 떨어지는 숫자 판별
+
+// 내가 쓴거
+function solution(arr, divisor) {
+  let answer = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] % divisor === 0) {
+      answer.push(arr[i]);
+    } else if (arr.every((el) => el % divisor !== 0)) {
+      answer.push(-1);
+      break;
+    }
+  }
+  return answer.sort((a, b) => {
+    return a - b;
+  });
+}
+
+function solution(arr, divisor) {
+  const answer = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] % divisor === 0) {
+      answer.push(arr[i]);
+    }
+  }
+  return answer.length === 0 ? [-1] : answer.sort((a, b) => a - b);
+}
+
+// 메서드 사용
+function solution(arr, divisor) {
+  const answer = arr.filter((num) => {
+    return num % divisor === 0;
+  });
+  return answer.length === 0 ? [-1] : answer.sort((a, b) => a - b);
+}
+
+// 콜라츠 추측
+// 내가 쓴거
+function solution(num) {
+  let result = 0;
+  let count = num;
+  while (count !== 1) {
+    if (count % 2 === 0) {
+      count = count / 2;
+      result++;
+    } else if (count % 2 !== 0) {
+      count = count * 3 + 1;
+      result++;
+    }
+  }
+  if (result >= 500) {
+    return -1;
+  }
+  return result;
+}
+// for문 사용
+function solution(num) {
+  let answer = 0;
+
+  for (let i = 0; i < 500; i++) {
+    if (num === 1) {
+      // 예외처리는 항사 상단에서
+      break;
+    }
+    answer++;
+    // num이 짝수일때 : 해당 수에 2를 곱한다.
+    if (num % 2 === 0) {
+      num /= 2;
+    } else {
+      num = num * 3 + 1;
+    }
+  }
+  return num !== 1 ? -1 : answer;
+}
+
+// while 문 사용
+function solution(num) {
+  let answer = 0;
+  // 조건식이 true 일 때만 반복 로직이 실행
+  while (num !== 1) {
+    // num 1일 될때까지 무한으로 실행한다.
+    if (answer >= 500) {
+      return -1;
+    }
+
+    answer++;
+    num =
+      num % 2 === 0
+        ? num / 2 // 짝수일 경우
+        : num * 3 + 1; // 홀수일 경우
+  }
+  return answer;
+}
+
+// reduce를 사용
+function solution(num) {
+  let answer = 0;
+
+  const result = new Array(500).fill(1).reduce((acc) => {
+    if (acc !== 1) {
+      answer++;
+      return acc % 2 === 0 ? acc / 2 : acc * 3 + 1;
+    } else {
+      return 1;
+    }
+  }, num);
+  return result !== 1 ? -1 : answer;
+}

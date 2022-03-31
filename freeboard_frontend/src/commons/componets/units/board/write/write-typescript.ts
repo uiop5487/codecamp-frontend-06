@@ -31,10 +31,22 @@ export interface IWriteNewUI {
   savedImg?: (event: ChangeEvent<HTMLInputElement>) => void;
   isActive: boolean;
   editBtn: () => void;
-  sumbitBtn: () => void;
+  SubitButton: () => void;
   saveYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
   saveDetailAdress: (event: ChangeEvent<HTMLInputElement>) => void;
   saveImg?: (event: ChangeEvent<HTMLInputElement>) => void;
+  isOpen: boolean;
+  // Modal: () => void;
+  EditModal: () => void;
+  Toggle: () => void;
+  showModal: () => void;
+  handleOk: () => void;
+  handleCancel: () => void;
+  isModalVisible: boolean;
+  handleComplete: any;
+  saveZipCode: string;
+  saveAdress: string;
+  sumbitModal: () => void;
 }
 
 export interface IMyBoardAdress {

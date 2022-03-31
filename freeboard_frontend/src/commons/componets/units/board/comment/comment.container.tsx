@@ -12,8 +12,11 @@ import {
   FETCH_BOARD_COMMENTS,
   UPDATE_BOARD_COMMENT,
 } from "./comment.query";
+import { Modal } from "antd";
 
 const Comment = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [dId, setDId] = useState("");
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
   const [writer, setWriter] = useState("");
@@ -24,6 +27,7 @@ const Comment = () => {
   const [editContents, setEditContents] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [isId, setIsId] = useState("");
+  const [dPassword, setDPassword] = useState("");
   const router = useRouter();
   const [value, setValue] = useState(0);
   const [editValue, setEditValue] = useState(0);
@@ -57,6 +61,13 @@ const Comment = () => {
     setEditContents(event.target.value);
   };
 
+  const deletePasword = (event: any) => {
+    setDPassword(event.target.value);
+  };
+  // const deleteId = (event) => {
+
+  // };
+
   const sumbitBtn = async () => {
     try {
       const data = await createBoardComment({
@@ -82,19 +93,32 @@ const Comment = () => {
       setContents("");
       setPassword("");
       setValue(0);
-      alert("등록되었습니다.");
+      Modal.success({
+        content: "등록되었습니다.",
+      });
       console.log(data);
     } catch (error: any) {
-      alert(error.message);
+      Modal.error({
+        content: error.message,
+      });
     }
   };
 
+  const showModal = (event: any) => {
+    setDId(event.target.id);
+    setIsModalVisible((prev) => !prev);
+  };
+
+  const Tog = () => {
+    setIsModalVisible((prev) => !prev);
+  };
+
   const onClickDelete = (event: MouseEvent) => {
-    const password = prompt("비밀번호를 입력하세요");
+    // const password = prompt("비밀번호를 입력하세요");
     deleteBoardComment({
       variables: {
-        boardCommentId: (event.target as any).id,
-        password: password,
+        boardCommentId: dId,
+        password: dPassword,
       },
       refetchQueries: [
         {
@@ -131,7 +155,9 @@ const Comment = () => {
     setEditContents("");
     setEditPassword("");
     setEditValue(0);
-    alert("수정되었습니다.");
+    Modal.success({
+      content: "수정되었습니다.",
+    });
     setIsEdit(false);
   };
 
@@ -167,6 +193,11 @@ const Comment = () => {
       saveEditPassword={saveEditPassword}
       EdithandleChange={EdithandleChange}
       editValue={editValue}
+      isModalVisible={isModalVisible}
+      showModal={showModal}
+      dPassword={dPassword}
+      deletePasword={deletePasword}
+      Tog={Tog}
     />
   );
 };

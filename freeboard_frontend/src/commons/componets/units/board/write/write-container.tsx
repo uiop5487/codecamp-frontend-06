@@ -1,8 +1,10 @@
+import DaumPostcode from "react-daum-postcode";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import { CREATE_BOARD, UPDATE_BOARD } from "./write-mutation";
 import WriteNewPageUI from "./write-presenter";
+import { Modal } from "antd";
 import {
   IInputEvent,
   IMyBoardAdress,
@@ -18,6 +20,8 @@ import {
 } from "../../../../types/generated/types";
 
 export default function WriteNewPage(props: IWriteNew) {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const [createBoard] = useMutation<
     Pick<IMutation, "createBoard">,
@@ -37,13 +41,19 @@ export default function WriteNewPage(props: IWriteNew) {
   const [saveZipCode, setSaveZipCode] = useState("");
   const [saveYoutubeUrl, setSaveYoutubeUrl] = useState("");
   const [saveImg, setSaveImg] = useState("");
-
+  const [addressCheck, setAddressCheck] = useState(false);
   const [nameError, setNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [titleError, setTitleError] = useState("");
   const [contentError, setContentError] = useState("");
   const [adressError, setAdressError] = useState("");
   //여기는 자바스크립트
+
+  const handleComplete = (data: any) => {
+    setSaveAdress(data.address);
+    setSaveZipCode(data.zonecode);
+    setIsModalVisible((prev) => !prev);
+  };
 
   const savedName = (event: ChangeEvent<HTMLInputElement>) => {
     setSaveName(event.target.value);
@@ -55,8 +65,7 @@ export default function WriteNewPage(props: IWriteNew) {
       (event.target.value !== "" &&
         savePassWord !== "" &&
         saveTitle !== "" &&
-        saveContent !== "" &&
-        saveAdress !== "")
+        saveContent !== "")
     ) {
       setIsActive(true);
     } else {
@@ -74,10 +83,10 @@ export default function WriteNewPage(props: IWriteNew) {
       (saveName !== "" &&
         event.target.value !== "" &&
         saveTitle !== "" &&
-        saveContent !== "" &&
-        saveAdress !== "")
+        saveContent !== "")
     ) {
       setIsActive(true);
+      console.log("asdasd");
     } else {
       setIsActive(false);
     }
@@ -93,10 +102,10 @@ export default function WriteNewPage(props: IWriteNew) {
       (saveName !== "" &&
         savePassWord !== "" &&
         event.target.value !== "" &&
-        saveContent !== "" &&
-        saveAdress !== "")
+        saveContent !== "")
     ) {
       setIsActive(true);
+      console.log("asdasd");
     } else {
       setIsActive(false);
     }
@@ -112,10 +121,10 @@ export default function WriteNewPage(props: IWriteNew) {
       (saveName !== "" &&
         savePassWord !== "" &&
         saveTitle !== "" &&
-        event.target.value !== "" &&
-        saveAdress !== "")
+        event.target.value !== "")
     ) {
       setIsActive(true);
+      console.log("asdasd");
     } else {
       setIsActive(false);
     }
@@ -123,6 +132,7 @@ export default function WriteNewPage(props: IWriteNew) {
 
   const savedAdress = (event: ChangeEvent<HTMLInputElement>) => {
     setSaveAdress(event.target.value);
+    console.log(saveAdress);
     if (saveAdress !== "") {
       setAdressError("");
     }
@@ -135,6 +145,7 @@ export default function WriteNewPage(props: IWriteNew) {
         event.target.value !== "")
     ) {
       setIsActive(true);
+      console.log("asdasd");
     } else {
       setIsActive(false);
     }
@@ -142,6 +153,7 @@ export default function WriteNewPage(props: IWriteNew) {
 
   const savedDetailAdress = (event: ChangeEvent<HTMLInputElement>) => {
     setSaveDetailAdress(event.target.value);
+    console.log(event.target.value);
   };
 
   const savedZipCode = (event: ChangeEvent<HTMLInputElement>) => {
@@ -156,7 +168,11 @@ export default function WriteNewPage(props: IWriteNew) {
     setSaveImg(event.target.value);
   };
 
-  const sumbitBtn = async () => {
+  const sumbitModal = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const SubitButton = async () => {
     if (saveName === "") {
       setNameError("작성자를 적어주세요.");
     }
@@ -169,16 +185,8 @@ export default function WriteNewPage(props: IWriteNew) {
     if (saveContent === "") {
       setContentError("내용을 적어주세요.");
     }
-    if (saveAdress === "") {
-      setAdressError("주소를 적어주세요.");
-    }
-    if (
-      saveName !== "" &&
-      savePassWord !== "" &&
-      saveTitle !== "" &&
-      saveContent !== "" &&
-      saveAdress !== ""
-    ) {
+
+    {
       try {
         const myData: any = await createBoard({
           variables: {
@@ -197,19 +205,31 @@ export default function WriteNewPage(props: IWriteNew) {
             },
           },
         });
+        setIsOpen((prev) => !prev);
         console.log(myData);
-        alert("등록완료");
-        alert("상세페이지로 이동하시겠습니까?");
         router.push(`/boards/new/${myData.data.createBoard._id}`);
       } catch (error: any) {
-        alert(error.message);
+        Modal.error({
+          content: error.message,
+        });
       }
     }
   };
 
+  const EditModal = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   const editBtn = async () => {
+    if (!saveTitle && !saveContent && !saveYoutubeUrl) {
+      Modal.error({
+        content: "변경이 안됬습니다.",
+      });
+      return;
+    }
     if (savePassWord === "") {
       setPasswordError("비밀번호를 적어주세요.");
+      return;
     }
     if (savePassWord !== "") {
       setIsActive(true);
@@ -218,7 +238,8 @@ export default function WriteNewPage(props: IWriteNew) {
     }
     try {
       const myBoardAddress: IMyBoardAdress = {};
-      const myVariables: IMyVariables = {};
+      const myVariables: IMyVariables = { boardAddress: myBoardAddress };
+
       if (saveTitle !== "") myVariables.title = saveTitle;
       if (saveContent !== "") myVariables.contents = saveContent;
       if (saveYoutubeUrl !== "") myVariables.youtubeUrl = saveYoutubeUrl;
@@ -233,12 +254,30 @@ export default function WriteNewPage(props: IWriteNew) {
           boardId: String(router.query.boardid),
         },
       });
-      alert("상세페이지로 이동하시겠습니까?");
+      setIsOpen((prev) => !prev);
       router.push(`/boards/new/${router.query.boardid}`);
     } catch (error: any) {
-      alert(error.message);
+      Modal.error({
+        content: error.message,
+      });
     }
   };
+  const Toggle = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const showModal = () => {
+    setIsModalVisible((prev) => !prev);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible((prev) => !prev);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible((prev) => !prev);
+  };
+
   return (
     <WriteNewPageUI
       savedName={savedName}
@@ -253,13 +292,27 @@ export default function WriteNewPage(props: IWriteNew) {
       saveDetailAdress={savedDetailAdress}
       saveYoutubeUrl={savedYoutebUrl}
       saveImg={savedImg}
-      sumbitBtn={sumbitBtn}
+      // sumbitBtn={sumbitBtn}
       editBtn={editBtn}
       isEdit={props.isEdit}
       titleError={titleError}
       adressError={adressError}
       isActive={isActive}
       data={props.data}
+      SubitButton={SubitButton}
+      // handleOk={handleOk}
+      // handleCancel={handleCancel}
+      isOpen={isOpen}
+      sumbitModal={sumbitModal}
+      EditModal={EditModal}
+      Toggle={Toggle}
+      showModal={showModal}
+      handleOk={handleOk}
+      handleCancel={handleCancel}
+      isModalVisible={isModalVisible}
+      handleComplete={handleComplete}
+      saveZipCode={saveZipCode}
+      saveAdress={saveAdress}
     />
   );
 }

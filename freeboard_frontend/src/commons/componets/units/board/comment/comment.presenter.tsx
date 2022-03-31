@@ -1,5 +1,6 @@
 import * as s from "./comment.styles";
 import { ICommentUI } from "./comment.types";
+import { Modal } from "antd";
 
 const CommentUI = (props: ICommentUI) => {
   return (
@@ -80,10 +81,7 @@ const CommentUI = (props: ICommentUI) => {
                 <s.WriterFetchHeader>
                   <s.WriterFetchWarrper>
                     <s.Writer>{el.writer}</s.Writer>
-                    <s.StarIcon
-                      onChange={props.handleChange}
-                      value={el.rating}
-                    />
+                    <s.StarIcon value={el.rating} disabled={true} />
                   </s.WriterFetchWarrper>
                   <s.Contents>{el.contents}</s.Contents>
                 </s.WriterFetchHeader>
@@ -96,9 +94,18 @@ const CommentUI = (props: ICommentUI) => {
                 ></s.EditImg>
                 <s.DeleteImg
                   src="/img/delete.png"
-                  onClick={props.onClickDelete}
+                  onClick={props.showModal}
                   id={el._id}
                 ></s.DeleteImg>
+                {props.isModalVisible && (
+                  <Modal
+                    visible={true}
+                    onOk={props.onClickDelete}
+                    onCancel={props.Tog}
+                  >
+                    <input type="text" onChange={props.deletePasword} />
+                  </Modal>
+                )}
               </s.EditDelteBtnWarrper>
             </s.Fetch>
             <s.CreatedAt>{el.createdAt.slice(0, 10)}</s.CreatedAt>

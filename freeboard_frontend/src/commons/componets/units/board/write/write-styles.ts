@@ -3,11 +3,11 @@ import { Istyle } from "./write-typescript";
 
 export const BackGround = styled.div`
   width: 100%;
-  height: 2844px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 60px;
 `;
 
 export const Warpper = styled.div`
@@ -125,6 +125,7 @@ export const AdressBoxbtn = styled.button`
   font-size: 16px;
   color: white;
   margin-left: 16px;
+  cursor: pointer;
 `;
 
 export const AdressInputWrapper = styled.div`
@@ -140,6 +141,7 @@ export const AdressInput = styled.input`
   /* color: #bdbdbd; */
   border: 1px solid #bdbdbd;
   box-sizing: border-box;
+  padding-left: 15px;
   /* margin-bottom: 30px; */
 `;
 export const LinkWrapper = styled.div`

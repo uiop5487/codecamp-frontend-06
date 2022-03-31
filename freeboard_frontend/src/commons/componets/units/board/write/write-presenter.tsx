@@ -1,6 +1,8 @@
 import { ChangeEventHandler } from "react";
 import * as s from "./write-styles";
 import { IWriteNewUI } from "./write-typescript";
+import { Modal, Button } from "antd";
+import DaumPostcode from "react-daum-postcode";
 
 export default function WriteNewPageUI(props: IWriteNewUI) {
   return (
@@ -51,19 +53,41 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
         <s.AdressBtnWrapper>
           <s.SubTitle>주소</s.SubTitle>
           <s.AdressBtn>
-            <s.AdressNum onChange={props.savedZipCode}>000000</s.AdressNum>
-            <s.AdressBoxbtn>우편번호 검색</s.AdressBoxbtn>
+            <s.AdressNum onChange={props.savedZipCode}>
+              {props.saveZipCode
+                ? props.saveZipCode
+                : props.data?.fetchBoard?.boardAddress?.zipcode}
+            </s.AdressNum>
+            <s.AdressBoxbtn onClick={props.showModal}>
+              우편번호 검색
+            </s.AdressBoxbtn>
+            {props.isModalVisible && (
+              <Modal
+                visible={true}
+                onOk={props.handleOk}
+                onCancel={props.handleCancel}
+              >
+                <DaumPostcode onComplete={props.handleComplete} />
+              </Modal>
+            )}
           </s.AdressBtn>
         </s.AdressBtnWrapper>
         <s.AdressInputWrapper>
           <s.AdressInput
             type="text"
             onChange={props.savedAdress}
-            defaultValue={props.data?.fetchBoard?.boardAddress?.address}
+            // value={props.saveAdress}
+            defaultValue={
+              props.saveAdress
+                ? props.saveAdress
+                : props.data?.fetchBoard?.boardAddress?.address
+            }
+            // value={props.data?.fetchBoard?.boardAddress?.address}
           />
+          {/* onClick={props.isEdit ? props.EditModal : props.sumbitModal} */}
           <s.AdressInput
             type="text"
-            onChange={props.savedDetailAdress}
+            onChange={props.saveDetailAdress}
             defaultValue={props.data?.fetchBoard?.boardAddress?.addressDetail}
           />
         </s.AdressInputWrapper>
@@ -107,12 +131,29 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
           </s.RadioBtnbox>
         </s.RadioBtnWrapper>
         <s.SignupbtnWrapper>
+          {/* <Button type="primary" onClick={props.Toggle}>
+            게시글 등록
+          </Button> */}
           <s.SignupBtn
-            onClick={props.isEdit ? props.editBtn : props.sumbitBtn}
+            onClick={props.isEdit ? props.EditModal : props.sumbitModal}
             isActive={props.isActive}
           >
             {props.isEdit ? "수정" : "등록"} 하기
           </s.SignupBtn>
+          {props.isOpen && (
+            <Modal
+              title={
+                props.isEdit
+                  ? "게시글 수정을 완료하였습니다."
+                  : "게시글 등록을 완료하였습니다."
+              }
+              visible={true}
+              onOk={props.isEdit ? props.editBtn : props.SubitButton}
+              onCancel={props.Toggle}
+            >
+              상세페이지로 이동하시겠습니까?
+            </Modal>
+          )}
         </s.SignupbtnWrapper>
       </s.Warpper>
     </s.BackGround>

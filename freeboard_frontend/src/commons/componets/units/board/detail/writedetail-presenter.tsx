@@ -1,5 +1,6 @@
 import ReactPlayer from "react-player";
 import { IBoardWriteUIProps } from "./writedetail-typescript";
+import { Tooltip } from "antd";
 import * as s from "./writedetail.styles";
 
 export default function DetailPageUI(props: IBoardWriteUIProps) {
@@ -18,15 +19,15 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
             </s.WriterDetailBox>
           </s.WriterBox>
           <s.LinkWrapper>
-            <s.LocationBox>
-              <s.LocationText>
-                {props.data?.fetchBoard?.boardAddress?.address}
-              </s.LocationText>
-            </s.LocationBox>
-            <s.LocationBoxFotter></s.LocationBoxFotter>
             <s.LinkBox>
               <s.Link src="/img/link.png"></s.Link>
-              <s.Location src="/img/location.png"></s.Location>
+              <Tooltip
+                placement="topRight"
+                title={`${props.data?.fetchBoard?.boardAddress?.address} ${props.data?.fetchBoard?.boardAddress?.addressDetail}`}
+              >
+                {" "}
+                <s.Location src="/img/location.png"></s.Location>
+              </Tooltip>
             </s.LinkBox>
           </s.LinkWrapper>
         </s.WriterWrapper>

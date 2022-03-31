@@ -24,6 +24,11 @@ export interface ICommentUI {
   onClickDisplay?: (event: MouseEvent<HTMLElement>) => void;
   onClickDelete?: (event: MouseEvent<HTMLElement>) => void;
   data: any;
+  dPassword: string;
+  isModalVisible: boolean;
+  showModal: any;
+  deletePasword: any;
+  Tog: any;
 }
 
 export interface IIsEdit {

@@ -108,6 +108,7 @@ export const LinkBox = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+  padding-top: 60px;
 `;
 
 export const Link = styled.img`
@@ -121,6 +122,7 @@ export const Location = styled.img`
   width: 30px;
   height: 30px;
   object-fit: contain;
+  cursor: pointer;
 `;
 
 export const DivedLile = styled.div`
