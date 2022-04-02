@@ -6,7 +6,6 @@ export const BackGround = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 70px;
 `;
 
 export const Warrper = styled.div`
@@ -14,60 +13,7 @@ export const Warrper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
-
-export const Title = styled.div`
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 42px;
-  text-align: center;
-`;
-
-export const BoxWarrper = styled.div`
-  width: 1200px;
-  padding-top: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const Box = styled.div`
-  width: 282px;
-  height: 257px;
-  border-radius: 15px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-`;
-
-export const SearchWarrper = styled.div`
-  padding-top: 80px;
-  width: 1200px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const SearchBox = styled.input`
-  width: 776px;
-  height: 52px;
-  border-radius: 15px;
-  background-color: #f2f2f2;
-`;
-
-export const YearBox = styled.div`
-  width: 244px;
-  height: 52px;
-  border: 1px solid #bdbdbd;
-`;
-export const SearchButton = styled.button`
-  width: 92px;
-  height: 52px;
-  background-color: black;
-  color: white;
-  border-radius: 10px;
-  text-align: center;
-  line-height: 52px;
+  padding-bottom: 40px;
 `;
 
 export const BoardListWarrper = styled.div`
@@ -143,14 +89,13 @@ export const FooterWrapperCenter = styled.div`
   width: 1200px;
 `;
 
-export const FooterWrapper = styled.div`
+export const FooterWrapper = styled.span`
   width: 650px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding-top: 60px;
-  padding-bottom: 30px;
 `;
 
 export const FooterNumber = styled.div`

@@ -1,24 +1,12 @@
 import * as s from "./board-list-styles";
 import { getDate } from "../../../commons/libraries/utils";
 import { BoardListEl, IBoardListUIProps } from "./board-list-typescript";
+import Pagination from "../../pagination/pagination";
 
 const WriteBoardListPresenter = (props: IBoardListUIProps) => {
   return (
     <s.BackGround>
       <s.Warrper>
-        <s.Title>베스트 게시글</s.Title>
-
-        <s.BoxWarrper>
-          <s.Box></s.Box>
-          <s.Box></s.Box>
-          <s.Box></s.Box>
-          <s.Box></s.Box>
-        </s.BoxWarrper>
-        <s.SearchWarrper>
-          <s.SearchBox></s.SearchBox>
-          <s.YearBox></s.YearBox>
-          <s.SearchButton>검색하기</s.SearchButton>
-        </s.SearchWarrper>
         <s.BoardListWarrper>
           <s.BoardList>
             <s.BoardListTilte>
@@ -46,19 +34,14 @@ const WriteBoardListPresenter = (props: IBoardListUIProps) => {
             ))}
           </s.BoardList>
         </s.BoardListWarrper>
-        <s.FooterWrapperCenter>
+        {/* <s.FooterWrapperCenter>
           <s.FooterWrapper>
-            <s.FooterNumber>
-              <s.FooterNumberText>&lt;</s.FooterNumberText>
-              <s.FooterNumberText>1</s.FooterNumberText>
-              <s.FooterNumberText>2</s.FooterNumberText>
-              <s.FooterNumberText>&gt;</s.FooterNumberText>
-            </s.FooterNumber>
+            <s.FooterNumber><Pagination /></s.FooterNumber>
             <s.SubmitButton onClick={props.onClickMoveNew}>
               게시글 작성
             </s.SubmitButton>
           </s.FooterWrapper>
-        </s.FooterWrapperCenter>
+        </s.FooterWrapperCenter> */}
       </s.Warrper>
     </s.BackGround>
   );

@@ -12,16 +12,7 @@ export interface ICommentUI {
   saveContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   contents: string;
   sumbitBtn: () => void;
-  saveEditWriter?: (event: ChangeEvent<HTMLInputElement>) => void;
-  editWriter?: string;
-  saveEditPassword?: (event: ChangeEvent<HTMLInputElement>) => void;
-  editPassword?: string;
   EdithandleChange?: (event: number) => void;
-  editValue?: number;
-  saveEditContents?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  editContents?: string;
-  onClickEdit: (event: MouseEvent<HTMLElement>) => void;
-  onClickDisplay?: (event: MouseEvent<HTMLElement>) => void;
   onClickDelete?: (event: MouseEvent<HTMLElement>) => void;
   data: any;
   dPassword: string;

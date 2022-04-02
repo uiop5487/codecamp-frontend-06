@@ -56,7 +56,8 @@ const BannerPage = () => {
 
   const H2 = styled.div`
     font-size: 48px;
-    font-weight: 400;
+    font-weight: 800;
+    letter-spacing: 15px;
     /* margin-top: 20px; */
   `;
 

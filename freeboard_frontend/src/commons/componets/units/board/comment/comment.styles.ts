@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Rate } from "antd";
+import exp from "constants";
 import { IIsEdit } from "./comment.types";
 
 export const BackGround = styled.div`
@@ -177,4 +178,57 @@ export const Editbox = styled.div`
 
 export const StarIcon = styled(Rate)`
   margin-left: 20px;
+`;
+
+export const EditCommentBackGround = styled.div`
+  width: 1190px;
+`;
+
+export const EditCommentWriterWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 20px;
+`;
+
+export const TextBoderSolid = styled.div`
+  border: 1px solid black;
+`;
+
+export const EditCommentTextArea = styled.textarea`
+  width: 100%;
+  height: 100px;
+  border: none;
+  padding: 20px 0px 0px 20px;
+`;
+
+export const EditCommentPasswordInput = styled.input`
+  padding-left: 10px;
+  height: 50px;
+  width: 200px;
+`;
+
+export const EditCommentWriter = styled.div`
+  padding-left: 18px;
+  padding-right: 18px;
+  font-size: 16px;
+  font-weight: 700;
+`;
+
+export const EditButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  border-top: 1px solid black;
+`;
+
+export const EditCommentButton = styled.div`
+  width: 91px;
+  height: 52px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  line-height: 52px;
 `;

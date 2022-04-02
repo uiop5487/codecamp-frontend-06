@@ -1,25 +1,20 @@
-import { useQuery } from "@apollo/client";
 import WriteBoardListPresenter from "./board-list-presenter";
-import { FETCH_BOARDS } from "./board-list-queries";
+// import { FETCH_BOARDS } from "./board-list-queries";
 import { useRouter } from "next/router";
-import { ChangeEvent, MouseEvent } from "react";
-import { IBoardListProps, IBoardListUIProps } from "./board-list-typescript";
-import {
-  IQuery,
-  IQueryFetchBoardArgs,
-  IQueryFetchBoardsArgs,
-} from "../../../../types/generated/types";
+import { MouseEvent } from "react";
 import { Modal } from "antd";
 
-const WriteBoardListContainer = () => {
-  const { data } = useQuery<Pick<IQuery, "fetchBoards">, IQueryFetchBoardsArgs>(
-    FETCH_BOARDS
-  );
+interface IWriteBoardListContainerprops {
+  data?: any;
+}
+
+const WriteBoardListContainer = (props: IWriteBoardListContainerprops) => {
   const router = useRouter();
-  console.log(data);
 
   const onClickMoveDetail = (event: MouseEvent<HTMLButtonElement>) => {
-    router.push(`/boards/new/${String(event.target.id)}`);
+    router.push(
+      `/boards/new/${String((event.target as HTMLButtonElement).id)}`
+    );
   };
 
   const onClickMoveNew = () => {
@@ -32,7 +27,7 @@ const WriteBoardListContainer = () => {
   };
   return (
     <WriteBoardListPresenter
-      data={data}
+      data={props.data}
       onClickMoveDetail={onClickMoveDetail}
       onClickMoveNew={onClickMoveNew}
     />

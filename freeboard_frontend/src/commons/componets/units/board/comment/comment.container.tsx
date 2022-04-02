@@ -13,26 +13,21 @@ import {
   UPDATE_BOARD_COMMENT,
 } from "./comment.query";
 import { Modal } from "antd";
+import { OmitProps } from "antd/lib/transfer/ListBody";
 
 const Comment = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [dId, setDId] = useState("");
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
-  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
   const [writer, setWriter] = useState("");
-  const [editWriter, setEditWriter] = useState("");
   const [password, setPassword] = useState("");
-  const [editPassword, setEditPassword] = useState("");
   const [contents, setContents] = useState("");
-  const [editContents, setEditContents] = useState("");
   const [isEdit, setIsEdit] = useState(false);
-  const [isId, setIsId] = useState("");
   const [dPassword, setDPassword] = useState("");
   const router = useRouter();
   const [value, setValue] = useState(0);
-  const [editValue, setEditValue] = useState(0);
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
-  const { data } = useQuery<
+  const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs
   >(FETCH_BOARD_COMMENTS, {
@@ -44,29 +39,38 @@ const Comment = () => {
     setWriter(event.target.value);
   };
 
-  const saveEditWriter = (event: ChangeEvent<HTMLInputElement>) => {
-    setEditWriter(event.target.value);
-  };
   const savePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
-  const saveEditPassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setEditPassword(event.target.value);
-  };
+
   const saveContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
-  };
-
-  const saveEditContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setEditContents(event.target.value);
   };
 
   const deletePasword = (event: any) => {
     setDPassword(event.target.value);
   };
-  // const deleteId = (event) => {
-
-  // };
+  const onLoadMore = () => {
+    if (!data) return;
+    fetchMore({
+      variables: {
+        boardId: router.query.boardid,
+        page: Math.ceil(data.fetchBoardComments.length / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult.fetchBoardComments)
+          return {
+            fetchBoardComments: [...prev.fetchBoardComments],
+          };
+        return {
+          fetchBoardComments: [
+            ...prev.fetchBoardComments,
+            ...fetchMoreResult.fetchBoardComments,
+          ],
+        };
+      },
+    });
+  };
 
   const sumbitBtn = async () => {
     try {
@@ -129,44 +133,11 @@ const Comment = () => {
         },
       ],
     });
-  };
-
-  const onClickDisplay = (event: MouseEvent<HTMLElement>) => {
-    setIsEdit(true);
-    setIsId((event.target as any).id);
-    console.log(isId);
-    if (isEdit === true) {
-      setIsEdit(false);
-    }
-  };
-
-  const onClickEdit = async () => {
-    await updateBoardComment({
-      variables: {
-        boardCommentId: isId,
-        password: editPassword,
-        updateBoardCommentInput: {
-          contents: editContents,
-          rating: Number(editValue),
-        },
-      },
-    });
-    setEditWriter("");
-    setEditContents("");
-    setEditPassword("");
-    setEditValue(0);
-    Modal.success({
-      content: "수정되었습니다.",
-    });
-    setIsEdit(false);
+    setIsModalVisible((prev) => !prev);
   };
 
   const handleChange = (value: number) => {
     setValue(value);
-  };
-
-  const EdithandleChange = (editValue: number) => {
-    setEditValue(editValue);
   };
 
   return (
@@ -176,9 +147,6 @@ const Comment = () => {
       saveContents={saveContents}
       sumbitBtn={sumbitBtn}
       onClickDelete={onClickDelete}
-      onClickDisplay={onClickDisplay}
-      onClickEdit={onClickEdit}
-      saveEditContents={saveEditContents}
       isEdit={isEdit}
       data={data}
       handleChange={handleChange}
@@ -186,18 +154,12 @@ const Comment = () => {
       writer={writer}
       password={password}
       contents={contents}
-      editWriter={editWriter}
-      editPassword={editPassword}
-      editContents={editContents}
-      saveEditWriter={saveEditWriter}
-      saveEditPassword={saveEditPassword}
-      EdithandleChange={EdithandleChange}
-      editValue={editValue}
       isModalVisible={isModalVisible}
       showModal={showModal}
       dPassword={dPassword}
       deletePasword={deletePasword}
       Tog={Tog}
+      onLoadMore={onLoadMore}
     />
   );
 };

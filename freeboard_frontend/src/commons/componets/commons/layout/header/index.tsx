@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -20,11 +21,13 @@ const HeaderImg = styled.img`
   height: 30px;
   margin-right: 14px;
   border-radius: 18px;
+  cursor: pointer;
 `;
 
 const HeaderText = styled.div`
   font-size: 20px;
   font-weight: 800;
+  cursor: pointer;
 `;
 
 const SignupWrapper = styled.div`
@@ -57,11 +60,15 @@ const LoginButton = styled.div`
 `;
 
 const HeaderPage = () => {
+  const router = useRouter();
+  const onClickMovePage = () => {
+    router.push(`/boards`);
+  };
   return (
     <Wrapper>
       <HeaderTextWrapper>
-        <HeaderImg src="/img/headericon.png" />
-        <HeaderText>만리장성</HeaderText>
+        <HeaderImg src="/img/headericon.png" onClick={onClickMovePage} />
+        <HeaderText onClick={onClickMovePage}>만리장성</HeaderText>
       </HeaderTextWrapper>
       <SignupWrapper>
         <LoginButton>로그인</LoginButton>

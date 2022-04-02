@@ -563,3 +563,124 @@ function solution(num) {
   }, num);
   return result !== 1 ? -1 : answer;
 }
+
+// 두개 뽑아서 더하기
+
+function solution(numbers) {
+  var answer = [];
+  // 첫번째 반복문에서 가져오는 숫자는 첫번째 숫자로 기준을 잡는다.
+  for (let i = 0; i < numbers.length; i++) {
+    // 두번째 반복문에서 두번째 숙자를 기준을 잡는다.
+    for (let l = i + 1; l < numbers.length; l++) {
+      const sum = numbers[i] + numbers[l];
+
+      if (answer.includes(sum) === false) answer.push(sum);
+    }
+  }
+  return answer.sort((a, b) => a - b);
+}
+
+// new Set을 사용
+function solution(numbers) {
+  var answer = new Set();
+  // 첫번째 반복문에서 가져오는 숫자는 첫번째 숫자로 기준을 잡는다.
+  for (let i = 0; i < numbers.length; i++) {
+    // 두번째 반복문에서 두번째 숙자를 기준을 잡는다.
+    for (let l = i + 1; l < numbers.length; l++) {
+      const sum = numbers[i] + numbers[l];
+
+      answer.add(sum);
+    }
+  }
+  return Array.from(answer).sort((a, b) => a - b);
+  // return [...answer].sort((a,b) => a-b)  spread연산자
+}
+
+// forEach 사용
+function solution(numbers) {
+  const answer = new Set();
+
+  numbers.forEach((num1, i) => {
+    numbers.slice(i + 1).forEach((num2) => {
+      const sum = num1 + num2;
+
+      answer.add(sum);
+    });
+  });
+  return [...answer].sort((a, b) => a - b);
+}
+
+// Set
+// 1. 고유한 데이터만 받아올 수 있다. (중복되지 않는 데이터)
+// 2. 겉은 배열 형태, 타입은 객체형태
+// 3. 중복데이터를 자동으로 차단 시킴
+
+// new
+// 1. 뒤에 들어오는 데이터를 새로운 객체 형태로 리턴
+
+// Array.isArray
+// 1. 배열의 타입을 확인해주는 메서드
+// 2. 불리언 값으로 반환함
+
+// const arr = new Set()
+// Array.isArray(arr) // false
+
+// // 데이터 추가
+// arr.add( 1 )
+// arr.add( 2 )
+// // set => 배열로 변
+// // 1. Array.from
+// const result = Array.from(arr)
+// Array.isArray(result) // true
+
+// // 2. spread
+// const answer = [...arr]
+// Array.isArray(answer // true)
+
+// 데이터 반복
+// arr.forEach(el => {
+//   console.log(el)
+// }) // result => 1 2
+
+// 데이터 조회
+// arr.has( 1 ) // true
+// arr.has( 4 ) // false
+
+// 데이터 삭제
+// arr.delete( 1 ) // 불리언값을 반환하고 삭제되면 true
+// arr.delete( 3 ) // 값이 없으면 false
+
+// 데이터 초기화
+// arr.clear()
+
+// 두 정수 사이의 합
+
+function solution(a, b) {
+  let answer = 0;
+  if (a < b || a === b) {
+    for (let i = a; i < b + 1; i++) {
+      answer += i;
+    }
+  } else if (a > b) {
+    for (let i = b; i < a + 1; i++) {
+      answer += i;
+    }
+  }
+  return answer;
+}
+
+// 두 정수 사이의 합
+
+function solution(a, b) {
+  let answer = 0;
+  if (a < b || a === b) {
+    for (let i = a; i < b + 1; i++) {
+      answer += i;
+    }
+  } else {
+    for (let i = b; i < a + 1; i++) {
+      answer += i;
+    }
+  }
+  return answer;
+}

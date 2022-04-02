@@ -4,9 +4,15 @@ import FooterPage from "./footer";
 import HeaderPage from "./header";
 import NavPage from "./nav";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-const Body = styled.div``;
+const Body = styled.div`
+  width: 1200px;
+`;
 
 const Layout = (props: any) => {
   return (
@@ -15,7 +21,7 @@ const Layout = (props: any) => {
       <BannerPage />
       <NavPage />
       <Body>{props.children}</Body>
-      <FooterPage />
+      {/* <FooterPage /> */}
     </Wrapper>
   );
 };
