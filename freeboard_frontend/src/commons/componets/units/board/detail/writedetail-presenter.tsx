@@ -25,7 +25,6 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
                 placement="topRight"
                 title={`${props.data?.fetchBoard?.boardAddress?.address} ${props.data?.fetchBoard?.boardAddress?.addressDetail}`}
               >
-                {" "}
                 <s.Location src="/img/location.png"></s.Location>
               </Tooltip>
             </s.LinkBox>

@@ -73,12 +73,17 @@ export const Img = styled.div`
 `;
 
 export const TitleWrapper = styled.div`
-  width: 100%;
-  padding: 15px 0px 12px 20px;
+  width: 282px;
+  padding: 15px 20px 12px 20px;
 `;
 
 export const BoxTitle = styled.div`
   font-size: 18px;
+  width: 250px;
+  height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const WriterWrapper = styled.div`
@@ -112,6 +117,10 @@ export const SpaceBetween = styled.div`
 
 export const LikeCountWrapper = styled.div`
   padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const LikeCountImg = styled.img`

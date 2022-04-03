@@ -20,6 +20,7 @@ export interface ICommentUI {
   showModal: any;
   deletePasword: any;
   Tog: any;
+  onLoadMore: () => void;
 }
 
 export interface IIsEdit {

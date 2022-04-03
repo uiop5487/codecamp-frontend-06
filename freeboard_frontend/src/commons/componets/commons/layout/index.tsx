@@ -21,7 +21,7 @@ const Layout = (props: any) => {
       <BannerPage />
       <NavPage />
       <Body>{props.children}</Body>
-      {/* <FooterPage /> */}
+      <FooterPage />
     </Wrapper>
   );
 };

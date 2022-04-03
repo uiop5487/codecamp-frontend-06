@@ -141,6 +141,9 @@ export const BoardTitle = styled.div`
   font-size: 36px;
   font-weight: 700;
   padding-bottom: 40px;
+  height: auto;
+  width: 996px;
+  word-break: break-all;
 `;
 
 export const ContetsImg = styled.img`

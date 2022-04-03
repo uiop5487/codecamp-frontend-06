@@ -93,17 +93,25 @@ const CommentMapPage = (props: any) => {
         <s.EditCommentBackGround>
           <div>
             <div>
-              <s.EditCommentWriterWrapper>
-                <img src="/img/userimg.png"></img>
-                <s.EditCommentWriter>{props.el.writer}</s.EditCommentWriter>
-                <s.EditCommentPasswordInput
-                  type="text"
-                  placeholder="비밀번호"
-                  onChange={saveEditPassword}
-                  value={props.password}
-                />
-                <s.StarIcon value={editValue} onChange={EdithandleChange} />
-              </s.EditCommentWriterWrapper>
+              <s.EditHeaderBoxWrapper>
+                <s.EditCommentWriterWrapper>
+                  <img src="/img/userimg.png"></img>
+                  <s.EditCommentWriter>{props.el.writer}</s.EditCommentWriter>
+                  <s.EditCommentPasswordInput
+                    type="text"
+                    placeholder="비밀번호"
+                    onChange={saveEditPassword}
+                    value={props.password}
+                  />
+                  <s.StarIcon value={editValue} onChange={EdithandleChange} />
+                </s.EditCommentWriterWrapper>
+                <div>
+                  <s.DeleteImg
+                    src="/img/delete.png"
+                    onClick={onClickDisplay}
+                  ></s.DeleteImg>
+                </div>
+              </s.EditHeaderBoxWrapper>
             </div>
             <s.TextBoderSolid>
               <div>

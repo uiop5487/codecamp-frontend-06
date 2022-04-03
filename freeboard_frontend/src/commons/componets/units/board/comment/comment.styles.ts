@@ -181,7 +181,8 @@ export const StarIcon = styled(Rate)`
 `;
 
 export const EditCommentBackGround = styled.div`
-  width: 1190px;
+  width: 1200px;
+  padding-bottom: 40px;
 `;
 
 export const EditCommentWriterWrapper = styled.div`
@@ -231,4 +232,12 @@ export const EditCommentButton = styled.div`
   color: white;
   text-align: center;
   line-height: 52px;
+  cursor: pointer;
+`;
+
+export const EditHeaderBoxWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;

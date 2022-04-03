@@ -35,9 +35,6 @@ export const BoardListTilte = styled.div`
   width: 1200px;
   height: 52px;
   justify-content: space-between;
-  :hover {
-    color: blue;
-  }
 `;
 
 export const BoardListTitleName = styled.div`
@@ -67,6 +64,9 @@ export const BoardListDetail = styled.div`
 export const BoardListDetailName = styled.div`
   line-height: 52px;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   width: 80%;
   cursor: pointer;
 `;

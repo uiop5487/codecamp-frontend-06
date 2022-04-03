@@ -40,8 +40,10 @@ export default function DetailPageContain() {
     });
     Modal.success({
       content: "게시글 목록으로 이동",
+      onOk() {
+        router.push("/boards");
+      },
     });
-    router.push("/boards");
   };
   const editButton = () => {
     router.push(`/boards/new/${router.query.boardid}/edit`);

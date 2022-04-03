@@ -27,7 +27,8 @@ const BannerPage = () => {
   const BannerPage = styled.div`
     width: 100%;
     height: 400px;
-    background-image: url("/img/header.jpeg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)),
+      url("/img/header.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -52,12 +53,14 @@ const BannerPage = () => {
     font-size: 20px;
     font-weight: 400;
     text-align: center;
+    color: white;
   `;
 
   const H2 = styled.div`
     font-size: 48px;
     font-weight: 800;
     letter-spacing: 15px;
+    color: white;
     /* margin-top: 20px; */
   `;
 

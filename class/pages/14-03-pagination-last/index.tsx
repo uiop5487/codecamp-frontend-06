@@ -37,7 +37,9 @@ const MapBoardPage = () => {
   const [startPage, setStartPage] = useState(1);
   const { data, refetch } = useQuery(FETCH_BOARDS);
   const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
+
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
+
   const onClickPage = (event: any) => {
     refetch({ page: Number(event.target.id) });
   };
