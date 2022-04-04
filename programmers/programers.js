@@ -684,3 +684,90 @@ function solution(a, b) {
   }
   return answer;
 }
+
+// 음양 더하기
+
+// 내가 푼거
+function solution(absolutes, signs) {
+  let ff = 0;
+  let tt = 0;
+  for (let i = 0; i < absolutes.length; i++) {
+    if (signs[i] === false) {
+      ff += absolutes[i];
+    } else {
+      tt += absolutes[i];
+    }
+  }
+  return tt - ff;
+}
+
+// for문 사용
+function solution(absolutes, signs) {
+  let answer = 0;
+  for (let i = 0; i < signs.length; i++) {
+    // answer += signs[i] ? absolutes[i] : -absolutes[i]  삼항연산자를 사용
+    if (signs[i]) {
+      answer += absolutes[i];
+    } else {
+      answer -= absolutes[i];
+    }
+  }
+  return answer;
+}
+
+// reduce 사용
+function solution(absolutes, signs) {
+  const answer = absolutes.reduce((acc, cur, index) => {
+    return acc + (signs[index] ? cur : -cur);
+  }, 0);
+  return answer;
+}
+
+// 하샤드 수
+
+// 내가 푼거
+function solution(x) {
+  let str = String(x);
+  let num = 0;
+  for (let i = 0; i < str.length; i++) {
+    num += Number(str[i]);
+  }
+  if (x % num === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// for문 사용
+function solution(x) {
+  let answer = 0;
+
+  x = String(x);
+  for (let i = 0; i < x.length; i++) {
+    answer += Number(x[i]);
+  }
+  return x % answer === 0; // 나머지 연산자로 인해 x가 자동으로 숫자타입으로 변형
+}
+
+// 메서드 사용
+function solution(x) {
+  const answer = x
+    .toString()
+    .split("")
+    .reduce((acc, cur) => {
+      return Number(acc) + Number(cur);
+    });
+  return x % answer === 0;
+}
+
+// 초기값을 0으로 주면 acc는 숫자타입이 된다.
+function solution(x) {
+  const answer = x
+    .toString()
+    .split("")
+    .reduce((acc, cur) => {
+      return acc + Number(cur);
+    }, 0);
+  return x % answer === 0;
+}
