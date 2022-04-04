@@ -8,9 +8,10 @@ const Pagination = (props: any) => {
   const [isActive, setIsActive] = useState(false);
 
   const onClickPage = (event: any) => {
-    props.refetch({ page: Number(event.target.id) });
-    setCurrent(Number(event.target.id));
+    const current = Number(event.target.id);
+    setCurrent(current);
     console.log(event.target.id);
+    props.refetch({ page: current });
   };
 
   const onClickPrevPage = () => {
@@ -18,6 +19,7 @@ const Pagination = (props: any) => {
       return;
     }
     setStartPage((prev) => prev - 10);
+    setCurrent((prev) => prev - 10);
     props.refetch({ page: startPage - 10 });
   };
 
@@ -26,6 +28,7 @@ const Pagination = (props: any) => {
       return;
     }
     setStartPage((prev) => prev + 10);
+    setCurrent((prev) => prev + 10);
     props.refetch({ page: startPage + 10 });
   };
 

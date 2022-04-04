@@ -85,12 +85,12 @@ export const BoardListBasicName = styled.div`
 export const FooterWrapperCenter = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   width: 1200px;
 `;
 
 export const FooterWrapper = styled.span`
-  width: 650px;
+  width: 1200px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -98,29 +98,20 @@ export const FooterWrapper = styled.span`
   padding-top: 60px;
 `;
 
-export const FooterNumber = styled.div`
-  width: 100px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const FooterNumberText = styled.div`
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-`;
-
 export const SubmitButton = styled.button`
   width: 171px;
   height: 52px;
   border: 1px solid #f2f2f2;
   border-radius: 10px;
-  margin-left: 323px;
   font-size: 20px;
   cursor: pointer;
   :hover {
     background-color: black;
     color: white;
   }
+`;
+
+export const CenterButton = styled.div`
+  width: 171px;
+  height: 52px;
 `;

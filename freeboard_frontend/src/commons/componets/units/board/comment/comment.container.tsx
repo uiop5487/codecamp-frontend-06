@@ -71,7 +71,6 @@ const Comment = () => {
       },
     });
   };
-
   const sumbitBtn = async () => {
     try {
       const data = await createBoardComment({

@@ -34,14 +34,13 @@ const WriteBoardListPresenter = (props: IBoardListUIProps) => {
             ))}
           </s.BoardList>
         </s.BoardListWarrper>
-        {/* <s.FooterWrapperCenter>
-          <s.FooterWrapper>
-            <s.FooterNumber><Pagination /></s.FooterNumber>
-            <s.SubmitButton onClick={props.onClickMoveNew}>
-              게시글 작성
-            </s.SubmitButton>
-          </s.FooterWrapper>
-        </s.FooterWrapperCenter> */}
+        <s.FooterWrapper>
+          <s.CenterButton></s.CenterButton>
+          <Pagination refetch={props.refetch} countdata={props.countdata} />
+          <s.SubmitButton onClick={props.onClickMoveNew}>
+            게시글 작성
+          </s.SubmitButton>
+        </s.FooterWrapper>
       </s.Warrper>
     </s.BackGround>
   );

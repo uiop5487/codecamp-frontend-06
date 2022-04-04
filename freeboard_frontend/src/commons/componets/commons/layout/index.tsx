@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 import BannerPage from "./banner";
 import FooterPage from "./footer";
 import HeaderPage from "./header";
@@ -11,17 +12,23 @@ const Wrapper = styled.div`
 `;
 
 const Body = styled.div`
-  width: 1200px;
+  /* width: 100%;
+  height: 100%; */
 `;
 
+const HIDDEN_HEADERS = ["/"];
+
 const Layout = (props: any) => {
+  const router = useRouter();
+  const isHidden = HIDDEN_HEADERS.includes(router.asPath);
+
   return (
     <Wrapper>
-      <HeaderPage />
-      <BannerPage />
-      <NavPage />
+      {!isHidden && <HeaderPage />}
+      {!isHidden && <BannerPage />}
+      {!isHidden && <NavPage />}
       <Body>{props.children}</Body>
-      <FooterPage />
+      {!isHidden && <FooterPage />}
     </Wrapper>
   );
 };

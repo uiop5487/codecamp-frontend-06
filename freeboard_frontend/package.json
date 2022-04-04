@@ -16,6 +16,7 @@
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.4.8",
     "@mui/material": "^5.5.0",
+    "@types/react-infinite-scroller": "^1.2.3",
     "@types/react-slick": "^0.23.8",
     "antd": "^4.19.2",
     "axios": "^0.26.1",

@@ -103,7 +103,10 @@ const CommentMapPage = (props: any) => {
                     onChange={saveEditPassword}
                     value={props.password}
                   />
-                  <s.StarIcon value={editValue} onChange={EdithandleChange} />
+                  <s.StarIcon
+                    defaultValue={props.el.rating}
+                    onChange={EdithandleChange}
+                  />
                 </s.EditCommentWriterWrapper>
                 <div>
                   <s.DeleteImg
@@ -118,7 +121,7 @@ const CommentMapPage = (props: any) => {
                 <s.EditCommentTextArea
                   placeholder="어쩌구저쩌구"
                   onChange={saveEditContents}
-                  value={props.contents}
+                  defaultValue={props.el.contents}
                 />
               </div>
               <s.EditButtonWrapper>

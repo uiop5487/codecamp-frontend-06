@@ -4,7 +4,7 @@ export const MyPage = styled.div`
   width: 50px;
   text-align: center;
   cursor: pointer;
-  color: ${(props) => (props.current === true ? "red" : "black")};
+  color: ${(props) => (props.current === true ? "red" : "none")};
 `;
 
 export const BackGround = styled.div`
