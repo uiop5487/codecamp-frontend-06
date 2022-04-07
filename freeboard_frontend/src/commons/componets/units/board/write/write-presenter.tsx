@@ -14,48 +14,52 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
             <s.SubTitle>작성자</s.SubTitle>
             <s.WriterBox
               type="text"
+              id="writer"
               placeholder="이름을 적어주세요."
-              onChange={props.savedName}
+              onChange={props.onChangeValue}
               defaultValue={props.data?.fetchBoard.writer}
             />
-            <s.ErrorBox>{props.nameError}</s.ErrorBox>
+            <s.ErrorBox id="writer">{props.blankError?.writer}</s.ErrorBox>
           </s.Name>
           <s.PassWord>
             <s.SubTitle>비밀번호</s.SubTitle>
             <s.WriterBox
               type="text"
+              id="password"
               placeholder="비밀번호를 입력하세요"
-              onChange={props.savedPassWord}
+              onChange={props.onChangeValue}
               defaultValue={props.data?.fetchBoard.password}
             />
-            <s.ErrorBox>{props.passwordError}</s.ErrorBox>
+            <s.ErrorBox id="password">{props.blankError?.password}</s.ErrorBox>
           </s.PassWord>
         </s.WriterWarpper>
         <s.SubtitleWrapper>
           <s.SubTitle>제목</s.SubTitle>
           <s.SubtitleBox
             type="text"
+            id="title"
             placeholder="제목을 작성해주세요."
-            onChange={props.savedTitle}
+            onChange={props.onChangeValue}
             defaultValue={props.data?.fetchBoard.title}
           />
-          <s.ErrorBox>{props.titleError}</s.ErrorBox>
+          <s.ErrorBox id="title">{props.blankError?.title}</s.ErrorBox>
         </s.SubtitleWrapper>
         <s.ContentWrapper>
           <s.SubTitle>내용</s.SubTitle>
           <s.ContentBox
             placeholder="내용을 적어주세요."
-            onChange={props.savedContet}
+            id="contents"
+            onChange={props.onChangeValue}
             defaultValue={props.data?.fetchBoard.contents}
           />
-          <s.ErrorBox>{props.contentError}</s.ErrorBox>
+          <s.ErrorBox id="contents">{props.blankError?.contents}</s.ErrorBox>
         </s.ContentWrapper>
         <s.AdressBtnWrapper>
           <s.SubTitle>주소</s.SubTitle>
           <s.AdressBtn>
-            <s.AdressNum onChange={props.savedZipCode}>
-              {props.saveZipCode
-                ? props.saveZipCode
+            <s.AdressNum onChange={props.onChangeAddressValue} id="zipcode">
+              {props.addressInput.zipcode
+                ? props.addressInput.zipcode
                 : props.data?.fetchBoard?.boardAddress?.zipcode}
             </s.AdressNum>
             <s.AdressBoxbtn onClick={props.showModal}>
@@ -75,11 +79,12 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
         <s.AdressInputWrapper>
           <s.AdressInput
             type="text"
-            onChange={props.savedAdress}
+            id="address"
+            onChange={props.onChangeAddressValue}
             // value={props.saveAdress}
             defaultValue={
-              props.saveAdress
-                ? props.saveAdress
+              props.addressInput.address
+                ? props.addressInput.address
                 : props.data?.fetchBoard?.boardAddress?.address
             }
             // value={props.data?.fetchBoard?.boardAddress?.address}
@@ -87,17 +92,19 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
           {/* onClick={props.isEdit ? props.EditModal : props.sumbitModal} */}
           <s.AdressInput
             type="text"
-            onChange={props.saveDetailAdress}
+            id="addressDetail"
+            onChange={props.onChangeAddressValue}
             defaultValue={props.data?.fetchBoard?.boardAddress?.addressDetail}
           />
         </s.AdressInputWrapper>
-        <s.ErrorBox>{props.adressError}</s.ErrorBox>
+        {/* <s.ErrorBox>{props.adressError}</s.ErrorBox> */}
         <s.LinkWrapper>
           <s.SubTitle>유튜브</s.SubTitle>
           <s.LinkInput
             type="text"
+            id="youtubeUrl"
             placeholder="링크를 복사해주세요."
-            onChange={props.saveYoutubeUrl}
+            onChange={props.onChangeValue}
             defaultValue={props.data?.fetchBoard?.youtubeUrl}
           />
         </s.LinkWrapper>
@@ -106,17 +113,17 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
           <s.UploadBtnWrapper>
             <s.UploadBtn htmlFor="Plus">
               +
-              <s.Plus id="Plus" type="file" onChange={props.savedImg} />
+              <s.Plus id="Plus" type="file" />
               <s.Upload>Upload</s.Upload>
             </s.UploadBtn>
             <s.UploadBtn htmlFor="Plus">
               +
-              <s.Plus id="Plus" type="file" onChange={props.savedImg} />
+              <s.Plus id="Plus" type="file" />
               <s.Upload>Upload</s.Upload>
             </s.UploadBtn>
             <s.UploadBtn htmlFor="Plus">
               +
-              <s.Plus id="Plus" type="file" onChange={props.savedImg} />
+              <s.Plus id="Plus" type="file" />
               <s.Upload>Upload</s.Upload>
             </s.UploadBtn>
           </s.UploadBtnWrapper>

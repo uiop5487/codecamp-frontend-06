@@ -44,11 +44,21 @@ const NavPage = () => {
     router.push(`/boards`);
   };
 
+  const onClickMoveApi = () => {
+    router.push(`/boards/publicapi`);
+  };
+
+  const onClickMoveFirebase = () => {
+    router.push(`/boards/firebase`);
+  };
+
   return (
     <Wrapper>
       <Text onClick={onClickMovePage}>자유게시판</Text>
       <CenterText>상품목록</CenterText>
-      <Text>마이페이지</Text>
+      <CenterText>마이페이지</CenterText>
+      <CenterText onClick={onClickMoveApi}>공개 API</CenterText>
+      <Text onClick={onClickMoveFirebase}>파이어베이스</Text>
     </Wrapper>
   );
 };

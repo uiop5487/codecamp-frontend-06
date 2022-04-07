@@ -771,3 +771,71 @@ function solution(x) {
     }, 0);
   return x % answer === 0;
 }
+
+// 내적
+// 내가 푼거
+function solution(a, b) {
+  let answer = 0;
+  for (let i = 0; i < a.length; i++) {
+    answer += a[i] * b[i];
+  }
+  return answer;
+}
+
+// 리듀스 사용
+function solution(a, b) {
+  const answer = a.reduce((acc, cur, i) => {
+    return acc + cur * b[i];
+  }, 0);
+  return answer;
+}
+
+// 제일 작은 수 제거하기
+function solution(arr) {
+  let answer = [];
+  let aa = Math.min(...arr);
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] !== aa) {
+      answer.push(arr[i]);
+    }
+  }
+  if (answer.length === 0) {
+    answer.push(-1);
+  }
+  return answer;
+}
+
+// for문 사용
+function solution(arr) {
+  const answer = [];
+
+  // 1. 제일 작은 수를 찾기
+  let min = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (min > arr[i]) {
+      min = arr[i];
+    }
+  }
+
+  // 2. 제일 작은 수를 제거
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] !== min) {
+      answer.push(arr[i]);
+    }
+  }
+
+  return answer.length === 0 ? [-1] : answer;
+}
+
+// 메소드 사용
+function solution(arr) {
+  // 1. 제일 작은 수를 찾기
+  const min = Math.min(...arr);
+
+  // 2. 제일 작은 수를 제거
+  const answer = arr.filter((num) => {
+    return num !== min;
+  });
+
+  return answer.length === 0 ? [-1] : answer;
+}

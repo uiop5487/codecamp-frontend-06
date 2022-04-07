@@ -14,27 +14,10 @@ export interface IInputEvent {}
 
 export interface IWriteNewUI {
   isEdit: boolean;
-  savedName: (event: ChangeEvent<HTMLInputElement>) => void;
-  nameError: string;
-  savedPassWord: (event: ChangeEvent<HTMLInputElement>) => void;
   data?: any;
-  passwordError: string;
-  savedTitle: (event: ChangeEvent<HTMLInputElement>) => void;
-  titleError: string;
-  savedContet: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  contentError: string;
-  savedZipCode: (event: ChangeEvent<HTMLInputElement>) => void;
-  savedAdress: (event: ChangeEvent<HTMLInputElement>) => void;
-  savedDetailAdress?: (event: ChangeEvent<HTMLInputElement>) => void;
-  adressError: string;
-  savedYoutebUrl?: (event: ChangeEvent<HTMLInputElement>) => void;
-  savedImg?: (event: ChangeEvent<HTMLInputElement>) => void;
   isActive: boolean;
   editBtn: () => void;
   SubitButton: () => void;
-  saveYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
-  saveDetailAdress: (event: ChangeEvent<HTMLInputElement>) => void;
-  saveImg?: (event: ChangeEvent<HTMLInputElement>) => void;
   isOpen: boolean;
   // Modal: () => void;
   EditModal: () => void;
@@ -44,9 +27,28 @@ export interface IWriteNewUI {
   handleCancel: () => void;
   isModalVisible: boolean;
   handleComplete: any;
-  saveZipCode: string;
-  saveAdress: string;
   sumbitModal: () => void;
+  onChangeValue: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeAddressValue: (event: ChangeEvent<HTMLInputElement>) => void;
+  addressInput: IMyBoardAdress;
+  blankError?: IError;
+}
+
+export interface IOnchangeValue {
+  writer: (event: ChangeEvent<HTMLInputElement>) => void;
+  password: (event: ChangeEvent<HTMLInputElement>) => void;
+  title: (event: ChangeEvent<HTMLInputElement>) => void;
+  contents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  youtubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface IError {
+  writer?: string;
+  password?: string;
+  title?: string;
+  contents?: string;
+  youtubeUrl?: string;
+  boardAddress?: object;
 }
 
 export interface IMyBoardAdress {

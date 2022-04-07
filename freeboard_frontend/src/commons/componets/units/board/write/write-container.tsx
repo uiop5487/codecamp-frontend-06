@@ -1,22 +1,15 @@
-import DaumPostcode from "react-daum-postcode";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import { CREATE_BOARD, UPDATE_BOARD } from "./write-mutation";
 import WriteNewPageUI from "./write-presenter";
 import { Modal } from "antd";
-import {
-  IInputEvent,
-  IMyBoardAdress,
-  IMyVariables,
-  IWriteNew,
-} from "./write-typescript";
+import { IMyBoardAdress, IMyVariables, IWriteNew } from "./write-typescript";
 import {
   IBoard,
   IMutation,
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
-  IUpdateBoardInput,
 } from "../../../../types/generated/types";
 
 export default function WriteNewPage(props: IWriteNew) {
@@ -32,140 +25,54 @@ export default function WriteNewPage(props: IWriteNew) {
     IMutationUpdateBoardArgs
   >(UPDATE_BOARD);
   const [isActive, setIsActive] = useState(false);
-  const [saveName, setSaveName] = useState("");
-  const [savePassWord, setSavePassWord] = useState("");
-  const [saveTitle, setSaveTitle] = useState("");
-  const [saveContent, setSaveContet] = useState("");
-  const [saveAdress, setSaveAdress] = useState("");
-  const [saveDetailAdress, setSaveDetailAdress] = useState("");
-  const [saveZipCode, setSaveZipCode] = useState("");
-  const [saveYoutubeUrl, setSaveYoutubeUrl] = useState("");
-  const [saveImg, setSaveImg] = useState("");
-  const [addressCheck, setAddressCheck] = useState(false);
-  const [nameError, setNameError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [titleError, setTitleError] = useState("");
-  const [contentError, setContentError] = useState("");
-  const [adressError, setAdressError] = useState("");
   //여기는 자바스크립트
 
+  const [fetchBoardInput, setFetchBoardInput] = useState({
+    writer: "",
+    password: "",
+    title: "",
+    contents: "",
+    youtubeUrl: "",
+  });
+
+  const [addressInput, setAddressInput] = useState({
+    address: "",
+    addressDetail: "",
+    zipcode: "",
+  });
+
+  const [blankError, setBlankError] = useState({
+    writer: "",
+    password: "",
+    title: "",
+    contents: "",
+  });
+
+  const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
+    setFetchBoardInput({
+      ...fetchBoardInput,
+      [event.target.id]: String(event.target.value),
+    });
+    if (event.target.value !== "") {
+      setBlankError({ ...blankError, [event.target.id]: "" });
+    }
+    if (props.isEdit ? fetchBoardInput.password : fetchBoardInput) {
+      setIsActive(true);
+    }
+  };
+
+  const onChangeAddressValue = (event: ChangeEvent<HTMLInputElement>) => {
+    setAddressInput({
+      ...addressInput,
+      [event.target.id]: String(event.target.value),
+    });
+    console.log(addressInput);
+  };
+
   const handleComplete = (data: any) => {
-    setSaveAdress(data.address);
-    setSaveZipCode(data.zonecode);
+    addressInput.address = data.address;
+    addressInput.zipcode = data.zonecode;
     setIsModalVisible((prev) => !prev);
-  };
-
-  const savedName = (event: ChangeEvent<HTMLInputElement>) => {
-    setSaveName(event.target.value);
-    if (saveName !== "") {
-      setNameError("");
-    }
-    if (
-      (props.isEdit === true && savePassWord !== "") ||
-      (event.target.value !== "" &&
-        savePassWord !== "" &&
-        saveTitle !== "" &&
-        saveContent !== "")
-    ) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  };
-
-  const savedPassWord = (event: ChangeEvent<HTMLInputElement>) => {
-    setSavePassWord(event.target.value);
-    if (savePassWord !== "") {
-      setPasswordError("");
-    }
-    if (
-      (props.isEdit === true && event.target.value !== "") ||
-      (saveName !== "" &&
-        event.target.value !== "" &&
-        saveTitle !== "" &&
-        saveContent !== "")
-    ) {
-      setIsActive(true);
-      console.log("asdasd");
-    } else {
-      setIsActive(false);
-    }
-  };
-
-  const savedTitle = (event: ChangeEvent<HTMLInputElement>) => {
-    setSaveTitle(event.target.value);
-    if (saveTitle !== "") {
-      setTitleError("");
-    }
-    if (
-      (props.isEdit === true && savePassWord !== "") ||
-      (saveName !== "" &&
-        savePassWord !== "" &&
-        event.target.value !== "" &&
-        saveContent !== "")
-    ) {
-      setIsActive(true);
-      console.log("asdasd");
-    } else {
-      setIsActive(false);
-    }
-  };
-
-  const savedContet = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setSaveContet(event.target.value);
-    if (saveContent !== "") {
-      setContentError("");
-    }
-    if (
-      (props.isEdit === true && savePassWord !== "") ||
-      (saveName !== "" &&
-        savePassWord !== "" &&
-        saveTitle !== "" &&
-        event.target.value !== "")
-    ) {
-      setIsActive(true);
-      console.log("asdasd");
-    } else {
-      setIsActive(false);
-    }
-  };
-
-  const savedAdress = (event: ChangeEvent<HTMLInputElement>) => {
-    setSaveAdress(event.target.value);
-    console.log(saveAdress);
-    if (saveAdress !== "") {
-      setAdressError("");
-    }
-    if (
-      (props.isEdit === true && savePassWord !== "") ||
-      (saveName !== "" &&
-        savePassWord !== "" &&
-        saveTitle !== "" &&
-        saveContent !== "" &&
-        event.target.value !== "")
-    ) {
-      setIsActive(true);
-      console.log("asdasd");
-    } else {
-      setIsActive(false);
-    }
-  };
-
-  const savedDetailAdress = (event: ChangeEvent<HTMLInputElement>) => {
-    setSaveDetailAdress(event.target.value);
-    console.log(event.target.value);
-  };
-
-  const savedZipCode = (event: ChangeEvent<HTMLInputElement>) => {
-    setSaveZipCode(event.target.value);
-  };
-
-  const savedYoutebUrl = (event: ChangeEvent<HTMLInputElement>) => {
-    setSaveYoutubeUrl(event.target.value);
-  };
-
-  const savedImg = (event: any) => {
-    setSaveImg(event.target.value);
   };
 
   const sumbitModal = () => {
@@ -173,46 +80,38 @@ export default function WriteNewPage(props: IWriteNew) {
   };
 
   const SubitButton = async () => {
-    if (saveName === "") {
-      setNameError("작성자를 적어주세요.");
+    if (fetchBoardInput.writer === "") {
+      blankError.writer = "작성자가 비어있습니다.";
+      // setBlankError({ ...blankError, writer: "assaa" });
     }
-    if (savePassWord === "") {
-      setPasswordError("비밀번호를 적어주세요.");
+    if (fetchBoardInput.password === "") {
+      blankError.password = "비밀번호가 비어있습니다.";
     }
-    if (saveTitle === "") {
-      setTitleError("제목을 적어주세요.");
+    if (fetchBoardInput.title === "") {
+      blankError.title = "제목가 비어있습니다.";
     }
-    if (saveContent === "") {
-      setContentError("내용을 적어주세요.");
+    if (fetchBoardInput.contents === "") {
+      blankError.contents = "내용가 비어있습니다.";
     }
-
-    {
-      try {
-        const myData: any = await createBoard({
-          variables: {
-            createBoardInput: {
-              writer: saveName,
-              password: savePassWord,
-              title: saveTitle,
-              contents: saveContent,
-              youtubeUrl: saveYoutubeUrl,
-              images: [saveImg],
-              boardAddress: {
-                zipcode: saveZipCode,
-                address: saveAdress,
-                addressDetail: saveDetailAdress,
-              },
-            },
+    try {
+      const myData: any = await createBoard({
+        variables: {
+          createBoardInput: {
+            ...fetchBoardInput,
+            boardAddress: { ...addressInput },
           },
-        });
-        setIsOpen((prev) => !prev);
-        console.log(myData);
-        router.push(`/boards/new/${myData.data.createBoard._id}`);
-      } catch (error: any) {
-        Modal.error({
-          content: error.message,
-        });
-      }
+        },
+      });
+      setIsOpen((prev) => !prev);
+      console.log(myData);
+      router.push(`/boards/new/${myData.data.createBoard._id}`);
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+        onOk() {
+          setIsOpen((prev) => !prev);
+        },
+      });
     }
   };
 
@@ -221,36 +120,44 @@ export default function WriteNewPage(props: IWriteNew) {
   };
 
   const editBtn = async () => {
-    if (!saveTitle && !saveContent && !saveYoutubeUrl) {
+    if (!fetchBoardInput.title || !fetchBoardInput.contents) {
       Modal.error({
         content: "변경이 안됬습니다.",
+        onOk() {
+          setIsOpen((prev) => !prev);
+        },
       });
       return;
     }
-    if (savePassWord === "") {
-      setPasswordError("비밀번호를 적어주세요.");
+    if (fetchBoardInput.password === "") {
+      blankError.password = "비밀번호가 비어있습니다.";
       return;
     }
-    if (savePassWord !== "") {
+    if (blankError.password !== "") {
       setIsActive(true);
     } else {
       setIsActive(false);
     }
     try {
       const myBoardAddress: IMyBoardAdress = {};
-      const myVariables: IMyVariables = { boardAddress: myBoardAddress };
+      const myVariables: IMyVariables = {};
 
-      if (saveTitle !== "") myVariables.title = saveTitle;
-      if (saveContent !== "") myVariables.contents = saveContent;
-      if (saveYoutubeUrl !== "") myVariables.youtubeUrl = saveYoutubeUrl;
-      if (saveAdress !== "") myBoardAddress.address = saveAdress;
-      if (saveDetailAdress !== "")
-        myBoardAddress.addressDetail = saveDetailAdress;
-      if (saveZipCode !== "") myBoardAddress.zipcode = saveZipCode;
+      if (fetchBoardInput.title !== "")
+        myVariables.title = fetchBoardInput.title;
+      if (fetchBoardInput.contents !== "")
+        myVariables.contents = fetchBoardInput.contents;
+      if (fetchBoardInput.youtubeUrl !== "")
+        myVariables.youtubeUrl = fetchBoardInput.youtubeUrl;
+      if (addressInput.address !== "")
+        myBoardAddress.address = addressInput.address;
+      if (addressInput.addressDetail !== "")
+        myBoardAddress.addressDetail = addressInput.addressDetail;
+      if (addressInput.zipcode !== "")
+        myBoardAddress.zipcode = addressInput.zipcode;
       await updateBoard({
         variables: {
-          updateBoardInput: myVariables,
-          password: savePassWord,
+          updateBoardInput: { ...myVariables, boardAddress: myBoardAddress },
+          password: fetchBoardInput.password,
           boardId: String(router.query.boardid),
         },
       });
@@ -259,6 +166,9 @@ export default function WriteNewPage(props: IWriteNew) {
     } catch (error: any) {
       Modal.error({
         content: error.message,
+        onOk() {
+          setIsOpen((prev) => !prev);
+        },
       });
     }
   };
@@ -280,28 +190,11 @@ export default function WriteNewPage(props: IWriteNew) {
 
   return (
     <WriteNewPageUI
-      savedName={savedName}
-      nameError={nameError}
-      savedPassWord={savedPassWord}
-      passwordError={passwordError}
-      savedTitle={savedTitle}
-      savedContet={savedContet}
-      contentError={contentError}
-      savedZipCode={savedZipCode}
-      savedAdress={savedAdress}
-      saveDetailAdress={savedDetailAdress}
-      saveYoutubeUrl={savedYoutebUrl}
-      saveImg={savedImg}
-      // sumbitBtn={sumbitBtn}
       editBtn={editBtn}
       isEdit={props.isEdit}
-      titleError={titleError}
-      adressError={adressError}
       isActive={isActive}
       data={props.data}
       SubitButton={SubitButton}
-      // handleOk={handleOk}
-      // handleCancel={handleCancel}
       isOpen={isOpen}
       sumbitModal={sumbitModal}
       EditModal={EditModal}
@@ -311,8 +204,10 @@ export default function WriteNewPage(props: IWriteNew) {
       handleCancel={handleCancel}
       isModalVisible={isModalVisible}
       handleComplete={handleComplete}
-      saveZipCode={saveZipCode}
-      saveAdress={saveAdress}
+      onChangeValue={onChangeValue}
+      onChangeAddressValue={onChangeAddressValue}
+      addressInput={addressInput}
+      blankError={blankError}
     />
   );
 }
