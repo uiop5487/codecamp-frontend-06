@@ -839,3 +839,78 @@ function solution(arr) {
 
   return answer.length === 0 ? [-1] : answer;
 }
+
+// 행렬의 덧셈
+
+function solution(arr1, arr2) {
+  const answer = [[]];
+
+  for (let i = 0; i < arr1.length; i++) {
+    for (let l = 0; l < arr1[i].length; l++) {
+      const sum = arr1[i][l] + arr2[i][l];
+
+      if (answer[i] === undefined) {
+        answer[i] = [];
+      }
+
+      answer[i][l] = sum;
+    }
+  }
+  return answer;
+}
+
+// map을 사용
+function solution(arr1, arr2) {
+  const answer = arr1.map((num1, i) => {
+    const result = num1.map((num2, l) => {
+      return num2 + arr2[i][l];
+    });
+    return result;
+  });
+  return answer;
+}
+
+// 요일 구하기
+
+const month = {
+  1: 31,
+  2: 29,
+  3: 31,
+  4: 30,
+  5: 31,
+  6: 30,
+  7: 31,
+  8: 31,
+  9: 30,
+  10: 31,
+  11: 30,
+  12: 31,
+};
+const week = ["FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU"];
+
+function solution(a, b) {
+  let answer = 0;
+  for (let i = 1; i < a; i++) {
+    answer += month[i];
+  }
+  answer += b - 1; // 당일을 제외
+
+  return week[answer % 7];
+
+  // reduce 사용
+
+  function solution(a, b) {
+    const answer = new Array(a).fill(1).reduce((acc, cur, i) => {
+      const mn = cur + i;
+      return acc + (mn !== a ? month[mn] : b - 1);
+    }, 0);
+    return week[answer % 7];
+  }
+}
+
+// const week = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+function solution(a, b) {
+  const answer = new Date(2016, a - 1, b).getDay();
+  return week[answer];
+}

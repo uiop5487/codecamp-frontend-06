@@ -167,7 +167,7 @@ export const UploadBtnWrapper = styled.div`
   flex-direction: row;
 `;
 
-export const UploadBtn = styled.label`
+export const UploadBtn = styled.button`
   box-sizing: border-box;
   width: 78px;
   height: 78px;
@@ -180,6 +180,14 @@ export const UploadBtn = styled.label`
   margin-right: 24px;
   border: 1px solid black;
   cursor: pointer;
+  display: ${(props: Istyle) => (props.imageActive ? "none" : "nomal")};
+`;
+
+export const UploadImg = styled.img`
+  width: 78px;
+  height: 78px;
+  margin-right: 24px;
+  display: ${(props: Istyle) => (props.imageActive ? "nomal" : "none")};
 `;
 
 export const Plus = styled.input`

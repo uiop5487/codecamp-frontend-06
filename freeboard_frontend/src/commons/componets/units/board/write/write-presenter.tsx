@@ -81,11 +81,10 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
             type="text"
             id="address"
             onChange={props.onChangeAddressValue}
-            // value={props.saveAdress}
-            defaultValue={
+            value={
               props.addressInput.address
                 ? props.addressInput.address
-                : props.data?.fetchBoard?.boardAddress?.address
+                : props.data?.fetchBoard?.boardAddress.address
             }
             // value={props.data?.fetchBoard?.boardAddress?.address}
           />
@@ -94,7 +93,7 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
             type="text"
             id="addressDetail"
             onChange={props.onChangeAddressValue}
-            defaultValue={props.data?.fetchBoard?.boardAddress?.addressDetail}
+            value={props.data?.fetchBoard?.boardAddress?.addressDetail}
           />
         </s.AdressInputWrapper>
         {/* <s.ErrorBox>{props.adressError}</s.ErrorBox> */}
@@ -111,21 +110,28 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
         <s.UploadWrapper>
           <s.SubTitle>사진 첨부</s.SubTitle>
           <s.UploadBtnWrapper>
-            <s.UploadBtn htmlFor="Plus">
-              +
-              <s.Plus id="Plus" type="file" />
-              <s.Upload>Upload</s.Upload>
-            </s.UploadBtn>
-            <s.UploadBtn htmlFor="Plus">
-              +
-              <s.Plus id="Plus" type="file" />
-              <s.Upload>Upload</s.Upload>
-            </s.UploadBtn>
-            <s.UploadBtn htmlFor="Plus">
-              +
-              <s.Plus id="Plus" type="file" />
-              <s.Upload>Upload</s.Upload>
-            </s.UploadBtn>
+            {new Array(3).fill(1).map((_, index) => (
+              <div key={index}>
+                <s.UploadBtn
+                  onClick={props.onClickImage}
+                  imageActive={props.imageActive}
+                  id={`${index}`}
+                >
+                  +
+                  <s.Plus
+                    type="file"
+                    onChange={props.onChangeFile}
+                    id={`${index}`}
+                    ref={props.fileRef}
+                  />
+                  <s.Upload>Upload</s.Upload>
+                </s.UploadBtn>
+                <s.UploadImg
+                  src={`https://storage.googleapis.com/${props.imageUrl}`}
+                  imageActive={props.imageActive}
+                />
+              </div>
+            ))}
           </s.UploadBtnWrapper>
         </s.UploadWrapper>
         <s.RadioBtnWrapper>

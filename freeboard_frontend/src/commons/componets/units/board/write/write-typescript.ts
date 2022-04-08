@@ -1,7 +1,8 @@
 import { ChangeEvent } from "react";
 
 export interface Istyle {
-  isActive: boolean;
+  imageActive?: boolean | undefined;
+  isActive?: boolean;
 }
 
 export interface IWriteNew {
@@ -28,10 +29,17 @@ export interface IWriteNewUI {
   isModalVisible: boolean;
   handleComplete: any;
   sumbitModal: () => void;
-  onChangeValue: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeValue: (
+    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => void;
   onChangeAddressValue: (event: ChangeEvent<HTMLInputElement>) => void;
   addressInput: IMyBoardAdress;
   blankError?: IError;
+  onClickImage: () => void;
+  imageActive: boolean | undefined;
+  onChangeFile: (event: ChangeEvent<HTMLInputElement>) => void;
+  fileRef: any;
+  imageUrl: string;
 }
 
 export interface IOnchangeValue {
@@ -62,4 +70,5 @@ export interface IMyVariables {
   contents?: string;
   youtubeUrl?: string;
   boardAddress?: object;
+  images?: any;
 }

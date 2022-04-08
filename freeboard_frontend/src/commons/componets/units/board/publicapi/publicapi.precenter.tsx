@@ -8,7 +8,14 @@ const FoodImg = styled.img`
 const PublicApiUI = (props: any) => {
   return (
     <div>
-      <FoodImg src={props.foodUrl} />
+      <div>
+        {props.foodUrl.map((el, index) => (
+          <>
+            <FoodImg key={el} src={el} />
+            {(index + 1) % 3 === 0 && <br />}
+          </>
+        ))}
+      </div>
     </div>
   );
 };

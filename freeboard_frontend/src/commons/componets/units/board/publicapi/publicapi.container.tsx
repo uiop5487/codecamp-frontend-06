@@ -3,15 +3,19 @@ import { useEffect, useState } from "react";
 import PublicApiUI from "./publicapi.precenter";
 
 const PublicApiContainerPage = () => {
-  const [foodUrl, setFoodUrl] = useState("");
+  const [foodUrl, setFoodUrl] = useState<string[]>([]);
 
   useEffect(() => {
     const foodApi = async () => {
-      const result = await axios.get("https://dog.ceo/api/breeds/image/random");
-      setFoodUrl(result.data.message);
+      new Array(9).fill(1).map(async (_) => {
+        const result = await axios.get(
+          "https://foodish-api.herokuapp.com/api/"
+        );
+        setFoodUrl((prev) => [...prev, result.data.image]);
+      });
     };
     foodApi();
-  });
+  }, []);
   return <PublicApiUI foodUrl={foodUrl} />;
 };
 

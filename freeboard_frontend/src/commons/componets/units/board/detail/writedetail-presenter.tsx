@@ -33,7 +33,9 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
         <s.DivedLile></s.DivedLile>
         <s.ContentsWrapper>
           <s.BoardTitle>{props.data?.fetchBoard.title}</s.BoardTitle>
-          <s.ContetsImg src={props.data?.fetchBoard.images}></s.ContetsImg>
+          <s.ContetsImg
+            src={`https://storage.googleapis.com/${props.data?.fetchBoard.images}`}
+          ></s.ContetsImg>
           <s.Contets>{props.data?.fetchBoard.contents}</s.Contets>
         </s.ContentsWrapper>
         <s.YoutubeWrapper>

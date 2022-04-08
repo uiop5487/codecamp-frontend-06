@@ -1,7 +1,7 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
-import { CREATE_BOARD, UPDATE_BOARD } from "./write-mutation";
+import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./write-mutation";
 import WriteNewPageUI from "./write-presenter";
 import { Modal } from "antd";
 import { IMyBoardAdress, IMyVariables, IWriteNew } from "./write-typescript";
@@ -13,9 +13,14 @@ import {
 } from "../../../../types/generated/types";
 
 export default function WriteNewPage(props: IWriteNew) {
+  const [refIndex, setRefIndex] = useState("");
+  const [uploadFile] = useMutation(UPLOAD_FILE);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [imageUrl, setImageUrl] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const [imageActive, setImageActive] = useState(false);
   const [createBoard] = useMutation<
     Pick<IMutation, "createBoard">,
     IMutationCreateBoardArgs
@@ -48,7 +53,9 @@ export default function WriteNewPage(props: IWriteNew) {
     contents: "",
   });
 
-  const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeValue = (
+    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setFetchBoardInput({
       ...fetchBoardInput,
       [event.target.id]: String(event.target.value),
@@ -98,6 +105,7 @@ export default function WriteNewPage(props: IWriteNew) {
         variables: {
           createBoardInput: {
             ...fetchBoardInput,
+            images: [imageUrl],
             boardAddress: { ...addressInput },
           },
         },
@@ -120,43 +128,55 @@ export default function WriteNewPage(props: IWriteNew) {
   };
 
   const editBtn = async () => {
-    if (!fetchBoardInput.title || !fetchBoardInput.contents) {
-      Modal.error({
-        content: "변경이 안됬습니다.",
-        onOk() {
-          setIsOpen((prev) => !prev);
-        },
-      });
-      return;
-    }
+    // if (!fetchBoardInput.title || !fetchBoardInput.contents) {
+    //   Modal.error({
+    //     content: "변경이 안됬습니다.",
+    //     onOk() {
+    //       setIsOpen((prev) => !prev);
+    //     },
+    //   });
+    //   return;
+    // }
     if (fetchBoardInput.password === "") {
       blankError.password = "비밀번호가 비어있습니다.";
       return;
     }
-    if (blankError.password !== "") {
+    if (fetchBoardInput.password !== "") {
       setIsActive(true);
     } else {
       setIsActive(false);
     }
     try {
-      const myBoardAddress: IMyBoardAdress = {};
       const myVariables: IMyVariables = {};
+
+      if (
+        addressInput.zipcode !== "" ||
+        addressInput.addressDetail !== "" ||
+        addressInput.address !== ""
+      ) {
+        const myBoardAddress: IMyBoardAdress = {};
+        myBoardAddress.address = addressInput.address;
+        myBoardAddress.addressDetail = addressInput.addressDetail;
+        myBoardAddress.zipcode = addressInput.zipcode;
+        myVariables.boardAddress = myBoardAddress;
+      }
 
       if (fetchBoardInput.title !== "")
         myVariables.title = fetchBoardInput.title;
+
       if (fetchBoardInput.contents !== "")
         myVariables.contents = fetchBoardInput.contents;
+
       if (fetchBoardInput.youtubeUrl !== "")
         myVariables.youtubeUrl = fetchBoardInput.youtubeUrl;
-      if (addressInput.address !== "")
-        myBoardAddress.address = addressInput.address;
-      if (addressInput.addressDetail !== "")
-        myBoardAddress.addressDetail = addressInput.addressDetail;
-      if (addressInput.zipcode !== "")
-        myBoardAddress.zipcode = addressInput.zipcode;
+
+      if (imageUrl !== "") myVariables.images = [imageUrl];
+
       await updateBoard({
         variables: {
-          updateBoardInput: { ...myVariables, boardAddress: myBoardAddress },
+          updateBoardInput: {
+            ...myVariables,
+          },
           password: fetchBoardInput.password,
           boardId: String(router.query.boardid),
         },
@@ -188,6 +208,26 @@ export default function WriteNewPage(props: IWriteNew) {
     setIsModalVisible((prev) => !prev);
   };
 
+  const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (refIndex === event.target.id) {
+      const file = event.target.files?.[0];
+      try {
+        const result = await uploadFile({ variables: { file } });
+        setImageUrl(result.data?.uploadFile.url);
+        console.log(result.data?.uploadFile.url);
+        setImageActive(true);
+      } catch (error: any) {
+        alert(error.message);
+      }
+    }
+  };
+
+  const onClickImage = (event: any) => {
+    fileRef.current?.click();
+    setRefIndex(event.target.id);
+    console.log(event.target.id);
+  };
+
   return (
     <WriteNewPageUI
       editBtn={editBtn}
@@ -208,6 +248,11 @@ export default function WriteNewPage(props: IWriteNew) {
       onChangeAddressValue={onChangeAddressValue}
       addressInput={addressInput}
       blankError={blankError}
+      onChangeFile={onChangeFile}
+      onClickImage={onClickImage}
+      imageUrl={imageUrl}
+      fileRef={fileRef}
+      imageActive={imageActive}
     />
   );
 }

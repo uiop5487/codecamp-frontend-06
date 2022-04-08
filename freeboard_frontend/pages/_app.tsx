@@ -1,12 +1,18 @@
 import "antd/dist/antd.css";
 import "../styles/globals.css";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  ApolloLink,
+  ApolloProvider,
+  InMemoryCache,
+} from "@apollo/client";
 import { AppProps } from "next/app";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Layout from "../src/commons/componets/commons/layout";
 import { Global } from "@emotion/react";
 import { globalStyles } from "../src/commons/styles/globalstyles";
+import { createUploadLink } from "apollo-upload-client";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -28,8 +34,12 @@ export const firebaseapp = initializeApp(firebaseConfig);
 
 function MyApp({ Component, pageProps }: AppProps) {
   //모든 셋팅은 여기서
-  const client = new ApolloClient({
+  const uploadlink = createUploadLink({
     uri: "http://backend06.codebootcamp.co.kr/graphql",
+  });
+
+  const client = new ApolloClient({
+    link: ApolloLink.from([uploadlink]),
     cache: new InMemoryCache(),
   });
 
