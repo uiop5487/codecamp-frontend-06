@@ -43,12 +43,12 @@ const MapBoardPage = () => {
           <MyColumn>{el.writer}</MyColumn>
         </MyRow>
       ))}
-      {new Array(100).fill(1).map((_, index) => (
+      {new Array(10).fill(1).map((_, index) => (
         <MyPage key={index + 1} onClick={onClickPage} id={String(index + 1)}>
           {index + 1}
         </MyPage>
       ))}
-      {/* 
+      {/*
       <MyPage onClick={onClickPage} id="2">
         2
       </MyPage>
