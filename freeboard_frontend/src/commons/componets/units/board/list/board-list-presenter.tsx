@@ -2,11 +2,18 @@ import * as s from "./board-list-styles";
 import { getDate } from "../../../commons/libraries/utils";
 import { BoardListEl, IBoardListUIProps } from "./board-list-typescript";
 import Pagination from "../../pagination/pagination";
+import SearchContainer from "../searchbar/search.container";
 
 const WriteBoardListPresenter = (props: IBoardListUIProps) => {
   return (
     <s.BackGround>
       <s.Warrper>
+        <SearchContainer
+          onChageSearch={props.onChageSearch}
+          onChangeEndDate={props.onChangeEndDate}
+          onChangeStartDate={props.onChangeStartDate}
+          onClickDateSearch={props.onClickDateSearch}
+        />
         <s.BoardListWarrper>
           <s.BoardList>
             <s.BoardListTilte>

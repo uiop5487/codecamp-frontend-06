@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./write-mutation";
@@ -13,14 +13,10 @@ import {
 } from "../../../../types/generated/types";
 
 export default function WriteNewPage(props: IWriteNew) {
-  const [refIndex, setRefIndex] = useState("");
-  const [uploadFile] = useMutation(UPLOAD_FILE);
-  const fileRef = useRef<HTMLInputElement>(null);
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrls, setImageUrls] = useState(["", "", ""]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const [imageActive, setImageActive] = useState(false);
   const [createBoard] = useMutation<
     Pick<IMutation, "createBoard">,
     IMutationCreateBoardArgs
@@ -105,7 +101,7 @@ export default function WriteNewPage(props: IWriteNew) {
         variables: {
           createBoardInput: {
             ...fetchBoardInput,
-            images: [imageUrl],
+            images: imageUrls,
             boardAddress: { ...addressInput },
           },
         },
@@ -170,7 +166,7 @@ export default function WriteNewPage(props: IWriteNew) {
       if (fetchBoardInput.youtubeUrl !== "")
         myVariables.youtubeUrl = fetchBoardInput.youtubeUrl;
 
-      if (imageUrl !== "") myVariables.images = [imageUrl];
+      if (imageUrls) myVariables.images = imageUrls;
 
       await updateBoard({
         variables: {
@@ -208,25 +204,17 @@ export default function WriteNewPage(props: IWriteNew) {
     setIsModalVisible((prev) => !prev);
   };
 
-  const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    if (refIndex === event.target.id) {
-      const file = event.target.files?.[0];
-      try {
-        const result = await uploadFile({ variables: { file } });
-        setImageUrl(result.data?.uploadFile.url);
-        console.log(result.data?.uploadFile.url);
-        setImageActive(true);
-      } catch (error: any) {
-        alert(error.message);
-      }
-    }
+  const onChangeFileUrl = (imageUrl: any, index: number) => {
+    const fileUrl = [...imageUrls];
+    fileUrl[index] = imageUrl;
+    setImageUrls(fileUrl);
   };
 
-  const onClickImage = (event: any) => {
-    fileRef.current?.click();
-    setRefIndex(event.target.id);
-    console.log(event.target.id);
-  };
+  useEffect(() => {
+    if (props.data?.fetchBoard.images?.length) {
+      setImageUrls([...props.data?.fetchBoard.images]);
+    }
+  }, [props.data]);
 
   return (
     <WriteNewPageUI
@@ -248,11 +236,8 @@ export default function WriteNewPage(props: IWriteNew) {
       onChangeAddressValue={onChangeAddressValue}
       addressInput={addressInput}
       blankError={blankError}
-      onChangeFile={onChangeFile}
-      onClickImage={onClickImage}
-      imageUrl={imageUrl}
-      fileRef={fileRef}
-      imageActive={imageActive}
+      onChangeFileUrl={onChangeFileUrl}
+      imageUrls={imageUrls}
     />
   );
 }

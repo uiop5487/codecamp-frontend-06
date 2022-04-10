@@ -28,9 +28,21 @@ const BestBoards = () => {
     <s.BackGround>
       <s.Title>베스트 게시글</s.Title>
       <s.BoxWarrper>
-        {data?.fetchBoardsOfTheBest.map((el) => (
+        {data?.fetchBoardsOfTheBest.map((el: any) => (
           <s.Box key={el._id} id={el._id} onClick={onClickMoveDetail}>
-            <s.Img></s.Img>
+            <s.ImgWraper>
+              {el.images
+                .filter((e: string) => e)
+                .reduce(
+                  (_: any, cur: string) => (
+                    <s.Img
+                      src={`https://storage.googleapis.com/${cur}`}
+                      key={cur}
+                    ></s.Img>
+                  ),
+                  []
+                )}
+            </s.ImgWraper>
             <s.TitleWrapper>
               <s.BoxTitle>{el.title}</s.BoxTitle>
             </s.TitleWrapper>
@@ -50,11 +62,6 @@ const BestBoards = () => {
           </s.Box>
         ))}
       </s.BoxWarrper>
-      <s.SearchWarrper>
-        <s.SearchBox></s.SearchBox>
-        <s.YearBox></s.YearBox>
-        <s.SearchButton>검색하기</s.SearchButton>
-      </s.SearchWarrper>
     </s.BackGround>
   );
 };

@@ -2,6 +2,7 @@ import ReactPlayer from "react-player";
 import { IBoardWriteUIProps } from "./writedetail-typescript";
 import { Tooltip } from "antd";
 import * as s from "./writedetail.styles";
+import { PresetColorTypes } from "antd/lib/_util/colors";
 
 export default function DetailPageUI(props: IBoardWriteUIProps) {
   return (
@@ -33,9 +34,16 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
         <s.DivedLile></s.DivedLile>
         <s.ContentsWrapper>
           <s.BoardTitle>{props.data?.fetchBoard.title}</s.BoardTitle>
-          <s.ContetsImg
-            src={`https://storage.googleapis.com/${props.data?.fetchBoard.images}`}
-          ></s.ContetsImg>
+          <div>
+            {props.data?.fetchBoard.images
+              ?.filter((el: string) => el)
+              .map((el: string) => (
+                <s.ContetsImg
+                  src={`https://storage.googleapis.com/${el}`}
+                  key={el}
+                ></s.ContetsImg>
+              ))}
+          </div>
           <s.Contets>{props.data?.fetchBoard.contents}</s.Contets>
         </s.ContentsWrapper>
         <s.YoutubeWrapper>

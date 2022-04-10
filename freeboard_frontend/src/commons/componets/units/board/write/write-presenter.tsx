@@ -3,6 +3,7 @@ import * as s from "./write-styles";
 import { IWriteNewUI } from "./write-typescript";
 import { Modal, Button } from "antd";
 import DaumPostcode from "react-daum-postcode";
+import UploadContainer from "../../../commons/upload/upload.container";
 
 export default function WriteNewPageUI(props: IWriteNewUI) {
   return (
@@ -110,27 +111,13 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
         <s.UploadWrapper>
           <s.SubTitle>사진 첨부</s.SubTitle>
           <s.UploadBtnWrapper>
-            {new Array(3).fill(1).map((_, index) => (
-              <div key={index}>
-                <s.UploadBtn
-                  onClick={props.onClickImage}
-                  imageActive={props.imageActive}
-                  id={`${index}`}
-                >
-                  +
-                  <s.Plus
-                    type="file"
-                    onChange={props.onChangeFile}
-                    id={`${index}`}
-                    ref={props.fileRef}
-                  />
-                  <s.Upload>Upload</s.Upload>
-                </s.UploadBtn>
-                <s.UploadImg
-                  src={`https://storage.googleapis.com/${props.imageUrl}`}
-                  imageActive={props.imageActive}
-                />
-              </div>
+            {props.imageUrls?.map((el: any, index: number) => (
+              <UploadContainer
+                key={index}
+                imageUrls={el}
+                index={index}
+                onChangeFileUrl={props.onChangeFileUrl}
+              />
             ))}
           </s.UploadBtnWrapper>
         </s.UploadWrapper>
@@ -138,7 +125,7 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
           <s.SubTitle>메인 설정</s.SubTitle>
           <s.RadioBtnbox>
             <s.RadioBtn type="radio" name="gender" />
-            <s.RadioBtntext>유튜브</s.RadioBtntext>
+            <s.RadioBtntext>유튜 브</s.RadioBtntext>
             <s.RadioBtn type="radio" name="gender" />
             <s.RadioBtntext2>사진</s.RadioBtntext2>
           </s.RadioBtnbox>

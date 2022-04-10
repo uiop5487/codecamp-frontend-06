@@ -35,11 +35,8 @@ export interface IWriteNewUI {
   onChangeAddressValue: (event: ChangeEvent<HTMLInputElement>) => void;
   addressInput: IMyBoardAdress;
   blankError?: IError;
-  onClickImage: () => void;
-  imageActive: boolean | undefined;
-  onChangeFile: (event: ChangeEvent<HTMLInputElement>) => void;
-  fileRef: any;
-  imageUrl: string;
+  imageUrls: any;
+  onChangeFileUrl: (imageUrl: any, index: number) => void;
 }
 
 export interface IOnchangeValue {

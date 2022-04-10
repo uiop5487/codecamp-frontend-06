@@ -1,6 +1,7 @@
+import { IPaginationPrecenter } from "./pagination.types";
 import * as s from "./paginationstyles";
 
-export const PaginationPrecenter = (props: any) => {
+export const PaginationPrecenter = (props: IPaginationPrecenter) => {
   return (
     <s.BackGround>
       <s.PaginationWrapper>

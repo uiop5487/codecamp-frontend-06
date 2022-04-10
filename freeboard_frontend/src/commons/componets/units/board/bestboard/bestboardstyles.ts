@@ -34,42 +34,10 @@ export const Box = styled.div`
   cursor: pointer;
 `;
 
-export const SearchWarrper = styled.div`
-  padding-top: 40px;
-  width: 1200px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const SearchBox = styled.input`
-  width: 776px;
-  height: 52px;
-  border-radius: 15px;
-  background-color: #f2f2f2;
-`;
-
-export const YearBox = styled.div`
-  width: 244px;
-  height: 52px;
-  border: 1px solid #bdbdbd;
-`;
-export const SearchButton = styled.button`
-  width: 92px;
-  height: 52px;
-  background-color: black;
-  color: white;
-  border-radius: 10px;
-  text-align: center;
-  line-height: 52px;
-`;
-
-export const Img = styled.div`
+export const Img = styled.img`
   width: 100%;
   height: 140px;
   border-radius: 15px 15px 0px 0px;
-  background-size: cover;
-  background-image: url("https://media.vlpt.us/images/kim-jaemin420/post/088bbdd3-3c5c-4520-b250-4e67da4e368b/%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A2%E1%86%A8%E1%84%90%E1%85%B3.png");
 `;
 
 export const TitleWrapper = styled.div`
@@ -132,4 +100,8 @@ export const LikeCountImg = styled.img`
 export const LikeCount = styled.div`
   font-size: 16px;
   font-weight: 400;
+`;
+
+export const ImgWraper = styled.div`
+  height: 140px;
 `;

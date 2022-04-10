@@ -13,7 +13,6 @@ import {
   UPDATE_BOARD_COMMENT,
 } from "./comment.query";
 import { Modal } from "antd";
-import { OmitProps } from "antd/lib/transfer/ListBody";
 
 const Comment = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);

@@ -4,6 +4,12 @@ export interface IBoardListUIProps {
   data?: any;
   onClickMoveDetail: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickMoveNew: () => void;
+  onChageSearch: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeEndDate: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeStartDate: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClickDateSearch: () => void;
+  refetch: any;
+  countdata: any;
 }
 
 export interface BoardListEl {

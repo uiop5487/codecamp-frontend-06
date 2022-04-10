@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { IPaginationProps } from "./pagination.types";
 import PaginationPrecenter from "./paginationprecenter";
 
-const Pagination = (props: any) => {
+const Pagination = (props: IPaginationProps) => {
   const [startPage, setStartPage] = useState(1);
   const lastPage = Math.ceil(props.countdata?.fetchBoardsCount / 10);
   const [current, setCurrent] = useState(1);
