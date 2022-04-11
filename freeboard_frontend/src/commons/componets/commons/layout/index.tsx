@@ -16,7 +16,7 @@ const Body = styled.div`
   height: 100%; */
 `;
 
-const HIDDEN_HEADERS = ["/"];
+const HIDDEN_HEADERS = ["/", "/logins/login", "/logins/signup"];
 
 const Layout = (props: any) => {
   const router = useRouter();

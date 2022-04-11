@@ -57,13 +57,26 @@ const LoginButton = styled.div`
   background-color: white;
   font-size: 16px;
   cursor: pointer;
+  :hover {
+    color: gray;
+  }
 `;
 
 const HeaderPage = () => {
   const router = useRouter();
+
   const onClickMovePage = () => {
     router.push(`/boards`);
   };
+
+  const onClickMoveLoginPage = () => {
+    router.push(`/logins/login`);
+  };
+
+  const onClickMoveSignupPage = () => {
+    router.push(`/logins/signup`);
+  };
+
   return (
     <Wrapper>
       <HeaderTextWrapper>
@@ -71,8 +84,8 @@ const HeaderPage = () => {
         <HeaderText onClick={onClickMovePage}>만리장성</HeaderText>
       </HeaderTextWrapper>
       <SignupWrapper>
-        <LoginButton>로그인</LoginButton>
-        <SignupButton>회원가입</SignupButton>
+        <LoginButton onClick={onClickMoveLoginPage}>로그인</LoginButton>
+        <SignupButton onClick={onClickMoveSignupPage}>회원가입</SignupButton>
       </SignupWrapper>
     </Wrapper>
   );
