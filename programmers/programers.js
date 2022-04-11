@@ -961,3 +961,91 @@ function solution(n, m) {
   // 최소공배수는 두 수(n,m) 곱한 값에 최대공약수를 나눈 값
   return [b, (n * m) / b];
 }
+
+// 완주하지 못한 선수
+
+// 내가 푼거 - 효율문제로 오답
+// 만약 완주하지 못한 모든 사람을 배열로 담아 리턴하여야 한다면 빈배열에 푸시만 해주면 이 방법 또한 가능
+function solution(participant, completion) {
+  let result = {}; // 빈 객체 선언
+  for (let i = 0; i < participant.length; i++) {
+    // 객체에 값이 있다면 + 1 // 즉 참가자 있다면 + 1
+    if (result[participant[i]]) {
+      result[participant[i]] = result[participant[i]] + 1;
+      // 객체가 undefined 이면 + 1 // 즉 참가자가 없다면 참가자 0 + 1
+    } else {
+      result[participant[i]] = 0 + 1;
+    }
+  }
+  for (let i = 0; i < completion.length; i++) {
+    // 객체에 값이 있다면 -1  // 즉 완주자일 경우 -1
+    if (result[completion[i]]) {
+      result[completion[i]] = result[completion[i]] - 1;
+    }
+  }
+  for (let i = 0; i < Object.values(result).length; i++) {
+    // 객체에 value가 1과 같다면 객체에 key를 answer에 담아줌 // 즉 완주하지 못하여 -1이 안되었을 경우
+    if (Object.values(result)[i] === 1) {
+      return Object.keys(result)[i];
+    }
+  }
+}
+
+// sort를 이용
+// 단 한사람만을 리턴하는 거기 때문에 가능
+function solution(participant, completion) {
+  let aaa = participant.sort();
+  let bbb = completion.sort();
+
+  for (let i = 0; i < aaa.length; i++) {
+    if (aaa[i] !== bbb[i]) {
+      return aaa[i];
+    }
+  }
+}
+
+// slice 사용 효율성 때문에 오답
+
+function solution(participant, completion) {
+  for (let i = 0; i < completion.length; i++) {
+    if (participant.includes(completion[i])) {
+      participant.splice(participant.indexOf(completion[i]), 1);
+    }
+  }
+  return participant[0];
+}
+
+// 객체에 담아서 리턴
+function solution(participant, completion) {
+  const answer = {};
+  // 1. 참가한 선수의 이름과 참가자 수를 정리
+  for (let i = 0; i < participant.length; i++) {
+    answer[participant[i]] === undefined
+      ? (answer[participant[i]] = 1)
+      : answer[participant[i]]++;
+  }
+
+  // 2. 완주한 명단에서 선수 이름을 제거
+  for (let i = 0; i < completion.length; i++) {
+    if (answer[completion[i]]) {
+      answer[completion[i]]--;
+    }
+  }
+  // 3. 완주하지 못한 선수의 이름을 리턴
+  for (let key in answer) {
+    if (answer[key] !== 0) {
+      return key;
+    }
+  }
+}
+
+// filter 메소드를 사용
+function solution(participant, completion) {
+  participant.sort((a, b) => (a > b ? 1 : -1));
+  completion.sort();
+
+  const answer = participant.filter((name, i) => {
+    return name !== completion[i];
+  });
+  return answer[0];
+}
