@@ -1,8 +1,14 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import LoginPresenter from "./login.presenter";
+import { useRecoilState } from "recoil";
+import { accessTokenState } from "../../../../commons/store";
+import { LOGIN_USER } from "./login.qurey";
+import { useMutation } from "@apollo/client";
 
 const LoginContainer = () => {
+  const [, setAccessToken] = useRecoilState(accessTokenState);
+  const [LoginUser] = useMutation(LOGIN_USER);
   const router = useRouter();
   const [values, setValues] = useState({
     email: "",
@@ -36,7 +42,7 @@ const LoginContainer = () => {
     }
   };
 
-  const onClickLogin = () => {
+  const onClickLogin = async () => {
     setError({
       email: values.email ? "" : "이메일을 입력해주세요",
       password: values.password ? "" : "비밀번호를 입력해주세요",
@@ -50,6 +56,14 @@ const LoginContainer = () => {
       }));
     }
     if (Object.values(values).every((el) => el)) {
+      const result = await LoginUser({
+        variables: {
+          ...values,
+        },
+      });
+      const accessToken = result.data.loginUser.accessToken;
+      setAccessToken(accessToken);
+      localStorage.setItem("accessToken", accessToken);
       alert("등록되었습니다.");
       router.push("/boards");
     }

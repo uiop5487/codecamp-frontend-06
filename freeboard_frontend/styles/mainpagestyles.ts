@@ -3,7 +3,8 @@ import styled from "@emotion/styled";
 export const BackGround = styled.div`
   width: 100vw;
   height: 100vh;
-  background-image: url("./img/background.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("./img/background1.jpeg");
   background-size: cover;
   display: flex;
   justify-content: center;

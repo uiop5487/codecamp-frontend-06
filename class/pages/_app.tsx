@@ -1,20 +1,13 @@
 import "antd/dist/antd.css";
 // import "../styles/globals.css";
-import {
-  ApolloClient,
-  ApolloLink,
-  ApolloProvider,
-  InMemoryCache,
-} from "@apollo/client";
 import { AppProps } from "next/app";
 import Layout from "../src/componets/commons/layout";
 import { Global } from "@emotion/react";
 import { globalStyles } from "../src/commons/styles/globalstyles";
-import { createUploadLink } from "apollo-upload-client";
-
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { RecoilRoot } from "recoil";
+import ApolloSetting from "../src/componets/commons/apollo";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -33,25 +26,15 @@ export const firebaseapp = initializeApp(firebaseConfig);
 
 function MyApp({ Component, pageProps }: AppProps) {
   // 모든 셋팅은 여기서
-  // 업로드 설정을 하고 변수에 담아 따로 uri에 넣어준다.
-  // 이후에 나오는 링크들을 담아 연결시켜줘야 하기 때문에 배열에 담아 넣어준다.
-  const uploadlink = createUploadLink({
-    uri: "http://backend06.codebootcamp.co.kr/graphql",
-  });
-
-  const client = new ApolloClient({
-    link: ApolloLink.from([uploadlink]),
-    cache: new InMemoryCache(),
-  });
 
   return (
     <RecoilRoot>
-      <ApolloProvider client={client}>
+      <ApolloSetting>
         <Global styles={globalStyles} />
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </ApolloProvider>
+      </ApolloSetting>
     </RecoilRoot>
   );
 }

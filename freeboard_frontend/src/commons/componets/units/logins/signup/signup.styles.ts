@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
-    url("/img/background.png");
+    url("/img/background1.jpeg");
   background-size: cover;
   display: flex;
   flex-direction: column;
