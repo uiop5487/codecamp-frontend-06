@@ -7,7 +7,7 @@ import {
 import { createUploadLink } from "apollo-upload-client";
 import { ReactNode, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../../commons/store";
+import { accessTokenState, userInfoState } from "../../../commons/store";
 
 interface IApolloSetting {
   children: ReactNode;
@@ -15,6 +15,7 @@ interface IApolloSetting {
 
 export default function ApolloSetting(props: IApolloSetting) {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [, setUserInfo] = useRecoilState(userInfoState);
 
   // 1. 더이상 지원되지 않는 부분
   // if(process.browser){
@@ -33,8 +34,10 @@ export default function ApolloSetting(props: IApolloSetting) {
 
   // 3. 세번째 방법
   useEffect(() => {
-    const myLocalstorageAccessToken = localStorage.getItem("accessToken");
-    setAccessToken(myLocalstorageAccessToken || "");
+    const accessToken = localStorage.getItem("accessToken");
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+    setAccessToken(accessToken || "");
+    setUserInfo(userInfo);
   }, []);
 
   // 프리렌더링 시 문제되는 코드
@@ -45,7 +48,7 @@ export default function ApolloSetting(props: IApolloSetting) {
   // 이후에 나오는 링크들을 담아 연결시켜줘야 하기 때문에 배열에 담아 넣어준다.
   const uploadlink = createUploadLink({
     uri: "http://backend06.codebootcamp.co.kr/graphql",
-    headers: { Authorization: `Bearer ${accessToken}` },
+    // headers: { Authorization: `Bearer ${accessToken}` },
   });
 
   const client = new ApolloClient({

@@ -19,7 +19,11 @@ const LoginPresenter = (props: ILoginPresenter) => {
           <s.Error>{props.error.email}</s.Error>
         </s.InputWrapper>
         <s.InputWrapper2>
-          <s.Input id="password" type="text" onChange={props.onChangeValues} />
+          <s.Input
+            id="password"
+            type="password"
+            onChange={props.onChangeValues}
+          />
           <s.Error>{props.error.password}</s.Error>
         </s.InputWrapper2>
         <s.CheckButtonWrapper>

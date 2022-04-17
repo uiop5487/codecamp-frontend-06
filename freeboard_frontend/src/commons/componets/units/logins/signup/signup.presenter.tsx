@@ -23,7 +23,11 @@ const SignupPresenter = (props: ISignupPresenter) => {
         </div>
         <div>
           <s.InputTitle>비밀번호</s.InputTitle>
-          <s.Input id="password" type="text" onChange={props.onChangeValues} />
+          <s.Input
+            id="password"
+            type="password"
+            onChange={props.onChangeValues}
+          />
           <s.Error id="password">{props.error.password}</s.Error>
         </div>
         <div>

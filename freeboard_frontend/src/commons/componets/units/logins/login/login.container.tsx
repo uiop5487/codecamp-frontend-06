@@ -64,7 +64,7 @@ const LoginContainer = () => {
       const accessToken = result.data.loginUser.accessToken;
       setAccessToken(accessToken);
       localStorage.setItem("accessToken", accessToken);
-      alert("등록되었습니다.");
+      alert("로그인 성공!");
       router.push("/boards");
     }
   };
