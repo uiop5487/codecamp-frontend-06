@@ -3,7 +3,7 @@ import { ChangeEvent, useRef } from "react";
 import UploadPresenter from "./upload.presenter";
 import { UPLOAD_FILE } from "./upload.qureies";
 
-const UploadContainer = (props) => {
+const UploadContainer = (props: any) => {
   const [uploadFile] = useMutation(UPLOAD_FILE);
   const fileRef = useRef<HTMLInputElement>(null);
 

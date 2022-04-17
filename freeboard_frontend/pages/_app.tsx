@@ -27,7 +27,7 @@ const firebaseConfig = {
 export const firebaseapp = initializeApp(firebaseConfig);
 
 function MyApp({ Component, pageProps }: AppProps) {
-  //모든 셋팅은 여기서
+  // 모든 셋팅은 여기서
 
   return (
     <RecoilRoot>

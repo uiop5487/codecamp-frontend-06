@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { Rate } from "antd";
-import exp from "constants";
 import { IIsEdit } from "./comment.types";
 
 export const BackGround = styled.div`

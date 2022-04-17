@@ -3,7 +3,7 @@ import { Modal, Button } from "antd";
 
 const ModalCustomPage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [password, setPassword] = useState("");
+  const [, setPassword] = useState("");
 
   const showModal = () => {
     setIsOpen(true);

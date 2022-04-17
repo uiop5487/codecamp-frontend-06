@@ -15,7 +15,7 @@ const WriteBoardListContainer = (props: IWriteBoardListContainerprops) => {
   const { data: countdata, refetch: countrefetch } =
     useQuery(FETCH_BOARDS_COUNT);
   const router = useRouter();
-  const [searchValue, setSearchValue] = useState("");
+  // const [searchValue, setSearchValue] = useState("");
   const [endDate, setEndDate] = useState("");
   const [startDate, setStartDate] = useState("");
 

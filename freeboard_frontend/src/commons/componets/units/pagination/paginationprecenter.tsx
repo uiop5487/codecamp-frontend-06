@@ -7,8 +7,8 @@ export const PaginationPrecenter = (props: IPaginationPrecenter) => {
       <s.PaginationWrapper>
         <s.NextButton
           onClick={props.onClickPrevPage}
-          disabled={props.startPage === 1 ? true : false}
-          isActive={props.startPage === 1 ? true : false}
+          disabled={props.startPage === 1}
+          isActive={props.startPage === 1}
         >
           이전
         </s.NextButton>
@@ -28,8 +28,8 @@ export const PaginationPrecenter = (props: IPaginationPrecenter) => {
         )}
         <s.NextButton
           onClick={props.onClickNextPage}
-          disabled={props.startPage + 10 > props.lastPage ? true : false}
-          isActive={props.startPage + 10 > props.lastPage ? true : false}
+          disabled={props.startPage + 10 > props.lastPage}
+          isActive={props.startPage + 10 > props.lastPage}
         >
           다음
         </s.NextButton>

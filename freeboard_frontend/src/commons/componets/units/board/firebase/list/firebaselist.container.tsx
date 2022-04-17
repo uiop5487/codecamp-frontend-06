@@ -3,8 +3,6 @@ import {
   getFirestore,
   getDocs,
   DocumentData,
-  deleteDoc,
-  doc,
 } from "firebase/firestore/lite";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

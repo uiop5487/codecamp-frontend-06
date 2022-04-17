@@ -10,7 +10,7 @@ const CommentMapPage = (props: any) => {
   const [editContents, setEditContents] = useState("");
   const [editValue, setEditValue] = useState(0);
   const [editPassword, setEditPassword] = useState("");
-  const [editWriter, setEditWriter] = useState("");
+  const [, setEditWriter] = useState("");
   const [isId, setIsId] = useState("");
   const onClickDisplay = (event: MouseEvent<HTMLElement>) => {
     setIsActice(true);

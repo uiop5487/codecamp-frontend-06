@@ -1,10 +1,4 @@
-import {
-  collection,
-  getFirestore,
-  addDoc,
-  getDocs,
-  DocumentData,
-} from "firebase/firestore/lite";
+import { collection, getFirestore, addDoc } from "firebase/firestore/lite";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { firebaseapp } from "../../../../../../../pages/_app";

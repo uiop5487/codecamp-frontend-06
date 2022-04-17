@@ -2,7 +2,6 @@ import ReactPlayer from "react-player";
 import { IBoardWriteUIProps } from "./writedetail-typescript";
 import { Tooltip } from "antd";
 import * as s from "./writedetail.styles";
-import { PresetColorTypes } from "antd/lib/_util/colors";
 
 export default function DetailPageUI(props: IBoardWriteUIProps) {
   return (

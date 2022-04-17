@@ -1,6 +1,5 @@
 import * as s from "./comment.styles";
 import { ICommentUI } from "./comment.types";
-import { Modal } from "antd";
 import CommentMapPage from "./comment.map";
 import InfiniteScroll from "react-infinite-scroller";
 

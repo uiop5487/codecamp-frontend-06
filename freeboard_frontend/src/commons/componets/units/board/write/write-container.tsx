@@ -1,12 +1,11 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
-import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./write-mutation";
+import { CREATE_BOARD, UPDATE_BOARD } from "./write-mutation";
 import WriteNewPageUI from "./write-presenter";
 import { Modal } from "antd";
 import { IMyBoardAdress, IMyVariables, IWriteNew } from "./write-typescript";
 import {
-  IBoard,
   IMutation,
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
@@ -26,7 +25,7 @@ export default function WriteNewPage(props: IWriteNew) {
     IMutationUpdateBoardArgs
   >(UPDATE_BOARD);
   const [isActive, setIsActive] = useState(false);
-  //여기는 자바스크립트
+  // 여기는 자바스크립트
 
   const [fetchBoardInput, setFetchBoardInput] = useState({
     writer: "",

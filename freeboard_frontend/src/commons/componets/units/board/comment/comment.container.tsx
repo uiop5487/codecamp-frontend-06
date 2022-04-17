@@ -10,7 +10,6 @@ import {
   CREATE_BOARD_COMMENT,
   DELETE_BOARD_COMMENT,
   FETCH_BOARD_COMMENTS,
-  UPDATE_BOARD_COMMENT,
 } from "./comment.query";
 import { Modal } from "antd";
 
@@ -21,7 +20,7 @@ const Comment = () => {
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [contents, setContents] = useState("");
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit] = useState(false);
   const [dPassword, setDPassword] = useState("");
   const router = useRouter();
   const [value, setValue] = useState(0);

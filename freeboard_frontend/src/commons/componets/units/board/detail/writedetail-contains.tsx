@@ -1,4 +1,4 @@
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useQuery, useMutation } from "@apollo/client";
 import { Modal } from "antd";
 import {
@@ -7,7 +7,6 @@ import {
   LIKE_BOARD,
   DISLIKE_BOARD,
 } from "./writedetail.queries";
-import { useState } from "react";
 import DetailPageUI from "./writedetail-presenter";
 import {
   IMutation,

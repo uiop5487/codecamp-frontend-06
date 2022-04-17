@@ -6,7 +6,7 @@ const Pagination = (props: IPaginationProps) => {
   const [startPage, setStartPage] = useState(1);
   const lastPage = Math.ceil(props.countdata?.fetchBoardsCount / 10);
   const [current, setCurrent] = useState(1);
-  const [isActive, setIsActive] = useState(false);
+  const [isActive] = useState(false);
 
   const onClickPage = (event: any) => {
     const current = Number(event.target.id);

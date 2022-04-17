@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { Istyle } from "../../units/board/write/write-typescript";
 
 export const UploadBtn = styled.button`
   box-sizing: border-box;

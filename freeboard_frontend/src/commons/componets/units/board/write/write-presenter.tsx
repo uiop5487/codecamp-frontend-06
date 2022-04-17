@@ -1,7 +1,6 @@
-import { ChangeEventHandler } from "react";
 import * as s from "./write-styles";
 import { IWriteNewUI } from "./write-typescript";
-import { Modal, Button } from "antd";
+import { Modal } from "antd";
 import DaumPostcode from "react-daum-postcode";
 import UploadContainer from "../../../commons/upload/upload.container";
 

@@ -33,8 +33,8 @@ export interface IWriteNewUI {
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => void;
   onChangeAddressValue: (event: ChangeEvent<HTMLInputElement>) => void;
-  addressInput: IMyBoardAdress;
-  blankError?: IError;
+  // addressInput: IMyBoardAdress;
+  // blankError?: IError;
   imageUrls: any;
   onChangeFileUrl: (imageUrl: any, index: number) => void;
 }
