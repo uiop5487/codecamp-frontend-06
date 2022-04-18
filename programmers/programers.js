@@ -1205,3 +1205,46 @@ function solution(n) {
   }, sum);
   return answer;
 }
+
+// 숫자 문자열과 영단어
+
+const numbers = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+];
+
+// rplaceAll을 안쓰고 같은 기능
+function solution(s) {
+  for (let i = 0; i < numbers.length; i++) {
+    while (s.includes(numbers[i])) {
+      s = s.replace(numbers[i], i);
+    }
+  }
+  return Number(s);
+}
+
+// 문자 기준으로 자르고 인덱스를 넣어줌
+function solution(s) {
+  numbers.forEach((str, i) => {
+    s = s.split(str).join(i);
+  });
+  return Number(s);
+}
+
+// 정규표현식 사용
+function solution(s) {
+  for (let i = 0; i < numbers.length; i++) {
+    // 정규표현식에는 변수가 들어갈수 없기 떄문에 아래와 같이 변수가 들어갈 수 있게 해주는 new RegExp를 사용
+    const regExp = new RegExp(numbers[i], "g");
+    s = s.replace(regExp, i);
+  }
+  return Number(s);
+}
