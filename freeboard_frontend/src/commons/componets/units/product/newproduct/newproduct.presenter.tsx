@@ -19,7 +19,7 @@ export default function NewProductPresenter(props: any) {
             type="text"
             {...props.register("name")}
             placeholder="상품명을 작성해주세요."
-            defaultValue={props.data?.fetchUseditem.name}
+            defaultValue={props.data?.fetchUseditem?.name}
           />
           <s.Error>{props.formState.errors.name?.message}</s.Error>
         </s.InputWarpper>
@@ -36,10 +36,9 @@ export default function NewProductPresenter(props: any) {
         <s.ContentsWarpper>
           <s.InputText>상품설명</s.InputText>
           <s.Contents
-            {...props.register("contents")}
-            placeholder="상품을 설명해주세요."
-            defaultValue={props.data?.fetchUseditem.contents}
-          />
+            onChange={props.onChangeContents}
+            defaultValue={props.contents || ""}
+          ></s.Contents>
           <s.Error>{props.formState.errors.contents?.message}</s.Error>
         </s.ContentsWarpper>
         <s.InputWarpper>

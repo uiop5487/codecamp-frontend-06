@@ -123,7 +123,7 @@ export default function WriteNewPage(props: IWriteNew) {
   };
 
   const editBtn = async () => {
-    // if (!fetchBoardInput.title || !fetchBoardInput.contents) {
+    // if (!fetchBoardInput.title && !fetchBoardInput.contents) {
     //   Modal.error({
     //     content: "변경이 안됬습니다.",
     //     onOk() {

@@ -15,15 +15,16 @@ const schema = yup.object({
 });
 
 export default function NewProductContainer(props: any) {
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState, setValue, trigger } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-  const [createUseditem] = useMutation(CREATE_USED_ITEM);
-  const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
-  const [imageUrls, setImageUrls] = useState(["", ""]);
 
   const router = useRouter();
+  const [createUseditem] = useMutation(CREATE_USED_ITEM);
+  const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
+  const [contents, setContents] = useState("");
+  const [imageUrls, setImageUrls] = useState(["", ""]);
 
   const onClickSubmit = async (data) => {
     console.log(data);
@@ -45,42 +46,29 @@ export default function NewProductContainer(props: any) {
     }
   };
 
+  const onChangeContents = (value) => {
+    setValue("contents", value);
+
+    trigger("contents");
+  };
+
   const onClickEdit = async (data) => {
-    // const myVriables = {};
-
-    // if (
-    //   data.useditemAddress.address !== "" ||
-    //   data.useditemAddress.addressDetial
-    // ) {
-    //   const useditemAddress = {};
-    //   useditemAddress.address = data.useditemAddress.address;
-    //   useditemAddress.addressDetail = data.useditemAddress.addressDetail;
-    //   myVriables.useditemAddress = useditemAddress;
-    // }
-
-    // if (data.name !== "") {
-    //   myVriables.name = data.name;
-    // } else {
-    //   console.log(props.data.fetchUseditem);
-    //   register.name = props.data.fetchUseditem.name;
-    // }
-    // if (data.price !== "") {
-    //   myVriables.price = Number(data.price);
-    // }
-    // if (data.contents !== "") {
-    //   myVriables.contents = data.contents;
-    // }
-    // if (data.remarks !== "") {
-    //   myVriables.remarks = data.remarks;
-    // }
-    // console.log(register);
-
+    if (
+      data.name === props.data?.fetchUseditem?.name &&
+      data.contents === props.data?.fetchUseditem?.contents &&
+      Number(data.price) === props.data?.fetchUseditem?.price &&
+      data.remarks === props.data?.fetchUseditem?.remarks
+    ) {
+      alert("수정된 내용이 없습니다.");
+      return;
+    }
     try {
       const result = await updateUseditem({
         variables: {
           useditemId: router.query.productId,
           updateUseditemInput: {
             ...data,
+            price: Number(data.price),
             images: imageUrls,
           },
         },
@@ -105,6 +93,23 @@ export default function NewProductContainer(props: any) {
     }
   }, [props.data]);
 
+  useEffect(() => {
+    console.log(props.data);
+    setValue("name", props.data?.fetchUseditem?.name);
+    setValue("remarks", props.data?.fetchUseditem?.remarks);
+    setValue("contents", props.data?.fetchUseditem?.contents);
+    setValue("price", props.data?.fetchUseditem?.price);
+    setValue("tags", props.data?.fetchUseditem?.tags);
+    setContents(
+      props.data?.fetchUseditem?.contents.replace(
+        /<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/gi,
+        ""
+      )
+    );
+  }, [props.data]);
+
+  console.log(contents);
+
   return (
     <NewProductPresenter
       register={register}
@@ -116,6 +121,8 @@ export default function NewProductContainer(props: any) {
       onClickEdit={onClickEdit}
       data={props.data}
       isEdit={props.isEdit}
+      onChangeContents={onChangeContents}
+      contents={contents}
     />
   );
 }

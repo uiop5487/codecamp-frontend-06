@@ -1005,7 +1005,6 @@ function solution(participant, completion) {
 }
 
 // slice 사용 효율성 때문에 오답
-
 function solution(participant, completion) {
   for (let i = 0; i < completion.length; i++) {
     if (participant.includes(completion[i])) {
@@ -1247,4 +1246,256 @@ function solution(s) {
     s = s.replace(regExp, i);
   }
   return Number(s);
+}
+
+// 체육복 빌리기
+
+function solution(n, lost, reserve) {
+  const losted = [...lost]; // lost 데이터가 필터 되기 이전에 데이터를 저장한다.
+  lost = lost
+    .filter((student) => !reserve.includes(student))
+    .sort((a, b) => a - b);
+  reserve = reserve
+    .filter((student) => !losted.includes(student))
+    .sort((a, b) => a - b);
+
+  let answer = n - lost.length;
+
+  for (let i = 0; i < lost.length; i++) {
+    if (reserve.includes(lost[i] - 1)) {
+      reserve.splice(reserve.indexOf(lost[i] - 1), 1);
+      answer++;
+    } else if (reserve.includes(lost[i] + 1)) {
+      reserve.splice(reserve.indexOf(lost[i] + 1), 1);
+      answer++;
+    }
+  }
+  return answer;
+}
+
+// reduce 사용
+function solution(n, lost, reserve) {
+  const losted = [...lost]; // lost 데이터가 필터 되기 이전에 데이터를 저장한다.
+  lost = lost
+    .filter((student) => !reserve.includes(student))
+    .sort((a, b) => a - b);
+  reserve = reserve
+    .filter((student) => !losted.includes(student))
+    .sort((a, b) => a - b);
+
+  let answer = n - lost.length;
+
+  return lost.reduce((acc, cur) => {
+    // 앞에 학생이 체육복을 가지고 있는지
+    const prev = reserve.indexOf(cur - 1);
+    // 뒤에 학생이 체육복을 가지고 있는지
+    const next = reserve.indexOf(cur + 1);
+
+    if (prev !== -1) {
+      // 앞에 있는 학생이 여벌 체육복이 있다면
+      reserve.splice(prev, 1);
+      acc++;
+    } else if (next !== -1) {
+      reserve.splice(next, 1);
+      acc++;
+    }
+    return acc;
+  }, answer);
+}
+
+// 시저 암호
+
+const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+function solution(s, n) {
+  let answer = "";
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === " ") {
+      answer += s[i]; // " "
+    } else {
+      let idx = alphabet.indexOf(s[i]);
+      const word =
+        idx > 25
+          ? alphabet.substring(26) // 대문자에 해당하는 문자열을 자름
+          : alphabet.substring(0, 26); // 소문자에 해당하는 문자열을 자름
+      idx = word.indexOf(s[i]) + n;
+
+      if (word[idx] === undefined) {
+        idx -= 26;
+      }
+      answer += word[idx];
+    }
+  }
+  return answer;
+}
+
+// 대, 소문자를 자르고 시작
+const lower = "abcdefghijklmnopqrstuvwxyz"; // 소문자
+const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // 대문자
+
+function solution(s, n) {
+  let answer = "";
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === " ") {
+      answer += s[i]; // " "
+    } else {
+      const word = lower.includes(s[i]) ? lower : upper;
+      let idx = word.indexOf(s[i]) + n;
+
+      if (word[idx] === undefined) {
+        idx -= 26;
+      }
+      answer += word[idx];
+    }
+  }
+  return answer;
+}
+
+// reduce 사용
+function solution(s, n) {
+  let answer = s.split("").reduce((acc, cur) => {
+    const word = lower.includes(cur) ? lower : upper;
+    let idx = word.indexOf(cur) + n;
+
+    // if(word[idx] === undefined) {
+    if (idx >= 26) {
+      idx -= 26;
+    }
+    return acc + (cur === " " ? " " : word[idx]);
+  }, "");
+  return answer;
+}
+
+// 아스키 코드 사용
+function solution(s, n) {
+  let answer = "";
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === " ") {
+      answer += " ";
+      continue;
+    }
+
+    let idx = s[i].charCodeAt() + n;
+    if (idx > 122 || (idx > 90 && idx - n < 97)) {
+      // 소문자 z(122)를 넘어가거나
+      // 대문자 Z(90)를 넘어가면서 소문자를 넘어가지 않을 때
+      idx -= 26;
+    }
+    answer += String.fromCharCode(idx);
+  }
+  return answer;
+}
+
+// 실패율
+
+// 객체에 담아서 저장
+function solution(N, stages) {
+  // 모든 스테이지의 번호를 오름차순으로 정렬
+  stages.sort((a, b) => a - b);
+  const infos = [];
+  for (let i = 1; i <= N; i++) {
+    infos.push({
+      stage: i, // 현재 스테이지 번호
+      users: 0, // 해당 스테이지를 클리어하지 못한 유저 수
+      fail: 0, // 스테이지의 실패율
+    });
+  }
+
+  let allUsers = stages.length;
+  for (let i = 0; i < stages.length; i++) {
+    if (infos[stages[i] - 1]) {
+      infos[stages[i] - 1].users++;
+
+      // 현재 스테이지의 번호와 다음 스테이지의 번호가 동일하지 않을 때
+      // 현재 스테이지의 유저의 합산이 완료되는 시점
+      if (stages[i] !== stages[i + 1]) {
+        const fail = infos[stages[i] - 1].users / allUsers;
+        allUsers -= infos[stages[i] - 1].users;
+
+        infos[stages[i] - 1].fail = fail;
+      }
+    }
+  }
+  return infos
+    .sort((a, b) => {
+      return b.fail - a.fail;
+    })
+    .map((el) => {
+      return el.stage;
+    });
+}
+
+// 새로운 배열을 만들어서 리턴
+function solution(N, stages) {
+  // 모든 스테이지의 번호를 오름차순으로 정렬
+  stages.sort((a, b) => a - b);
+
+  let allUsers = stages.length;
+
+  const answer = new Array(N)
+    .fill(1)
+    .map((num, i) => {
+      const stage = num + i;
+
+      const arr = stages.slice(
+        stages.indexOf(stage),
+        stages.lastIndexOf(stage) + 1
+      );
+
+      const fail = arr.length / allUsers;
+      allUsers -= arr.length;
+
+      return { stage, fail };
+    })
+    .sort((a, b) => {
+      return b.fail - a.fail;
+    })
+    .map((el) => el.stage);
+  return answer;
+}
+
+// 예산
+
+// 배열을 사용
+function solution(d, budget) {
+  const answer = [];
+
+  // 부서가 신청한 금액을 오름차순 형태로 정렬
+  d.sort((a, b) => a - b);
+
+  // 부서가 신청한 금액을 오름차순 형태로 정렬
+  let sum = 0;
+  for (let i = 0; i < d.length; i++) {
+    sum += d[i];
+    if (sum <= budget) {
+      answer.push(d[i]);
+    }
+  }
+  return answer.length;
+}
+
+// while을 사용
+function solution(d, budget) {
+  d.sort((a, b) => a - b);
+
+  let answer = 0;
+  while (budget - d[answer] >= 0) {
+    budget -= d[answer];
+    answer++;
+  }
+  return answer;
+}
+
+// filter를 사용
+function solution(d, budget) {
+  return d
+    .sort((a, b) => a - b)
+    .filter((money) => {
+      // 총 예산에서 지원금을 삭감
+      budget -= money;
+      return budget >= 0;
+    }).length;
 }

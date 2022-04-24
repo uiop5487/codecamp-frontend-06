@@ -92,10 +92,22 @@ export const Price = styled.div`
   font-size: 36px;
 `;
 
+export const HeartIconWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 13px;
+`;
+
 export const HeartIcon = styled.img`
   width: 30px;
   height: 27.5px;
-  margin-right: 13px;
+`;
+
+export const HeartCount = styled.div`
+  margin-top: 5px;
+  font-weight: 500;
+  font-size: 18px;
 `;
 
 export const CrouselWrapper = styled.div`
@@ -110,7 +122,7 @@ export const CrouselWrapper = styled.div`
 
 export const SliderCarousel = styled(Slider)`
   width: 384px;
-  height: 304px;
+  height: 480px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -148,12 +160,14 @@ export const Carousel = styled.div`
   align-items: center;
 `;
 
+export const CarouselImgWrapper = styled.div``;
+
 export const CarouselImg = styled.img`
   width: 296px;
   height: 296px;
 `;
 
-export const ImgWrapper = styled.div`
+export const ImgWrapper = styled.a`
   width: 384px;
   display: flex;
   flex-direction: row;
@@ -163,8 +177,13 @@ export const ImgWrapper = styled.div`
 export const ImgBox = styled.img`
   width: 78px;
   height: 78px;
-  margin-right: 24px;
-  background-color: red;
+  border: 1px solid black;
+`;
+
+export const ImgBoxX = styled.div`
+  width: 78px;
+  height: 78px;
+  border: 0px;
 `;
 
 export const ContentsWrapper = styled.div`
@@ -208,15 +227,23 @@ export const Map = styled.div`
 
 export const ButtonWrapper = styled.div`
   padding-top: 84px;
-  padding-bottom: 80px;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
 `;
 
-export const ButtonCenter = styled.div`
-  width: 24px;
+export const ButtonCenter = styled.button`
+  width: 179px;
+  height: 52px;
+  font-weight: 500;
+  font-size: 16px;
+  margin: 0px 10px 0px 10px;
+  cursor: pointer;
+  :hover {
+    background-color: darkred;
+    color: white;
+  }
 `;
 
 export const Button = styled.button`

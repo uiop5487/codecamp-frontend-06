@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Modal } from "antd";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -81,4 +82,54 @@ export const UserIcon = styled.img`
   width: 35px;
   height: 35px;
   cursor: pointer;
+`;
+
+export const TrueWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const PaymentButton = styled.button`
+  cursor: pointer;
+  :hover {
+    background-color: darkred;
+    color: white;
+  }
+`;
+
+export const CutomModal = styled(Modal)`
+  width: 500px;
+  height: 500px;
+`;
+
+export const PaymentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+export const PaymentTextWrapper = styled.div`
+  padding-bottom: 30px;
+`;
+
+export const PaymentText = styled.div`
+  font-weight: 700;
+  font-size: 20px;
+`;
+
+export const PaymentSelection = styled.select`
+  width: 384px;
+  height: 50px;
+  font-size: 16px;
+  padding-left: 10px;
+`;
+
+export const PaymentOption = styled.option`
+  font-weight: 700;
+  font-size: 16px;
+`;
+
+export const PointText = styled.div`
+  padding-right: 15px;
 `;

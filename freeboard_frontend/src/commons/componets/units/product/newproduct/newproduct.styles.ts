@@ -1,4 +1,8 @@
 import styled from "@emotion/styled";
+import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export const BackGround = styled.div`
   padding-top: 80px;
@@ -63,12 +67,11 @@ export const ContentsWarpper = styled.div`
   padding-bottom: 40px;
 `;
 
-export const Contents = styled.textarea`
+export const Contents = styled(ReactQuill)`
   width: 996px;
   height: 320px;
-  padding: 14px 0px 14px 16px;
   font-size: 16px;
-  border: 1px solid #bdbdbd;
+  padding-bottom: 40px;
 `;
 
 export const LocationWarpper = styled.div`
