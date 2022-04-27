@@ -79,6 +79,10 @@ const HeaderPage = () => {
     router.push(`/logins/signup`);
   };
 
+  const onClickMoveBasket = () => {
+    router.push(`/mypage/basket`);
+  };
+
   const onClickMoveMyPage = () => {
     router.push(`/mypage`);
   };
@@ -132,6 +136,11 @@ const HeaderPage = () => {
           <s.PointText>
             <div>{data?.fetchUserLoggedIn.userPoint.amount}P</div>
           </s.PointText>
+          <div>
+            <s.BasketButton onClick={onClickMoveBasket}>
+              장바구니
+            </s.BasketButton>
+          </div>
           <div>
             <s.PaymentButton onClick={showModal}>충전하기</s.PaymentButton>
           </div>

@@ -3,6 +3,7 @@ import * as s from "./detail.styles";
 import { useRouter } from "next/router";
 import Dompurify from "dompurify";
 import ProductCommentWriteContainer from "../productcomment/productcommentwrite/productcommentwrite.container";
+import MapDetail from "../map/detailproductmap";
 
 export default function ProductDetailPresenter(props: any) {
   const router = useRouter();
@@ -53,7 +54,10 @@ export default function ProductDetailPresenter(props: any) {
           <s.Price>{props.data?.fetchUseditem.price}원</s.Price>
         </s.RemarkWrapper>
         <s.HeartIconWrapper>
-          <s.HeartIcon src="/img/hearticon.png"></s.HeartIcon>
+          <s.HeartIcon
+            src="/img/hearticon.png"
+            onClick={props.onClickPickedCount(props.data?.fetchUseditem)}
+          ></s.HeartIcon>
           <s.HeartCount>{props.data?.fetchUseditem.pickedCount}</s.HeartCount>
         </s.HeartIconWrapper>
       </s.HeaderWrapper2>
@@ -88,21 +92,32 @@ export default function ProductDetailPresenter(props: any) {
         <s.Tag>{props.data?.fetchUseditem.tags[2]}</s.Tag>
       </s.TagWrapper>
       <s.MapWrapper>
-        <s.Map></s.Map>
+        <MapDetail data={props.data} />
       </s.MapWrapper>
-      <s.ButtonWrapper>
-        <s.Button onClick={props.onClickMoveToPage(`/products`)}>
-          목록으로
-        </s.Button>
-        <s.ButtonCenter
-          onClick={props.onClickMoveToPage(
-            `/products/new/${router.query.productId}/edit`
-          )}
-        >
-          수정하기
-        </s.ButtonCenter>
-        <s.Button onClick={props.onClickDelete}>삭제하기</s.Button>
-      </s.ButtonWrapper>
+      {props.data?.fetchUseditem?.seller?.name ===
+      props.userData?.fetchUserLoggedIn?.name ? (
+        <s.ButtonWrapper>
+          <s.Button onClick={props.onClickMoveToPage(`/products`)}>
+            목록으로
+          </s.Button>
+          <s.ButtonCenter
+            onClick={props.onClickMoveToPage(
+              `/products/new/${router.query.productId}/edit`
+            )}
+          >
+            수정하기
+          </s.ButtonCenter>
+          <s.Button onClick={props.onClickDelete}>삭제하기</s.Button>
+        </s.ButtonWrapper>
+      ) : (
+        <s.ButtonWrapper>
+          <s.Button onClick={props.onClickMoveToPage(`/products`)}>
+            목록으로
+          </s.Button>
+          <s.ButtonCenter onClick={props.onClcikBuy}>구매하기</s.ButtonCenter>
+        </s.ButtonWrapper>
+      )}
+
       <ProductCommentWriteContainer />
     </s.BackGround>
   );

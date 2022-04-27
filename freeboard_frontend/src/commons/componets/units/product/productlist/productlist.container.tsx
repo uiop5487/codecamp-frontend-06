@@ -5,7 +5,12 @@ import ProductListPresenter from "./productlist.presenter";
 import { FETCH_USED_ITEMS } from "./productlist.query";
 export default function ProductListContainer() {
   const router = useRouter();
-  const { data, fetchMore } = useQuery(FETCH_USED_ITEMS);
+  const [isSoldout, setIsSoldout] = useState(false);
+  const { data, fetchMore } = useQuery(FETCH_USED_ITEMS, {
+    variables: {
+      isSoldout: isSoldout,
+    },
+  });
   const [todayData, setTodayDate] = useState([]);
   const [aa, setAa] = useState(false);
   const DATE = new Date().toISOString().slice(0, 10);
@@ -57,6 +62,10 @@ export default function ProductListContainer() {
     });
   };
 
+  const onClickSoldOut = () => {
+    setIsSoldout((prev) => !prev);
+  };
+
   return (
     <ProductListPresenter
       onClickMoveProductNew={onClickMoveProductNew}
@@ -65,6 +74,8 @@ export default function ProductListContainer() {
       onClickMoveDetail={onClickMoveDetail}
       todayData={todayData}
       setTodayDate={setTodayDate}
+      onClickSoldOut={onClickSoldOut}
+      isSoldout={isSoldout}
     />
   );
 }

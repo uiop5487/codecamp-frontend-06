@@ -2,7 +2,13 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useMoveToPage } from "../../../commons/hooks/useMoveToPage";
 import ProductDetailPresenter from "./detail.presenter";
-import { DELETE_USED_ITEM, FETCH_USED_ITEM } from "./detail.qurey";
+import {
+  CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
+  DELETE_USED_ITEM,
+  FETCH_USED_ITEM,
+  FETCH_USER_LOGGED_IN,
+  TOGGLE_USED_ITEM_PICK,
+} from "./detail.qurey";
 
 export default function ProductDetailContainer() {
   const router = useRouter();
@@ -11,6 +17,11 @@ export default function ProductDetailContainer() {
   const { data } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.productId },
   });
+  const [createPointTransactionOfBuyingAndSelling] = useMutation(
+    CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
+  );
+  const { data: userData } = useQuery(FETCH_USER_LOGGED_IN);
+  const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
 
   const onClickEditPage = () => {
     router.push(`/products/new/${router.query.productId}/edit`);
@@ -30,6 +41,50 @@ export default function ProductDetailContainer() {
     }
   };
 
+  const onClickPickedCount = (el: any) => async () => {
+    console.log(router.query.productId);
+    try {
+      await toggleUseditemPick({
+        variables: {
+          useditemId: String(router.query.productId),
+        },
+        refetchQueries: [
+          {
+            query: FETCH_USED_ITEM,
+            variables: { useditemId: String(router.query.productId) },
+          },
+        ],
+      });
+      const basket = JSON.parse(localStorage.getItem(`basket`) || "[]");
+
+      const temp = basket.filter((bel) => bel._id === el._id);
+      if (temp.length) {
+        const temp = basket.filter((bel) => bel._id !== el._id);
+
+        localStorage.setItem(`basket`, JSON.stringify(temp));
+        return;
+      }
+      const { __typename, ...rest } = el;
+      basket.push(rest);
+      localStorage.setItem(`basket`, JSON.stringify(basket));
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
+  const onClcikBuy = async () => {
+    try {
+      await createPointTransactionOfBuyingAndSelling({
+        variables: {
+          useritemId: router.query.productId,
+        },
+      });
+      console.log(data);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   console.log(data);
   return (
     <ProductDetailPresenter
@@ -37,6 +92,9 @@ export default function ProductDetailContainer() {
       onClickEditPage={onClickEditPage}
       onClickMoveToPage={onClickMoveToPage}
       onClickDelete={onClickDelete}
+      onClickPickedCount={onClickPickedCount}
+      userData={userData}
+      onClcikBuy={onClcikBuy}
     />
   );
 }

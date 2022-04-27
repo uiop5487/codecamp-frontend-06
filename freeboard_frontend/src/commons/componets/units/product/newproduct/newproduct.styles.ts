@@ -99,7 +99,7 @@ export const GpsWrapper = styled.div`
 `;
 
 export const LatLng = styled.div`
-  width: 108px;
+  width: 158px;
   height: 52px;
   border: 1px solid #bdbdbd;
   text-align: center;

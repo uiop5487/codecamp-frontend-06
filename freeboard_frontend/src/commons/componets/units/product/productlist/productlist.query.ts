@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const FETCH_USED_ITEMS = gql`
-  query fetchUseditems($page: Int) {
-    fetchUseditems(page: $page) {
+  query fetchUseditems($page: Int, $isSoldout: Boolean) {
+    fetchUseditems(page: $page, isSoldout: $isSoldout) {
       _id
       name
       remarks
@@ -10,6 +10,7 @@ export const FETCH_USED_ITEMS = gql`
       price
       tags
       images
+      soldAt
       useditemAddress {
         address
         addressDetail

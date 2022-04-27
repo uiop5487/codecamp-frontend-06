@@ -7,8 +7,18 @@ export default function ProductListPresenter(props: any) {
     <s.Wrapper>
       <s.HeaderWrapper>
         <s.HeaderTextWrapper>
-          <s.HeaderText>판매중상품</s.HeaderText>
-          <s.HeaderText2>판매된상품</s.HeaderText2>
+          <s.HeaderText
+            isSoldout={props.isSoldout}
+            onClick={props.onClickSoldOut}
+          >
+            판매중상품
+          </s.HeaderText>
+          <s.HeaderText2
+            isSoldout={props.isSoldout}
+            onClick={props.onClickSoldOut}
+          >
+            판매된상품
+          </s.HeaderText2>
         </s.HeaderTextWrapper>
         <s.SearchWrapper>
           <s.SearchInput type="text" />
@@ -59,10 +69,13 @@ export default function ProductListPresenter(props: any) {
                   </s.UserIconWrapper>
                 </s.UsedItemTextWrapper>
               </s.UsedIemtLeftWrapper>
-              <s.PriceWrapper>
-                <s.Dicon src="/img/priceicon.png"></s.Dicon>
-                <s.Price>{el.price}</s.Price>
-              </s.PriceWrapper>
+              <s.RightWrapper>
+                <s.PriceWrapper>
+                  <s.Dicon src="/img/priceicon.png"></s.Dicon>
+                  <s.Price>{el.price}</s.Price>
+                </s.PriceWrapper>
+                <s.PriceBootom></s.PriceBootom>
+              </s.RightWrapper>
             </s.UsedItemWrapper>
           ))}
         </InfiniteScroll>

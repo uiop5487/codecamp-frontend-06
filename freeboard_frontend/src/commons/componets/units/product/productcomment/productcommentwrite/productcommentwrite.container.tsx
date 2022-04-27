@@ -13,6 +13,7 @@ export default function ProductCommentWriteContainer() {
   });
 
   const onClickSubmit = async (data) => {
+    if (!data.contents) return;
     try {
       const result = await createUseditemQuestion({
         variables: {

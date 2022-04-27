@@ -147,6 +147,33 @@ export const SliderCarousel = styled(Slider)`
   .slick-track:before {
     width: 384px;
   }
+  .slick-dots {
+    position: absolute;
+    bottom: -25px;
+    right: 20px;
+
+    display: block;
+
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+
+    text-align: center;
+  }
+  .slick-dots li {
+    position: relative;
+
+    display: inline-block;
+
+    width: 20px;
+    height: 20px;
+    margin: 35px;
+    padding: 0;
+
+    cursor: pointer;
+  }
 `;
 
 export const Carousel = styled.div`

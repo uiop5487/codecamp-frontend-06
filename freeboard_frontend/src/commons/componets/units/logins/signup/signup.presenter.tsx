@@ -13,31 +13,23 @@ const SignupPresenter = (props: ISignupPresenter) => {
       <s.InputWrapper>
         <div>
           <s.InputTitle>이메일</s.InputTitle>
-          <s.Input id="email" type="text" onChange={props.onChangeValues} />
-          <s.Error id="email">{props.error.email}</s.Error>
+          <s.Input type="text" {...props.register("email")} />
+          <s.Error>{props.formState.errors.email?.message}</s.Error>
         </div>
         <div>
           <s.InputTitle>이름</s.InputTitle>
-          <s.Input id="name" type="text" onChange={props.onChangeValues} />
-          <s.Error id="name">{props.error.name}</s.Error>
+          <s.Input type="text" {...props.register("name")} />
+          <s.Error>{props.formState.errors.email?.name}</s.Error>
         </div>
         <div>
           <s.InputTitle>비밀번호</s.InputTitle>
-          <s.Input
-            id="password"
-            type="password"
-            onChange={props.onChangeValues}
-          />
-          <s.Error id="password">{props.error.password}</s.Error>
+          <s.Input type="password" {...props.register("password")} />
+          <s.Error>{props.formState.errors.email?.password}</s.Error>
         </div>
         <div>
           <s.InputTitle>비밀번호 확인</s.InputTitle>
-          <s.Input
-            id="passwordcheck"
-            type="text"
-            onChange={props.onChangeValues}
-          />
-          <s.Error id="passwordcheck">{props.error.passwordcheck}</s.Error>
+          <s.Input type="password" {...props.register("passwordcheck")} />
+          <s.Error>{props.formState.errors.email?.passwordcheck}</s.Error>
         </div>
       </s.InputWrapper>
       <s.Button onClick={props.onClickSignup}>회원가입</s.Button>

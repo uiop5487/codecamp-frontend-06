@@ -26,6 +26,7 @@ export default function ProductEditPage() {
   const { data } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.productId },
   });
+  console.log(data?.fetchUseditem?.contents);
 
   return <NewProductContainer isEdit={true} data={data} />;
 }

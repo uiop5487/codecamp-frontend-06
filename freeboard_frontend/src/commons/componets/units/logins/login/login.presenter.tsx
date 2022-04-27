@@ -1,9 +1,9 @@
 import * as s from "./login.styles";
-import { ILoginPresenter } from "./login.types";
+// import { ILoginPresenter } from "./login.types";
 
-const LoginPresenter = (props: ILoginPresenter) => {
+const LoginPresenter = (props: any) => {
   return (
-    <s.Wrapper>
+    <s.Wrapper onSubmit={props.handleSubmit(props.onClickLogin)}>
       <s.MoveBoardWrapper>
         <s.MoveBordListButton onClick={props.onClickMoveList}>
           나가기
@@ -15,23 +15,19 @@ const LoginPresenter = (props: ILoginPresenter) => {
           <s.Title>만리장성</s.Title>
         </s.TitleWrapper>
         <s.InputWrapper>
-          <s.Input id="email" type="text" onChange={props.onChangeValues} />
-          <s.Error>{props.error.email}</s.Error>
+          <s.Input type="text" {...props.register("email")} />
+          <s.Error>{props.formState.errors.email?.message}</s.Error>
         </s.InputWrapper>
         <s.InputWrapper2>
-          <s.Input
-            id="password"
-            type="password"
-            onChange={props.onChangeValues}
-          />
-          <s.Error>{props.error.password}</s.Error>
+          <s.Input type="password" {...props.register("password")} />
+          <s.Error>{props.formState.errors.password?.message}</s.Error>
         </s.InputWrapper2>
         <s.CheckButtonWrapper>
           <s.CheckButton>체크버튼</s.CheckButton>
           <s.CheckButtonText>로그인 상태 유지</s.CheckButtonText>
         </s.CheckButtonWrapper>
         <s.ButtonWrapper>
-          <s.Button onClick={props.onClickLogin}>로그인하기</s.Button>
+          <s.Button type="submit">로그인하기</s.Button>
         </s.ButtonWrapper>
         <s.FooterWrapper>
           <s.FooterText>이메일 찾기</s.FooterText>

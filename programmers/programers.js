@@ -1499,3 +1499,122 @@ function solution(d, budget) {
       return budget >= 0;
     }).length;
 }
+
+// 크레인 인형뽑기
+
+function solution(board, moves) {
+  let answer = 0;
+  const bucket = [];
+  // 1. 크레인이 이동하는 위치값을 구하는 반복문
+  for (let i = 0; i < moves.length; i++) {
+    // 2. 크레인이 이동해서 뽑을수 있는 인형의 위치값
+    for (let l = 0; l < board.length; l++) {
+      const doll = board[l][moves[i] - 1];
+      if (doll !== 0) {
+        // 방금 뽑은 인형의 위치를 빈칸으로 만들어줌
+        board[l][moves[i] - 1] = 0;
+
+        // 바구니에 넣으려고 하는 인형이 바구니의 마지막 데이터와 동일한지
+        if (doll === bucket[bucket.length - 1]) {
+          answer += 2;
+          bucket.pop();
+          break;
+        }
+        bucket.push(doll);
+        break;
+      }
+    }
+  }
+  return answer;
+}
+
+// forEach 메서드
+function solution(board, moves) {
+  let answer = 0;
+  const bucket = [];
+
+  moves.forEach((move) => {
+    let stop = false;
+
+    board.forEach((location) => {
+      const doll = location[move - 1];
+      if (stop === false) {
+        if (doll !== 0) {
+          location[move - 1] = 0;
+
+          if (doll === bucket[bucket.length - 1]) {
+            answer += 2;
+            bucket.pop();
+          } else {
+            bucket.push(doll);
+          }
+
+          stop = true;
+        }
+      }
+    });
+  });
+  // console.log(bucket)
+  return answer;
+}
+
+// 3진법 구하기
+
+function solution(n) {
+  return parseInt(n.toString(3).split("").reverse().join(""), 3);
+}
+
+function solution(n) {
+  n = n.toString(3);
+  let answer = "";
+  for (let i = n.length - 1; i >= 0; i--) {
+    answer += n[i];
+  }
+  return parseInt(answer, 3);
+}
+
+// 이진 변환 반복하기
+
+function solution(s) {
+  let count = 0; // "1"이 나올때까지 시도한 횟수
+  let remove = 0; // "0"을 제거한 총 횟수
+
+  while (s !== "1") {
+    count++;
+
+    let temp = "";
+    for (let i = 0; i < s.length; i++) {
+      if (s[i] === "0") {
+        remove++;
+        continue;
+      }
+      temp += s[i];
+    }
+    const num = temp.length;
+    s = num.toString(2);
+  }
+  return [count, remove];
+}
+
+// 재귀함수 사용
+
+function solution(s) {
+  let [count, remove] = [0, 0];
+
+  function recursion() {
+    if (s === "1") {
+      return [count, remove];
+    }
+    count++;
+
+    // "0" 제거하고, 숫자 카운트
+    remove += s.split("").filter((el) => el === "0").length;
+    // "1"만 남긴다
+    s = s.split("").filter((el) => el === "1").length;
+    s = s.toString(2);
+
+    return recursion();
+  }
+
+  return recursion();
+}

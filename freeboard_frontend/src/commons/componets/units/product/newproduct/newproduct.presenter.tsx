@@ -1,10 +1,12 @@
+import { Modal } from "antd";
+import DaumPostcode from "react-daum-postcode";
+import Map from "../map/newproductmap";
 import UploadContainer from "./newprodcut.upload";
 import * as s from "./newproduct.styles";
 
 export default function NewProductPresenter(props: any) {
   return (
     <s.BackGround>
-      {" "}
       <s.FormWrapper
         onSubmit={props.handleSubmit(
           props.isEdit ? props.onClickEdit : props.onClickSubmit
@@ -37,7 +39,7 @@ export default function NewProductPresenter(props: any) {
           <s.InputText>상품설명</s.InputText>
           <s.Contents
             onChange={props.onChangeContents}
-            defaultValue={props.contents || ""}
+            value={props.getValues("contents") || ""}
           ></s.Contents>
           <s.Error>{props.formState.errors.contents?.message}</s.Error>
         </s.ContentsWarpper>
@@ -77,23 +79,29 @@ export default function NewProductPresenter(props: any) {
         <s.LocationWarpper>
           <s.LocationMapWrapper>
             <s.InputText>거래위치</s.InputText>
-            <s.LocationMap></s.LocationMap>
+            <s.LocationMap>
+              <Map address={props.address} setMapLatlng={props.setMapLatlng} />
+            </s.LocationMap>
           </s.LocationMapWrapper>
           <div>
             <div>
               <s.InputText>GPS</s.InputText>
               <s.GpsWrapper>
-                <s.LatLng>위도</s.LatLng>
+                <s.LatLng>
+                  {props.mapLatlng.lat ? props.mapLatlng.lat : "위도"}
+                </s.LatLng>
                 <s.GpsCenterIcon>icon</s.GpsCenterIcon>
-                <s.LatLng>경도</s.LatLng>
+                <s.LatLng>
+                  {props.mapLatlng.lng ? props.mapLatlng.lng : "경도"}
+                </s.LatLng>
               </s.GpsWrapper>
             </div>
             <div>
               <s.InputText>주소</s.InputText>
               <s.ShortInput
                 type="txet"
-                {...props.register("useditemAddress.address")}
-                defaultValue={props.data?.fetchUseditem.useditemAddress.address}
+                onClick={props.showModal}
+                defaultValue={props.address}
               />
               <s.ShortInput2
                 type="txet"
@@ -103,6 +111,15 @@ export default function NewProductPresenter(props: any) {
                 }
               />
             </div>
+            {props.isModalVisible && (
+              <Modal
+                visible={true}
+                onOk={props.handleOk}
+                onCancel={props.handleOk}
+              >
+                <DaumPostcode onComplete={props.handleComplete} />
+              </Modal>
+            )}
           </div>
         </s.LocationWarpper>
         <s.UploadWrapper>

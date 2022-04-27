@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { Rate } from "antd";
-import { IIsEdit } from "./comment.types";
 
 export const BackGround = styled.div`
   width: 100%;
@@ -97,12 +96,11 @@ export const SumbitButton = styled.button`
 `;
 
 export const FooterWarrper = styled.div`
-  width: 1200px;
-  padding-top: 40px;
+  padding-bottom: 40px;
 `;
 
 export const Footer = styled.div`
-  padding-bottom: 20px;
+  border-bottom: 1px solid #bdbdbd;
 `;
 
 export const Fetch = styled.div`
@@ -146,7 +144,7 @@ export const Contents = styled.div`
 
 export const CreatedAt = styled.div`
   padding: 20px 0px 20px 56px;
-  border-bottom: 1px solid #bdbdbd;
+
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
@@ -160,6 +158,7 @@ export const EditDelteBtnWarrper = styled.div`
 export const EditImg = styled.img`
   width: 18px;
   height: 18px;
+  margin-left: 16px;
   cursor: pointer;
 `;
 
@@ -172,7 +171,7 @@ export const DeleteImg = styled.img`
 
 export const Editbox = styled.div`
   padding-top: 40px;
-  display: ${(props: IIsEdit) => (props.isEdit ? "" : "none")};
+  display: ${(props) => (props.isEdit ? "" : "none")};
 `;
 
 export const StarIcon = styled(Rate)`

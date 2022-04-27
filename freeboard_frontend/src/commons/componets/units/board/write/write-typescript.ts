@@ -13,7 +13,23 @@ export interface IWriteNew {
 
 export interface IInputEvent {}
 
+export interface IError {
+  writer?: string;
+  password?: string;
+  title?: string;
+  contents?: string;
+  youtubeUrl?: string;
+  boardAddress?: object;
+}
+
+export interface IMyBoardAdress {
+  address?: string;
+  addressDetail?: string;
+  zipcode?: string;
+}
+
 export interface IWriteNewUI {
+  addressInput: IMyBoardAdress;
   isEdit: boolean;
   data?: any;
   isActive: boolean;
@@ -27,6 +43,7 @@ export interface IWriteNewUI {
   handleOk: () => void;
   handleCancel: () => void;
   isModalVisible: boolean;
+  blankError: IError;
   handleComplete: any;
   sumbitModal: () => void;
   onChangeValue: (
@@ -45,21 +62,6 @@ export interface IOnchangeValue {
   title: (event: ChangeEvent<HTMLInputElement>) => void;
   contents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   youtubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
-}
-
-export interface IError {
-  writer?: string;
-  password?: string;
-  title?: string;
-  contents?: string;
-  youtubeUrl?: string;
-  boardAddress?: object;
-}
-
-export interface IMyBoardAdress {
-  address?: string;
-  addressDetail?: string;
-  zipcode?: string;
 }
 
 export interface IMyVariables {

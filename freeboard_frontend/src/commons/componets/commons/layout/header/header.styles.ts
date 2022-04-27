@@ -91,6 +91,15 @@ export const TrueWrapper = styled.div`
   align-items: center;
 `;
 
+export const BasketButton = styled.button`
+  cursor: pointer;
+  margin-right: 20px;
+  :hover {
+    background-color: darkred;
+    color: white;
+  }
+`;
+
 export const PaymentButton = styled.button`
   cursor: pointer;
   :hover {
