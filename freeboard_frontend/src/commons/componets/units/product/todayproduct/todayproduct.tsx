@@ -1,6 +1,7 @@
 import * as s from "./todayproduct.styles";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
+import { v4 as uuidv4 } from "uuid";
 
 export default function TodayProdcut(props: any) {
   const [aa, setAa] = useState(false);
@@ -35,7 +36,7 @@ export default function TodayProdcut(props: any) {
           >
             {props.todayData.map((el) => (
               <s.ItemBox
-                key={el._id}
+                key={uuidv4()}
                 id={el._id}
                 // onClick={props.onClickMoveDetail(el)}
               >
@@ -52,7 +53,7 @@ export default function TodayProdcut(props: any) {
                     .reduce(
                       (_, cur) => (
                         <s.ItemImage
-                          key={cur}
+                          key={uuidv4()}
                           src={`https://storage.googleapis.com/${cur}`}
                         ></s.ItemImage>
                       ),
@@ -67,9 +68,9 @@ export default function TodayProdcut(props: any) {
                   <s.ItemPrice>{el.price}</s.ItemPrice>
                 </div>
                 <s.TagsWrapper>
-                  <s.Tags>{el.tags[0]}</s.Tags>
-                  <s.Tags>{el.tags[1]}</s.Tags>
-                  <s.Tags>{el.tags[2]}</s.Tags>
+                  {el.tags?.map((el) => (
+                    <s.Tags key={uuidv4()}>{el}</s.Tags>
+                  ))}
                 </s.TagsWrapper>
               </s.ItemBox>
             ))}

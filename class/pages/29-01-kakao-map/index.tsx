@@ -1,4 +1,4 @@
-import Head from "next/head";
+// import Head from "next/head";
 import { useEffect } from "react";
 
 declare const window: typeof globalThis & {
@@ -21,12 +21,12 @@ export default function KakaoMapPage() {
 
   return (
     <div>
-      <Head>
+      {/* <Head>
         <script
           type="text/javascript"
           src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2cd360c3fd9a1af9fe28dba59f6c7fcd"
         ></script>
-      </Head>
+      </Head> */}
       <div id="map" style={{ width: 500, height: 400 }}></div>
     </div>
   );

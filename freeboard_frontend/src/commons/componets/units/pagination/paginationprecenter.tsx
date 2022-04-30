@@ -1,5 +1,6 @@
 import { IPaginationPrecenter } from "./pagination.types";
 import * as s from "./paginationstyles";
+import { v4 as uuidv4 } from "uuid";
 
 export const PaginationPrecenter = (props: IPaginationPrecenter) => {
   return (
@@ -15,7 +16,7 @@ export const PaginationPrecenter = (props: IPaginationPrecenter) => {
         {new Array(10).fill(1).map((_, index) =>
           index + props.startPage <= props.lastPage ? (
             <s.MyPage
-              key={index + props.startPage}
+              key={uuidv4()}
               onClick={props.onClickPage}
               id={String(index + props.startPage)}
               current={index + props.startPage === props.current}

@@ -2,6 +2,7 @@ import * as s from "./comment.styles";
 import { ICommentUI } from "./comment.types";
 import CommentMapPage from "./comment.map";
 import InfiniteScroll from "react-infinite-scroller";
+import { v4 as uuidv4 } from "uuid";
 
 const CommentUI = (props: ICommentUI) => {
   return (
@@ -47,7 +48,7 @@ const CommentUI = (props: ICommentUI) => {
             {props.data?.fetchBoardComments.map((el: any) => (
               <CommentMapPage
                 el={el}
-                key={el._id}
+                key={uuidv4()}
                 data={props.data}
                 onClickDelete={props.onClickDelete}
                 showModal={props.showModal}

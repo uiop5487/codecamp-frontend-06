@@ -55,18 +55,7 @@ export default function ProductDetailContainer() {
           },
         ],
       });
-      const basket = JSON.parse(localStorage.getItem(`basket`) || "[]");
-
-      const temp = basket.filter((bel) => bel._id === el._id);
-      if (temp.length) {
-        const temp = basket.filter((bel) => bel._id !== el._id);
-
-        localStorage.setItem(`basket`, JSON.stringify(temp));
-        return;
-      }
-      const { __typename, ...rest } = el;
-      basket.push(rest);
-      localStorage.setItem(`basket`, JSON.stringify(basket));
+      alert("상품이 찜 되었습니다.");
     } catch (error: any) {
       alert(error.message);
     }
@@ -80,6 +69,7 @@ export default function ProductDetailContainer() {
         },
       });
       console.log(data);
+      alert("구매되었습니다.");
     } catch (error) {
       alert(error.message);
     }

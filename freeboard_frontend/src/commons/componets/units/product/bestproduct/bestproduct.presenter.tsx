@@ -1,4 +1,5 @@
 import * as s from "./bestproduct.styles";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BestProductPresenter(props: any) {
   return (
@@ -9,8 +10,8 @@ export default function BestProductPresenter(props: any) {
       <s.BestWrapper>
         {props.data?.fetchUseditemsOfTheBest.map((el, i) => (
           <s.BestBoxWrapper
-            key={el._id}
-            onClick={props.onClickMoveDetail}
+            key={uuidv4()}
+            onClick={props.onClickMoveDetail(el)}
             id={el._id}
           >
             <s.BestImageWrapper>
@@ -20,7 +21,7 @@ export default function BestProductPresenter(props: any) {
                   .reduce(
                     (_, cur) => (
                       <s.BestImage
-                        key={cur}
+                        key={uuidv4()}
                         src={`https://storage.googleapis.com/${cur}`}
                       ></s.BestImage>
                     ),

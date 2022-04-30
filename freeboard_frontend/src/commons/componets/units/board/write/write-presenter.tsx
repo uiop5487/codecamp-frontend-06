@@ -3,6 +3,7 @@ import { IWriteNewUI } from "./write-typescript";
 import { Modal } from "antd";
 import DaumPostcode from "react-daum-postcode";
 import UploadContainer from "../../../commons/upload/upload.container";
+import { v4 as uuidv4 } from "uuid";
 
 export default function WriteNewPageUI(props: IWriteNewUI) {
   return (
@@ -112,7 +113,7 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
           <s.UploadBtnWrapper>
             {props.imageUrls?.map((el: any, index: number) => (
               <UploadContainer
-                key={index}
+                key={uuidv4()}
                 imageUrls={el}
                 index={index}
                 onChangeFileUrl={props.onChangeFileUrl}

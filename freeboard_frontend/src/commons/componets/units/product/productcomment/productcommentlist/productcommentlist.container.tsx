@@ -10,7 +10,7 @@ import {
 export default function ProdcutCommentListContainer() {
   const router = useRouter();
   const [contents, setContents] = useState("");
-  const { data } = useQuery(FETCH_USED_ITEM_QUESTIONS, {
+  const { data, fetchMore } = useQuery(FETCH_USED_ITEM_QUESTIONS, {
     variables: { useditemId: router.query.productId },
   });
   const [deleteUseditemQuestion] = useMutation(DELETE_USED_ITEM_QUESTION);
@@ -40,12 +40,35 @@ export default function ProdcutCommentListContainer() {
     });
   };
 
+  const onLoadMore = () => {
+    if (!data) return;
+    fetchMore({
+      variables: {
+        // boardId: router.query.boardid,
+        page: Math.ceil(data.fetchUseditemQuestions.length / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult.fetchUseditemQuestions)
+          return {
+            fetchUseditemQuestions: [...prev.fetchUseditemQuestions],
+          };
+        return {
+          fetchUseditemQuestions: [
+            ...prev.fetchUseditemQuestions,
+            ...fetchMoreResult.fetchUseditemQuestions,
+          ],
+        };
+      },
+    });
+  };
+
   return (
     <ProdcutCommentListPresenter
       data={data}
       onChangeContents={onChangeContents}
       onClickDelete={onClickDelete}
       contents={contents}
+      onLoadMore={onLoadMore}
     />
   );
 }

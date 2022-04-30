@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Dompurify from "dompurify";
 import ProductCommentWriteContainer from "../productcomment/productcommentwrite/productcommentwrite.container";
 import MapDetail from "../map/detailproductmap";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ProductDetailPresenter(props: any) {
   const router = useRouter();
@@ -66,7 +67,7 @@ export default function ProductDetailPresenter(props: any) {
           {props.data?.fetchUseditem.images
             ?.filter((el: string) => el)
             .map((el: string) => (
-              <s.Carousel key={el}>
+              <s.Carousel key={uuidv4()}>
                 <s.CarouselImg src={`https://storage.googleapis.com/${el}`} />
               </s.Carousel>
             ))}

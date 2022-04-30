@@ -21,8 +21,6 @@ export async function getAccessToken() {
 
     const newAccessToken = result.restoreAccessToken.accessToken;
 
-    // localStorage.setItem("accessToken", newAccessToken);
-
     return newAccessToken;
   } catch (error: any) {
     console.log(error.message);

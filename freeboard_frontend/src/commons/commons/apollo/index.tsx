@@ -52,7 +52,7 @@ export default function ApolloSetting(props: IAplloSettingProps) {
   });
 
   const client = new ApolloClient({
-    link: ApolloLink.from([uploadlink, errorLink]),
+    link: ApolloLink.from([errorLink, uploadlink]),
     cache: new InMemoryCache(),
   });
 

@@ -16,18 +16,18 @@ export default function MomoizationContainerPage() {
     countLet += 1;
   }, []);
 
-  //   const onClickCountState = useCallback(() => {
-  //     // console.log(countState + 1);
-  //     setCountState((prev) => prev + 1);
-  //   }, []);
+  const onClickCountState = useCallback(() => {
+    // console.log(countState + 1);
+    setCountState((prev) => prev + 1);
+  }, []);
 
   // useMemo로 useCallbac 만들어보기
-  const onClickCountState = useMemo(() => {
-    return () => {
-      console.log(countState + 1);
-      setCountState(countState + 1);
-    };
-  }, []);
+  // const onClickCountState = useMemo(() => {
+  //   return () => {
+  //     console.log(countState + 1);
+  //     setCountState(countState + 1);
+  //   };
+  // }, []);
 
   return (
     <div>

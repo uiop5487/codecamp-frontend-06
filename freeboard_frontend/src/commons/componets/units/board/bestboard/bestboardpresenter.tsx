@@ -1,6 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import * as s from "./bestboardstyles";
+import { v4 as uuidv4 } from "uuid";
 
 const FETCH_BOARDS_OF_THE_BEST = gql`
   query fetchBoardsOfTheBest {
@@ -29,7 +30,7 @@ const BestBoards = () => {
       <s.Title>베스트 게시글</s.Title>
       <s.BoxWarrper>
         {data?.fetchBoardsOfTheBest.map((el: any) => (
-          <s.Box key={el._id} id={el._id} onClick={onClickMoveDetail}>
+          <s.Box key={uuidv4()} id={el._id} onClick={onClickMoveDetail}>
             <s.ImgWraper>
               {el.images
                 .filter((e: string) => e)
@@ -37,7 +38,7 @@ const BestBoards = () => {
                   (_: any, cur: string) => (
                     <s.Img
                       src={`https://storage.googleapis.com/${cur}`}
-                      key={cur}
+                      key={uuidv4()}
                     ></s.Img>
                   ),
                   []

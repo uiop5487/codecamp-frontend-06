@@ -1,5 +1,6 @@
 import * as s from "./nav.styles";
 import { useRouter } from "next/router";
+import { v4 as uuidv4 } from "uuid";
 
 const NAVICATION_MENUS = [
   { name: "파베게시판", page: "/boards/firebase" },
@@ -21,7 +22,7 @@ const NavPage = () => {
   return (
     <s.Wrapper>
       {NAVICATION_MENUS.map((el) => (
-        <div key={el.page}>
+        <div key={uuidv4()}>
           <s.Text id={el.page} onClick={onClickMenu}>
             {el.name}
           </s.Text>

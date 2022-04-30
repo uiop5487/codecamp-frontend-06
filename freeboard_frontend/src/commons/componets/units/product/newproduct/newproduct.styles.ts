@@ -59,7 +59,7 @@ export const TagsWrapper = styled.div`
 export const TagsInput = styled.input`
   border: 0px;
   padding-left: 14px;
-  width: 80px;
+  width: 600px;
 `;
 
 export const ContentsWarpper = styled.div`
@@ -205,4 +205,31 @@ export const SubimtButton = styled.button`
 export const Error = styled.div`
   color: red;
   margin-top: 4px;
+`;
+
+export const HasgTagWrapper = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+export const HashTag = styled.div`
+  margin-right: 10px;
+  font-size: 15px;
+  color: #bdbdbd;
+  cursor: pointer;
+`;
+
+export const HashItemWrapper = styled.div`
+  padding-top: 15px;
+  display: flex;
+  align-items: center;
+`;
+
+export const HashButton = styled.button`
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
 `;

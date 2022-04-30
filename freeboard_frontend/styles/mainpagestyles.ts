@@ -11,15 +11,18 @@ export const BackGround = styled.div`
   padding-top: 500px;
 `;
 
-export const MoveButton = styled.div`
-  width: 3000px;
+export const MoveButton = styled.button`
+  width: 30%;
   height: 100px;
   font-size: 40px;
   text-align: center;
   line-height: 100px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #820909;
   color: darkred;
   cursor: pointer;
   :hover {
-    color: white;
+    background-color: rgba(0, 0, 0, 1);
+    color: #bdbdbd;
   }
 `;

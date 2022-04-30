@@ -1,11 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
 export default function Map(props: any) {
+  const [isMap, setIsMap] = useState(false);
+
   useEffect(() => {
+    if (!props.address) setIsMap(true);
+  }, [props.address]);
+
+  useEffect(() => {
+    if (!isMap) return;
     const script = document.createElement("script");
     script.src =
       "//dapi.kakao.com/v2/maps/sdk.js?appkey=2cd360c3fd9a1af9fe28dba59f6c7fcd&autoload=false&libraries=services";
@@ -25,7 +32,7 @@ export default function Map(props: any) {
         const geocoder = new window.kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
 
         geocoder.addressSearch(
-          props.address,
+          `${props.address}`,
           function (result: any, status: any) {
             // 정상적으로 검색이 완료됐으면
             if (status === window.kakao.maps.services.Status.OK) {

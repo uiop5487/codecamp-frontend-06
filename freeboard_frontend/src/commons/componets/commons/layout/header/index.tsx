@@ -1,13 +1,12 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../../commons/store";
 import {
   CREATE_POINT_TRANSACTION_OF_LOADING,
   FETCH_USER_LOGGED_IN,
 } from "./header.query";
-import Head from "next/head";
 import * as s from "./header.styles";
 import { Modal } from "antd";
 
@@ -19,6 +18,21 @@ const HeaderPage = () => {
   const [createPointTransactionOfLoading] = useMutation(
     CREATE_POINT_TRANSACTION_OF_LOADING
   );
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://code.jquery.com/jquery-1.12.4.min.js";
+    script.type = "text/javascript";
+
+    document.head.appendChild(script);
+  }, []);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
+    script.type = "text/javascript";
+    document.head.appendChild(script);
+  }, []);
 
   const requestPay = () => {
     setIsModalVisible(false);
@@ -101,18 +115,16 @@ const HeaderPage = () => {
 
   return (
     <s.Wrapper>
-      <Head>
-        {/* <!-- jQuery --> */}
+      {/* <Head>
         <script
           type="text/javascript"
           src="https://code.jquery.com/jquery-1.12.4.min.js"
         ></script>
-        {/* <!-- iamport.payment.js --> */}
         <script
           type="text/javascript"
           src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
         ></script>
-      </Head>
+      </Head> */}
 
       <s.HeaderTextWrapper>
         <s.HeaderImg src="/img/headericon.png" onClick={onClickMovePage} />

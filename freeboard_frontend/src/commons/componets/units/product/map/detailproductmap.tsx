@@ -1,11 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
 export default function MapDetail(props: any) {
+  const [isMap, setIsMap] = useState(false);
+
   useEffect(() => {
+    console.log(props.data?.fetchUseditem.useditemAddress?.address);
+    if (props.data?.fetchUseditem.useditemAddress?.address) {
+      setIsMap(true);
+    }
+  }, [props.data]);
+
+  useEffect(() => {
+    if (!isMap) return;
     const script = document.createElement("script");
     script.src =
       "//dapi.kakao.com/v2/maps/sdk.js?appkey=2cd360c3fd9a1af9fe28dba59f6c7fcd&autoload=false&libraries=services";
@@ -23,6 +33,7 @@ export default function MapDetail(props: any) {
         // 담아도 되 안 담아도 됨
         const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
         const geocoder = new window.kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
+        // const aaa = props.data?.fetchUseditem.useditemAddress?.address
 
         geocoder.addressSearch(
           props.data?.fetchUseditem.useditemAddress?.address,
@@ -53,7 +64,7 @@ export default function MapDetail(props: any) {
         );
       });
     };
-  }, [props.data]);
+  }, [isMap]);
 
   return (
     <div>

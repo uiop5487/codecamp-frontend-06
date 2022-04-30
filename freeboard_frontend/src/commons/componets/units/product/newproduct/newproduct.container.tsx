@@ -1,12 +1,8 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { KeyboardEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  CREATE_USED_ITEM,
-  FETCH_USED_ITEM,
-  UPDATE_USED_ITEM,
-} from "./newproduct.mutation";
+import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./newproduct.mutation";
 import NewProductPresenter from "./newproduct.presenter";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -33,12 +29,10 @@ export default function NewProductContainer(props: any) {
   });
 
   const router = useRouter();
-  const { data: idata } = useQuery(FETCH_USED_ITEM, {
-    variables: router.query.productId,
-  });
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
   const [contents] = useState("");
+  const [hashArr, setHashArr] = useState<String[]>([]);
   const [imageUrls, setImageUrls] = useState(["", ""]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [address, setAddress] = useState("");
@@ -47,8 +41,19 @@ export default function NewProductContainer(props: any) {
     lng: "",
   });
 
+  const onChangeHashTag = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (
+      event.keyCode === 32 &&
+      (event.target as HTMLInputElement).value !== " "
+    ) {
+      // let aaa = ;
+      setHashArr([...hashArr, "#" + (event.target as HTMLInputElement).value]);
+      (event.target as HTMLInputElement).value = "";
+    }
+  };
+
   const onClickSubmit = async (data) => {
-    console.log(data);
+    console.log(parseFloat(mapLatlng.lat));
     try {
       const result = await createUseditem({
         variables: {
@@ -56,6 +61,12 @@ export default function NewProductContainer(props: any) {
             ...data,
             price: Number(data.price),
             images: imageUrls,
+            tags: [...hashArr],
+            useditemAddress: {
+              address: data.useditemAddress.address,
+              lat: parseFloat(mapLatlng.lat),
+              lng: parseFloat(mapLatlng.lng),
+            },
           },
         },
       });
@@ -99,13 +110,23 @@ export default function NewProductContainer(props: any) {
       return;
     }
     try {
+      // let arr;
+      // if (hashArr[0] !== "") {
+      //   arr = props.data?.fetchUseditem?.tags;
+      // }
       const result = await updateUseditem({
         variables: {
           useditemId: router.query.productId,
           updateUseditemInput: {
             ...data,
             price: Number(data.price),
+            tags: [...hashArr],
             images: imageUrls,
+            useditemAddress: {
+              ...data.useditemAddress,
+              lat: Number(mapLatlng.lat),
+              lng: Number(mapLatlng.lng),
+            },
           },
         },
       });
@@ -128,7 +149,7 @@ export default function NewProductContainer(props: any) {
     if (props.data?.fetchUseditem.images?.length) {
       setImageUrls([...props.data?.fetchUseditem.images]);
     }
-  }, [props.data]);
+  }, [props.data?.fetchUseditem.images]);
 
   useEffect(() => {
     setValue("name", props.data?.fetchUseditem?.name);
@@ -140,9 +161,16 @@ export default function NewProductContainer(props: any) {
       props.data?.fetchUseditem.useditemAddress.addressDetail
     );
     setAddress(props.data?.fetchUseditem.useditemAddress.address);
+    if (props.isEdit) {
+      const aaa = props.data?.fetchUseditem.tags;
+      setHashArr(aaa);
+    }
   }, [props.data]);
 
-  console.log(contents);
+  const onClickTagDelete = (event) => {
+    const aaa = hashArr.filter((_, i) => i !== Number(event.target.id));
+    setHashArr([...aaa]);
+  };
 
   return (
     <NewProductPresenter
@@ -163,10 +191,12 @@ export default function NewProductContainer(props: any) {
       handleComplete={handleComplete}
       address={address}
       setAddress={setAddress}
-      idata={idata}
       getValues={getValues}
       setMapLatlng={setMapLatlng}
       mapLatlng={mapLatlng}
+      onChangeHashTag={onChangeHashTag}
+      hashArr={hashArr}
+      onClickTagDelete={onClickTagDelete}
     />
   );
 }

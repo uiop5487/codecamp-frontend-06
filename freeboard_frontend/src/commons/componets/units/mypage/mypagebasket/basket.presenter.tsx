@@ -1,5 +1,6 @@
 import MyPageSidePresenter from "../mypageside/mypageside.presenter";
 import * as s from "./basket.styles";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BasketPresenter(props: any) {
   return (
@@ -17,8 +18,8 @@ export default function BasketPresenter(props: any) {
               <s.Div></s.Div>
             </s.DivWrapper>
           </s.ListTitleWrapper>
-          {props?.basket?.map((el, index) => (
-            <s.ButtonListWrapper key={el._id}>
+          {props?.data?.fetchUseditemsIPicked?.map((el, index) => (
+            <s.ButtonListWrapper key={uuidv4()}>
               <s.ListWrapper id={el._id} onClick={props.onClickMoveDetail}>
                 <s.ListEl>{index + 1}</s.ListEl>
                 <s.ListCenterEl>{el?.name}</s.ListCenterEl>
@@ -27,7 +28,7 @@ export default function BasketPresenter(props: any) {
                 <s.ListEl>{el?.createdAt.slice(0, 10)}</s.ListEl>
               </s.ListWrapper>
               <s.ButtonWrapper>
-                <s.DleteButton id={el?._id} onClick={props.onClickDelete(el)}>
+                <s.DleteButton id={el?._id} onClick={props.onClickDelete}>
                   X
                 </s.DleteButton>
               </s.ButtonWrapper>

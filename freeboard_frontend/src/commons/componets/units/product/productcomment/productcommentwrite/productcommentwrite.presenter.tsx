@@ -1,6 +1,7 @@
 import ProdcutCommentListContainer from "../productcommentlist/productcommentlist.container";
 import * as s from "./productcommentwrite.styles";
 // import InfiniteScroll from "react-infinite-scroller";
+// import { v4 as uuidv4 } from "uuid";
 
 export default function ProductCommentWritePresenter(props: any) {
   return (
@@ -31,7 +32,7 @@ export default function ProductCommentWritePresenter(props: any) {
             {props.data?.fetchBoardComments.map((el: any) => (
               <CommentMapPage
                 el={el}
-                key={el._id}
+                key={uuidv4()}
                 data={props.data}
                 onClickDelete={props.onClickDelete}
                 showModal={props.showModal}

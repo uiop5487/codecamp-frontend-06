@@ -42,9 +42,9 @@ export default function ProductListContainer() {
 
   const onLoadMore = () => {
     if (!data) return;
+
     fetchMore({
       variables: {
-        // boardId: router.query.boardid,
         page: Math.ceil(data.fetchUseditems.length / 10) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {

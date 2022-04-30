@@ -3,6 +3,7 @@ import { getDate } from "../../../commons/libraries/utils";
 import { BoardListEl, IBoardListUIProps } from "./board-list-typescript";
 import Pagination from "../../pagination/pagination";
 import SearchContainer from "../searchbar/search.container";
+import { v4 as uuidv4 } from "uuid";
 
 const WriteBoardListPresenter = (props: IBoardListUIProps) => {
   return (
@@ -23,7 +24,7 @@ const WriteBoardListPresenter = (props: IBoardListUIProps) => {
               <s.BoardListBasicTitle>날짜</s.BoardListBasicTitle>
             </s.BoardListTilte>
             {props.data?.fetchBoards.map((el: BoardListEl, index: number) => (
-              <s.BoardListDetail key={el._id}>
+              <s.BoardListDetail key={uuidv4()}>
                 <s.BoardListBasicName>
                   {props.data.fetchBoards.length - index}
                 </s.BoardListBasicName>

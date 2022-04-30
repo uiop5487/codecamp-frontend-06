@@ -1,4 +1,5 @@
 import * as s from "./firebaselist.styles";
+import { v4 as uuidv4 } from "uuid";
 
 const FireBaseListUI = (props: any) => {
   return (
@@ -11,7 +12,7 @@ const FireBaseListUI = (props: any) => {
         <s.ColumnHeaderBasic></s.ColumnHeaderBasic>
       </s.Row>
       {props.datas?.map((el: any, index: any) => (
-        <s.Row key={index}>
+        <s.Row key={uuidv4()}>
           <s.ColumnBasic>{index + 1}</s.ColumnBasic>
           <s.ColumnBasic>{el.writer}</s.ColumnBasic>
           <s.ColumnTitle>{el.title}</s.ColumnTitle>

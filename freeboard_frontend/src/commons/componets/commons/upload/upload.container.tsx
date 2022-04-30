@@ -9,7 +9,6 @@ const UploadContainer = (props: any) => {
 
   const onClickImage = () => {
     fileRef.current?.click();
-    console.log("asdasd");
   };
 
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {

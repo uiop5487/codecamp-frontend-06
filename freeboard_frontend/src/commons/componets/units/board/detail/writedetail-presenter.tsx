@@ -2,6 +2,7 @@ import ReactPlayer from "react-player";
 import { IBoardWriteUIProps } from "./writedetail-typescript";
 import { Tooltip } from "antd";
 import * as s from "./writedetail.styles";
+import { v4 as uuidv4 } from "uuid";
 
 export default function DetailPageUI(props: IBoardWriteUIProps) {
   return (
@@ -39,7 +40,7 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
               .map((el: string) => (
                 <s.ContetsImg
                   src={`https://storage.googleapis.com/${el}`}
-                  key={el}
+                  key={uuidv4()}
                 ></s.ContetsImg>
               ))}
           </div>

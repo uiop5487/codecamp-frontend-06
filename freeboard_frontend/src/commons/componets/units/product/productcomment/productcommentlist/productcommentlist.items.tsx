@@ -7,6 +7,7 @@ import {
   UPDATE_USED_ITEM_QUESTION,
 } from "./productcommentlist.qurey";
 import * as s from "./productcommentlist.styles";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ProdcutCommentListItem(props: any) {
   const [isActive, setIsActive] = useState(false);
@@ -86,7 +87,7 @@ export default function ProdcutCommentListItem(props: any) {
             />
             {data?.fetchUseditemQuestionAnswers?.map((el) => (
               <CommentAnswerListContainer
-                key={el._id}
+                key={uuidv4()}
                 data={el}
                 dataid={props.data._id}
               />
@@ -130,7 +131,7 @@ export default function ProdcutCommentListItem(props: any) {
             </s.TextBoderSolid>
           </div>
         </s.EditCommentBackGround>
-      )}{" "}
+      )}
     </div>
   );
 }

@@ -1618,3 +1618,90 @@ function solution(s) {
 
   return recursion();
 }
+
+// 1차 비밀지도
+
+function solution(n, arr1, arr2) {
+  const answer = [];
+
+  for (let i = 0; i < arr1.length; i++) {
+    answer[i] = "";
+
+    const map1 = arr1[i].toString(2).padStart(n, "0");
+
+    const map2 = arr2[i].toString(2).padStart(n, "0");
+
+    for (let l = 0; l < map1.length; l++) {
+      if (map1[l] === "1" || map2[l] === "1") {
+        answer[i] += "#";
+      } else {
+        answer[i] += " ";
+      }
+    }
+  }
+  return answer;
+}
+
+function solution(n, arr1, arr2) {
+  return arr1.map((map1, i) => {
+    map1 = map1.toString(2).padStart(n, "0");
+
+    const map2 = arr2[i].toString(2).padStart(n, "0");
+
+    return map1.split("").reduce((acc, cur, i) => {
+      return acc + (cur === "1" || map2[i] === "1" ? "#" : " ");
+    }, "");
+  });
+}
+
+// 다트 게임
+
+const isBonus = ["S", "D", "T"]; // 보너스를 구분하기 위한 배열
+
+function solution(dartResult) {
+  let score = ""; // 문자열에 있ㄴ느 점수 데이터를 저장
+  let currentScore = 0; // 현재 게임(턴)의 점수를 저장
+  let stop = false; // 점수를 최종 저장할 시점을 찾음
+
+  return dartResult
+    .split("")
+    .reduce((acc, cur, i) => {
+      if (isNaN(cur) === false) {
+        score += cur;
+        stop = false; // 새 게임이 시작된 경우는 stop을 초기화
+      } else if (isBonus.includes(cur)) {
+        score = Number(score);
+        const squared = isBonus.indexOf(cur) + 1;
+
+        currentScore = score ** squared;
+        score = "";
+
+        // 다음 데이터가 숫자인 경우 즉 옵션이 아닌경우
+        // 마지막 데이터 체크해서 게임을 무조건 종료
+        if (isNaN(dartResult[i + 1]) === false || i + 1 === dartResult.length) {
+          stop = true;
+        }
+      } else {
+        // 옵션 처리
+        stop = true;
+
+        if (cur === "#") {
+          // 아차상이라면
+          currentScore *= -1;
+        } else {
+          // 스타상이라면
+          currentScore *= 2;
+
+          if (acc.length > 0) {
+            acc[acc.length - 1] *= 2;
+          }
+        }
+      }
+
+      if (stop) {
+        acc.push(currentScore);
+      }
+      return acc;
+    }, [])
+    .reduce((acc, cur) => acc + cur);
+}

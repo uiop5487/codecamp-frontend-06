@@ -3,6 +3,7 @@ import DaumPostcode from "react-daum-postcode";
 import Map from "../map/newproductmap";
 import UploadContainer from "./newprodcut.upload";
 import * as s from "./newproduct.styles";
+import { v4 as uuidv4 } from "uuid";
 
 export default function NewProductPresenter(props: any) {
   return (
@@ -58,23 +59,25 @@ export default function NewProductPresenter(props: any) {
           <s.TagsWrapper>
             <s.TagsInput
               type="text"
-              {...props.register("tags.[0]")}
-              placeholder="#태그"
-              defaultValue={props.data?.fetchUseditem.tags[0]}
-            />
-            <s.TagsInput
-              type="text"
-              {...props.register("tags.[1]")}
-              placeholder="#태그"
-              defaultValue={props.data?.fetchUseditem.tags[1]}
-            />
-            <s.TagsInput
-              type="text"
-              {...props.register("tags.[2]")}
-              placeholder="#태그"
-              defaultValue={props.data?.fetchUseditem.tags[2]}
+              onKeyUp={props.onChangeHashTag}
+              placeholder="태그를 입력하고 스페이스를 눌러주세요!"
+              // defaultValue={props.data?.fetchUseditem.tags[0]}
             />
           </s.TagsWrapper>
+          <s.HasgTagWrapper>
+            {props.hashArr?.map((el, i) => (
+              <s.HashItemWrapper key={uuidv4()}>
+                <s.HashTag>{el}</s.HashTag>
+                <s.HashButton
+                  type="button"
+                  id={i}
+                  onClick={props.onClickTagDelete}
+                >
+                  x
+                </s.HashButton>
+              </s.HashItemWrapper>
+            ))}
+          </s.HasgTagWrapper>
         </s.InputWarpper>
         <s.LocationWarpper>
           <s.LocationMapWrapper>
@@ -127,7 +130,7 @@ export default function NewProductPresenter(props: any) {
           <s.UploadButtonWrapper>
             {props.imageUrls?.map((el: any, index: number) => (
               <UploadContainer
-                key={index}
+                key={uuidv4()}
                 imageUrls={el}
                 index={index}
                 onChangeFileUrl={props.onChangeFileUrl}

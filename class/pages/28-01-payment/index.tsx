@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Head from "next/head";
+// import Head from "next/head";
 
 declare const window: typeof globalThis & {
   IMP: any;
@@ -47,18 +47,18 @@ export default function PamentPage() {
 
   return (
     <div>
-      <Head>
-        {/* <!-- jQuery --> */}
-        <script
+      {/* <Head> */}
+      {/* <!-- jQuery --> */}
+      {/* <script
           type="text/javascript"
           src="https://code.jquery.com/jquery-1.12.4.min.js"
-        ></script>
-        {/* <!-- iamport.payment.js --> */}
-        <script
+        ></script> */}
+      {/* <!-- iamport.payment.js --> */}
+      {/* <script
           type="text/javascript"
           src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
         ></script>
-      </Head>
+      </Head> */}
       <button onClick={requestPay}>결제하기</button>
     </div>
   );
