@@ -3,7 +3,7 @@ import { ISignupPresenter } from "./signup.types";
 
 const SignupPresenter = (props: ISignupPresenter) => {
   return (
-    <s.Wrapper>
+    <s.Wrapper onSubmit={props.handleSubmit(props.onClickSignup)}>
       <s.MoveBoardWrapper>
         <s.MoveBordListButton onClick={props.onClickMoveList}>
           나가기
@@ -32,7 +32,7 @@ const SignupPresenter = (props: ISignupPresenter) => {
           <s.Error>{props.formState.errors.email?.passwordcheck}</s.Error>
         </div>
       </s.InputWrapper>
-      <s.Button onClick={props.onClickSignup}>회원가입</s.Button>
+      <s.Button>회원가입</s.Button>
     </s.Wrapper>
   );
 };

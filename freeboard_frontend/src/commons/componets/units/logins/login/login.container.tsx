@@ -36,7 +36,7 @@ const LoginContainer = () => {
       const accessToken = result.data.loginUser.accessToken;
       setAccessToken(accessToken);
       alert("로그인 성공!");
-      router.push("/boards");
+      router.push("/products");
     } catch (error: any) {
       alert(error.message);
     }

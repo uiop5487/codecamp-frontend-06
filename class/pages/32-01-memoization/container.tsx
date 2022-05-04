@@ -17,7 +17,7 @@ export default function MomoizationContainerPage() {
   }, []);
 
   const onClickCountState = useCallback(() => {
-    // console.log(countState + 1);
+    // console.log(countState);
     setCountState((prev) => prev + 1);
   }, []);
 
@@ -40,7 +40,7 @@ export default function MomoizationContainerPage() {
       <div>카운트(state): {countState}</div>
       <button onClick={onClickCountState}>카운트(state) +1 올리기!!</button>
       <div>=========================</div>
-      <MomoizationPresenterPage countState={countState} />
+      <MomoizationPresenterPage />
     </div>
   );
 }

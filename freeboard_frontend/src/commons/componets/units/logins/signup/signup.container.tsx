@@ -32,6 +32,7 @@ const SignupContainer = () => {
   };
 
   const onClickSignup = async (data) => {
+    console.log(data);
     await createUser({
       variables: {
         createUserInput: {

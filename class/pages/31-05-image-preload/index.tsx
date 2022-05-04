@@ -1,7 +1,9 @@
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
 export default function ImagePreloadPage() {
   const [imgTag, setImgTag] = useState<HTMLImageElement>();
+  const router = useRouter();
   const divRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
