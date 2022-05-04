@@ -9,11 +9,17 @@ export default function BoardsDetailPage(props) {
       <Head>
         <meta property="og:title" content={props.myBoardData?.title} />
         <meta property="og:description" content={props.myBoardData?.contents} />
-        <meta property="og:image" content={props.myBoardData?.images[0]} />
+        <meta
+          property="og:image"
+          content={`https://storage.googleapis.com/${props.myBoardData?.images[0]}`}
+        />
       </Head>
       <div>
         안녕하세요! 게시글 상세 페이지 입니다!, 게시글 ID는
         {router.query.boardId} 입니다.
+        <img
+          src={`https://storage.googleapis.com/${props.myBoardData?.images[0]}`}
+        />
       </div>
     </>
   );
