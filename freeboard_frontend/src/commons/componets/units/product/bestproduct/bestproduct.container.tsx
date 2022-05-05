@@ -8,10 +8,10 @@ export default function BestProductContainer() {
   const router = useRouter();
   const DATE = new Date().toISOString().slice(0, 10);
 
-  const onClickMoveDetail = (el) => (event) => {
+  const onClickMoveDetail = (el: any) => (event: any) => {
     const basket = JSON.parse(localStorage.getItem(`${DATE}`) || "[]");
 
-    const temp = basket.filter((bel) => bel._id === el._id);
+    const temp = basket.filter((bel: any) => bel._id === el._id);
     if (temp.length) {
       router.push(`/products/new/${event.currentTarget.id}`);
       return;

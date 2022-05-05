@@ -1,10 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import {
-  IQuery,
-  IQueryFetchBoardCommentsArgs,
-} from "../../../../types/generated/types";
 import CommentUI from "./comment.presenter";
 import {
   CREATE_BOARD_COMMENT,
@@ -12,6 +8,7 @@ import {
   FETCH_BOARD_COMMENTS,
 } from "./comment.query";
 import { Modal } from "antd";
+import { IQuery } from "../../../../types/generated/types";
 
 const Comment = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -25,12 +22,12 @@ const Comment = () => {
   const router = useRouter();
   const [value, setValue] = useState(0);
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
-  const { data, fetchMore } = useQuery<
-    Pick<IQuery, "fetchBoardComments">,
-    IQueryFetchBoardCommentsArgs
-  >(FETCH_BOARD_COMMENTS, {
-    variables: { boardId: String(router.query.boardid) },
-  });
+  const { data, fetchMore } = useQuery<Pick<IQuery, "fetchBoardComments">>(
+    FETCH_BOARD_COMMENTS,
+    {
+      variables: { boardId: String(router.query.boardid) },
+    }
+  );
   console.log(data);
 
   const saveWriter = (event: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +53,7 @@ const Comment = () => {
         page: Math.ceil(data.fetchBoardComments.length / 10) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult.fetchBoardComments)
+        if (!fetchMoreResult?.fetchBoardComments)
           return {
             fetchBoardComments: [...prev.fetchBoardComments],
           };

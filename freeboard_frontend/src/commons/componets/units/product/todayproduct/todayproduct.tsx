@@ -7,10 +7,10 @@ export default function TodayProdcut(props: any) {
   const [aa, setAa] = useState(false);
   const DATE = new Date().toISOString().slice(0, 10);
 
-  const onClickDeleteBasket = (el) => (event) => {
+  const onClickDeleteBasket = (el: any) => (event: any) => {
     const basket = JSON.parse(localStorage.getItem(`${DATE}`) || "[]");
 
-    const temp = basket.filter((bel) => bel._id !== el._id);
+    const temp = basket.filter((bel: any) => bel._id !== el._id);
 
     localStorage.setItem(`${DATE}`, JSON.stringify(temp));
     setAa((prev) => !prev);
@@ -34,7 +34,7 @@ export default function TodayProdcut(props: any) {
             hasMore={true}
             useWindow={false}
           >
-            {props.todayData.map((el) => (
+            {props.todayData.map((el: any) => (
               <s.ItemBox
                 key={uuidv4()}
                 id={el._id}
@@ -51,7 +51,7 @@ export default function TodayProdcut(props: any) {
                   {el.images
                     .filter((e: string) => e)
                     .reduce(
-                      (_, cur) => (
+                      (_: any, cur: any) => (
                         <s.ItemImage
                           key={uuidv4()}
                           src={`https://storage.googleapis.com/${cur}`}
@@ -68,7 +68,7 @@ export default function TodayProdcut(props: any) {
                   <s.ItemPrice>{el.price}</s.ItemPrice>
                 </div>
                 <s.TagsWrapper>
-                  {el.tags?.map((el) => (
+                  {el.tags?.map((el: any) => (
                     <s.Tags key={uuidv4()}>{el}</s.Tags>
                   ))}
                 </s.TagsWrapper>

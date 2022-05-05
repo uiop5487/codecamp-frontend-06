@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 export default function ProductDetailPresenter(props: any) {
   const router = useRouter();
   const settings = {
-    customPaging: function (i) {
+    customPaging: function (i: any) {
       return (
         <s.ImgWrapper>
           <s.ImgBox

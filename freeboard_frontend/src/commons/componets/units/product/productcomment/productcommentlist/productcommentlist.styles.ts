@@ -169,9 +169,13 @@ export const DeleteImg = styled.img`
   cursor: pointer;
 `;
 
+interface IIsEdit {
+  isEdit: boolean;
+}
+
 export const Editbox = styled.div`
   padding-top: 40px;
-  display: ${(props) => (props.isEdit ? "" : "none")};
+  display: ${(props: IIsEdit) => (props.isEdit ? "" : "none")};
 `;
 
 export const StarIcon = styled(Rate)`

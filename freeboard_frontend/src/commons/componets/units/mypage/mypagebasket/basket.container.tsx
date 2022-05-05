@@ -17,11 +17,11 @@ export default function BasketContainer() {
     },
   });
 
-  const onClickMoveDetail = (event) => {
+  const onClickMoveDetail = (event: any) => {
     router.push(`/products/new/${event.currentTarget.id}`);
   };
 
-  const onClickDelete = async (event) => {
+  const onClickDelete = async (event: any) => {
     await toggleUseditemPick({
       variables: {
         useditemId: event.target.id,

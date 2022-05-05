@@ -18,7 +18,7 @@ export default function BasketPresenter(props: any) {
               <s.Div></s.Div>
             </s.DivWrapper>
           </s.ListTitleWrapper>
-          {props?.data?.fetchUseditemsIPicked?.map((el, index) => (
+          {props?.data?.fetchUseditemsIPicked?.map((el: any, index: any) => (
             <s.ButtonListWrapper key={uuidv4()}>
               <s.ListWrapper id={el._id} onClick={props.onClickMoveDetail}>
                 <s.ListEl>{index + 1}</s.ListEl>

@@ -65,7 +65,7 @@ export default function NewProductPresenter(props: any) {
             />
           </s.TagsWrapper>
           <s.HasgTagWrapper>
-            {props.hashArr?.map((el, i) => (
+            {props.hashArr?.map((el: any, i: any) => (
               <s.HashItemWrapper key={uuidv4()}>
                 <s.HashTag>{el}</s.HashTag>
                 <s.HashButton

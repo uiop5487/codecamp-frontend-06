@@ -31,7 +31,7 @@ const SignupContainer = () => {
     router.push("/boards");
   };
 
-  const onClickSignup = async (data) => {
+  const onClickSignup = async (data: any) => {
     console.log(data);
     await createUser({
       variables: {

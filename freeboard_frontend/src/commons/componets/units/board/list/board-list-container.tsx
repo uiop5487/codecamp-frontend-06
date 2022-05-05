@@ -19,7 +19,7 @@ const WriteBoardListContainer = (props: IWriteBoardListContainerprops) => {
   const [endDate, setEndDate] = useState("");
   const [startDate, setStartDate] = useState("");
 
-  const onClickMoveDetail = (event: MouseEvent<HTMLButtonElement>) => {
+  const onClickMoveDetail = (event: MouseEvent<HTMLDivElement>) => {
     router.push(
       `/boards/new/${String((event.target as HTMLButtonElement).id)}`
     );

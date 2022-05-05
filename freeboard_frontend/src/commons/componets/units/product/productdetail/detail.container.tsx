@@ -36,7 +36,7 @@ export default function ProductDetailContainer() {
       });
       alert("삭제되었습니다.");
       router.push(`/products`);
-    } catch (error) {
+    } catch (error: any) {
       alert(error.messege);
     }
   };
@@ -70,7 +70,7 @@ export default function ProductDetailContainer() {
       });
       console.log(data);
       alert("구매되었습니다.");
-    } catch (error) {
+    } catch (error: any) {
       alert(error.message);
     }
   };

@@ -1,6 +1,10 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import {
+  IQuery,
+  IQueryFetchUseditemQuestionsArgs,
+} from "../../../../../types/generated/types";
 import ProdcutCommentListPresenter from "./productcommentlist.presenter";
 import {
   DELETE_USED_ITEM_QUESTION,
@@ -10,16 +14,19 @@ import {
 export default function ProdcutCommentListContainer() {
   const router = useRouter();
   const [contents, setContents] = useState("");
-  const { data, fetchMore } = useQuery(FETCH_USED_ITEM_QUESTIONS, {
-    variables: { useditemId: router.query.productId },
+  const { data, fetchMore } = useQuery<
+    Pick<IQuery, "fetchUseditemQuestions">,
+    IQueryFetchUseditemQuestionsArgs
+  >(FETCH_USED_ITEM_QUESTIONS, {
+    variables: { useditemId: String(router.query.productId) },
   });
   const [deleteUseditemQuestion] = useMutation(DELETE_USED_ITEM_QUESTION);
 
-  const onChangeContents = (event) => {
+  const onChangeContents = (event: any) => {
     setContents(event.target.value);
   };
 
-  const onClickDelete = (event) => {
+  const onClickDelete = (event: any) => {
     deleteUseditemQuestion({
       variables: {
         useditemQuestionId: event.target.id,
@@ -30,7 +37,7 @@ export default function ProdcutCommentListContainer() {
           fields: {
             fetchUseditemQuestions: (prev, { readField }) => {
               const filterPrev = prev.filter(
-                (el) => readField("_id", el) !== deleteId
+                (el: any) => readField("_id", el) !== deleteId
               );
               return [...filterPrev];
             },
@@ -48,7 +55,7 @@ export default function ProdcutCommentListContainer() {
         page: Math.ceil(data.fetchUseditemQuestions.length / 10) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult.fetchUseditemQuestions)
+        if (!fetchMoreResult?.fetchUseditemQuestions)
           return {
             fetchUseditemQuestions: [...prev.fetchUseditemQuestions],
           };

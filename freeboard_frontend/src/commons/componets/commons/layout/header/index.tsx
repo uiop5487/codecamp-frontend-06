@@ -10,6 +10,10 @@ import {
 import * as s from "./header.styles";
 import { Modal } from "antd";
 
+declare const window: typeof globalThis & {
+  IMP: any;
+};
+
 const HeaderPage = () => {
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -109,7 +113,7 @@ const HeaderPage = () => {
     setIsModalVisible(false);
   };
 
-  const onChangePay = (event) => {
+  const onChangePay = (event: any) => {
     setAmount(event.target.value);
   };
 

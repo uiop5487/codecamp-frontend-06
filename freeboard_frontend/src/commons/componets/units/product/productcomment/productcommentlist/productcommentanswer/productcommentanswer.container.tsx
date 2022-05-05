@@ -9,7 +9,7 @@ export default function CommentAnswerContainer(props: any) {
     CREATE_USED_ITEM_QUESTION_ANSWER
   );
 
-  const onChangeContents = (event) => {
+  const onChangeContents = (event: any) => {
     setContens(event.target.value);
   };
 

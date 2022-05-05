@@ -2,7 +2,7 @@ import { ChangeEvent, MouseEvent } from "react";
 
 export interface IBoardListUIProps {
   data?: any;
-  onClickMoveDetail: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClickMoveDetail: (event: MouseEvent<HTMLDivElement>) => void;
   onClickMoveNew: () => void;
   onChageSearch: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeEndDate: (event: ChangeEvent<HTMLInputElement>) => void;

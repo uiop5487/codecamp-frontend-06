@@ -1,7 +1,7 @@
 import * as s from "./signup.styles";
-import { ISignupPresenter } from "./signup.types";
+// import { ISignupPresenter } from "./signup.types";
 
-const SignupPresenter = (props: ISignupPresenter) => {
+const SignupPresenter = (props: any) => {
   return (
     <s.Wrapper onSubmit={props.handleSubmit(props.onClickSignup)}>
       <s.MoveBoardWrapper>

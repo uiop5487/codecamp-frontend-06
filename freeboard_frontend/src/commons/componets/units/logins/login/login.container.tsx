@@ -25,7 +25,7 @@ const LoginContainer = () => {
   });
   const router = useRouter();
 
-  const onClickLogin = async (data) => {
+  const onClickLogin = async (data: any) => {
     console.log(data);
     try {
       const result = await LoginUser({

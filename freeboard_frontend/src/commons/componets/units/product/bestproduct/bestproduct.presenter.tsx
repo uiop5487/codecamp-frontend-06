@@ -8,7 +8,7 @@ export default function BestProductPresenter(props: any) {
         <s.BestTitle>베스트 상품</s.BestTitle>
       </s.BestTitleWrapper>
       <s.BestWrapper>
-        {props.data?.fetchUseditemsOfTheBest.map((el, i) => (
+        {props.data?.fetchUseditemsOfTheBest.map((el: any, i: any) => (
           <s.BestBoxWrapper
             key={uuidv4()}
             onClick={props.onClickMoveDetail(el)}
@@ -19,7 +19,7 @@ export default function BestProductPresenter(props: any) {
                 el.images
                   .filter((e: string) => e)
                   .reduce(
-                    (_, cur) => (
+                    (_: any, cur: any) => (
                       <s.BestImage
                         key={uuidv4()}
                         src={`https://storage.googleapis.com/${cur}`}

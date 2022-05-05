@@ -52,7 +52,7 @@ export default function NewProductContainer(props: any) {
     }
   };
 
-  const onClickSubmit = async (data) => {
+  const onClickSubmit = async (data: any) => {
     console.log(parseFloat(mapLatlng.lat));
     try {
       const result = await createUseditem({
@@ -94,12 +94,12 @@ export default function NewProductContainer(props: any) {
     setIsModalVisible((prev) => !prev);
   };
 
-  const onChangeContents = (value) => {
+  const onChangeContents = (value: any) => {
     setValue("contents", value === "<p><br></p>" ? "" : value);
     trigger("contents");
   };
 
-  const onClickEdit = async (data) => {
+  const onClickEdit = async (data: any) => {
     if (
       data.name === props.data?.fetchUseditem?.name &&
       data.contents === props.data?.fetchUseditem?.contents &&
@@ -167,7 +167,7 @@ export default function NewProductContainer(props: any) {
     }
   }, [props.data]);
 
-  const onClickTagDelete = (event) => {
+  const onClickTagDelete = (event: any) => {
     const aaa = hashArr.filter((_, i) => i !== Number(event.target.id));
     setHashArr([...aaa]);
   };

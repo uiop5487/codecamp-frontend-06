@@ -21,7 +21,7 @@ export default function ProdcutCommentListItem(props: any) {
   });
   console.log(data);
 
-  const onClickShowEdit = (event) => {
+  const onClickShowEdit = (event: any) => {
     setQiestionId(event.target.id);
     setIsActive((prev) => !prev);
   };
@@ -85,7 +85,7 @@ export default function ProdcutCommentListItem(props: any) {
               setIsAnswer={setIsAnswer}
               dataid={props.data._id}
             />
-            {data?.fetchUseditemQuestionAnswers?.map((el) => (
+            {data?.fetchUseditemQuestionAnswers?.map((el: any) => (
               <CommentAnswerListContainer
                 key={uuidv4()}
                 data={el}

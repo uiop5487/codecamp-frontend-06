@@ -12,7 +12,7 @@ export default function ProductCommentWriteContainer() {
     mode: "onChange",
   });
 
-  const onClickSubmit = async (data) => {
+  const onClickSubmit = async (data: any) => {
     if (!data.contents) return;
     try {
       const result = await createUseditemQuestion({

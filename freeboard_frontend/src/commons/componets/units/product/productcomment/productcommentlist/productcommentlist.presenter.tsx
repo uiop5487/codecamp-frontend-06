@@ -13,7 +13,7 @@ export default function ProdcutCommentListPresenter(props: any) {
             hasMore={true}
             useWindow={false}
           >
-            {props.data?.fetchUseditemQuestions.map((el) => (
+            {props.data?.fetchUseditemQuestions.map((el: any) => (
               <ProdcutCommentListItem
                 key={uuidv4()}
                 data={el}

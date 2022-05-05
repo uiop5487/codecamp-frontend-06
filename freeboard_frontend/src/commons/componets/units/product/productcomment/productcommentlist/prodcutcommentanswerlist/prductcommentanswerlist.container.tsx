@@ -27,7 +27,7 @@ export default function CommentAnswerListContainer(props: any) {
     setIsAnswer((prev) => !prev);
   };
 
-  const onChangeContents = (event) => {
+  const onChangeContents = (event: any) => {
     setContents(event.target.value);
   };
 
@@ -43,12 +43,12 @@ export default function CommentAnswerListContainer(props: any) {
       });
       alert("등록 되었습니다.");
       console.log(result);
-    } catch (error) {
+    } catch (error: any) {
       alert(error.message);
     }
   };
 
-  const onClickDelete = (event) => {
+  const onClickDelete = (event: any) => {
     deleteUseditemQuestionAnswer({
       variables: {
         useditemQuestionAnswerId: event.target.id,
@@ -59,7 +59,7 @@ export default function CommentAnswerListContainer(props: any) {
           fields: {
             fetchUseditemQuestionAnswers: (prev, { readField }) => {
               const filterPrev = prev.filter(
-                (el) => readField("_id", el) !== deleteId
+                (el: any) => readField("_id", el) !== deleteId
               );
               return [...filterPrev];
             },
@@ -69,7 +69,7 @@ export default function CommentAnswerListContainer(props: any) {
     });
   };
 
-  const onClickShowEdit = (event) => {
+  const onClickShowEdit = (event: any) => {
     setIsActive((prev) => !prev);
     setEditId(event.target.id);
   };
@@ -87,7 +87,7 @@ export default function CommentAnswerListContainer(props: any) {
       });
       alert("수정되었습니다.");
       setIsActive((prev) => !prev);
-    } catch (error) {
+    } catch (error: any) {
       alert(error.messeage);
     }
   };

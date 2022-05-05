@@ -56,7 +56,7 @@ export default function ProductListPresenter(props: any) {
                     <s.ProductName>{el.name}</s.ProductName>
                     <s.Remarks>{el.remarks}</s.Remarks>
                     <s.TagsWrapper>
-                      {el.tags?.map((el) => (
+                      {el.tags?.map((el: any) => (
                         <s.Tags key={uuidv4()}>{el}</s.Tags>
                       ))}
                     </s.TagsWrapper>

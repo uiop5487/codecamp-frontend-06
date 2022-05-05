@@ -10,7 +10,7 @@ const PublicApiUI = (props: any) => {
   return (
     <div>
       <div>
-        {props.foodUrl.map((el, index) => (
+        {props.foodUrl.map((el: any, index: any) => (
           <>
             <FoodImg key={uuidv4()} src={el} />
             {(index + 1) % 3 === 0 && <br />}

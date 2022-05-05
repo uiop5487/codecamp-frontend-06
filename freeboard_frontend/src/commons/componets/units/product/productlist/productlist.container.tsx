@@ -1,12 +1,19 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import {
+  IQuery,
+  IQueryFetchUseditemsArgs,
+} from "../../../../types/generated/types";
 import ProductListPresenter from "./productlist.presenter";
 import { FETCH_USED_ITEMS } from "./productlist.query";
 export default function ProductListContainer() {
   const router = useRouter();
   const [isSoldout, setIsSoldout] = useState(false);
-  const { data, fetchMore } = useQuery(FETCH_USED_ITEMS, {
+  const { data, fetchMore } = useQuery<
+    Pick<IQuery, "fetchUseditems">,
+    IQueryFetchUseditemsArgs
+  >(FETCH_USED_ITEMS, {
     variables: {
       isSoldout: isSoldout,
     },
@@ -19,10 +26,10 @@ export default function ProductListContainer() {
     router.push("/products/new");
   };
 
-  const onClickMoveDetail = (el) => (event) => {
+  const onClickMoveDetail = (el: any) => (event: any) => {
     const basket = JSON.parse(localStorage.getItem(`${DATE}`) || "[]");
 
-    const temp = basket.filter((bel) => bel._id === el._id);
+    const temp = basket.filter((bel: any) => bel._id === el._id);
     if (temp.length) {
       router.push(`/products/new/${event.currentTarget.id}`);
       return;
@@ -48,14 +55,14 @@ export default function ProductListContainer() {
         page: Math.ceil(data.fetchUseditems.length / 10) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult.fetchUseditems)
+        if (!fetchMoreResult?.fetchUseditems)
           return {
             fetchUseditems: [...prev.fetchUseditems],
           };
         return {
           fetchUseditems: [
             ...prev.fetchUseditems,
-            ...fetchMoreResult.fetchUseditems,
+            ...fetchMoreResult?.fetchUseditems,
           ],
         };
       },
