@@ -110,10 +110,6 @@ export default function NewProductContainer(props: any) {
       return;
     }
     try {
-      // let arr;
-      // if (hashArr[0] !== "") {
-      //   arr = props.data?.fetchUseditem?.tags;
-      // }
       const result = await updateUseditem({
         variables: {
           useditemId: router.query.productId,

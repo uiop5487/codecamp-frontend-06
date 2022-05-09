@@ -32,28 +32,20 @@ export interface IWriteNewUI {
   addressInput: IMyBoardAdress;
   isEdit: boolean;
   data?: any;
-  isActive: boolean;
-  editBtn: () => void;
-  SubitButton: () => void;
+  editBtn: (data: any) => void;
+  SubmitButton: (data: any) => void;
   isOpen: boolean;
-  // Modal: () => void;
   EditModal: () => void;
-  Toggle: () => void;
   showModal: () => void;
-  handleOk: () => void;
-  handleCancel: () => void;
   isModalVisible: boolean;
-  blankError: IError;
   handleComplete: any;
   sumbitModal: () => void;
-  onChangeValue: (
-    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  ) => void;
   onChangeAddressValue: (event: ChangeEvent<HTMLInputElement>) => void;
-  // addressInput: IMyBoardAdress;
-  // blankError?: IError;
   imageUrls: any;
   onChangeFileUrl: (imageUrl: any, index: number) => void;
+  handleSubmit: any;
+  register: any;
+  formState: any;
 }
 
 export interface IOnchangeValue {

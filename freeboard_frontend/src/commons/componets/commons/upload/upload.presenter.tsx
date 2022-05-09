@@ -9,7 +9,7 @@ const UploadPresenter = (props: any) => {
           onClick={props.onClickImage}
         />
       ) : (
-        <s.UploadBtn onClick={props.onClickImage}>
+        <s.UploadBtn onClick={props.onClickImage} type="button">
           +<s.Upload>Upload</s.Upload>
         </s.UploadBtn>
       )}

@@ -10,12 +10,29 @@ import {
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
 } from "../../../../types/generated/types";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const createSchema = yup.object({
+  writer: yup.string().required("작성자는 필수 입력 사항입니다."),
+  password: yup.string().required("비밀번호는 필수 입력 사항입니다."),
+  title: yup.string().required("제목은 필수 입력 사항입니다."),
+  contents: yup.string().required("내용은 필수 입력 사항입니다."),
+});
+
+const editSchema = yup.object({
+  password: yup.string().required("비밀번호는 필수 입력 사항입니다."),
+});
 
 export default function WriteNewPage(props: IWriteNew) {
-  const [imageUrls, setImageUrls] = useState(["", "", ""]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const { register, handleSubmit, formState } = useForm({
+    resolver: props.isEdit
+      ? yupResolver(editSchema)
+      : yupResolver(createSchema),
+    mode: "onChange",
+  });
   const [createBoard] = useMutation<
     Pick<IMutation, "createBoard">,
     IMutationCreateBoardArgs
@@ -24,51 +41,20 @@ export default function WriteNewPage(props: IWriteNew) {
     Pick<IMutation, "updateBoard">,
     IMutationUpdateBoardArgs
   >(UPDATE_BOARD);
-  const [isActive, setIsActive] = useState(false);
-  // 여기는 자바스크립트
-
-  const [fetchBoardInput, setFetchBoardInput] = useState({
-    writer: "",
-    password: "",
-    title: "",
-    contents: "",
-    youtubeUrl: "",
-  });
-
   const [addressInput, setAddressInput] = useState({
     address: "",
     addressDetail: "",
     zipcode: "",
   });
-
-  const [blankError, setBlankError] = useState({
-    writer: "",
-    password: "",
-    title: "",
-    contents: "",
-  });
-
-  const onChangeValue = (
-    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setFetchBoardInput({
-      ...fetchBoardInput,
-      [event.target.id]: String(event.target.value),
-    });
-    if (event.target.value !== "") {
-      setBlankError({ ...blankError, [event.target.id]: "" });
-    }
-    if (props.isEdit ? fetchBoardInput.password : fetchBoardInput) {
-      setIsActive(true);
-    }
-  };
+  const [imageUrls, setImageUrls] = useState(["", "", ""]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const onChangeAddressValue = (event: ChangeEvent<HTMLInputElement>) => {
     setAddressInput({
       ...addressInput,
       [event.target.id]: String(event.target.value),
     });
-    console.log(addressInput);
   };
 
   const handleComplete = (data: any) => {
@@ -81,32 +67,23 @@ export default function WriteNewPage(props: IWriteNew) {
     setIsOpen((prev) => !prev);
   };
 
-  const SubitButton = async () => {
-    if (fetchBoardInput.writer === "") {
-      blankError.writer = "작성자가 비어있습니다.";
-      // setBlankError({ ...blankError, writer: "assaa" });
-    }
-    if (fetchBoardInput.password === "") {
-      blankError.password = "비밀번호가 비어있습니다.";
-    }
-    if (fetchBoardInput.title === "") {
-      blankError.title = "제목가 비어있습니다.";
-    }
-    if (fetchBoardInput.contents === "") {
-      blankError.contents = "내용가 비어있습니다.";
-    }
+  const SubmitButton = async (data: any) => {
     try {
       const myData: any = await createBoard({
         variables: {
           createBoardInput: {
-            ...fetchBoardInput,
+            ...data,
             images: imageUrls,
             boardAddress: { ...addressInput },
           },
         },
       });
-      setIsOpen((prev) => !prev);
-      console.log(myData);
+      Modal.success({
+        content: "상품이 등록되었습니다.",
+        onOk() {
+          setIsOpen((prev) => !prev);
+        },
+      });
       router.push(`/boards/new/${myData.data.createBoard._id}`);
     } catch (error: any) {
       Modal.error({
@@ -122,25 +99,7 @@ export default function WriteNewPage(props: IWriteNew) {
     setIsOpen((prev) => !prev);
   };
 
-  const editBtn = async () => {
-    // if (!fetchBoardInput.title && !fetchBoardInput.contents) {
-    //   Modal.error({
-    //     content: "변경이 안됬습니다.",
-    //     onOk() {
-    //       setIsOpen((prev) => !prev);
-    //     },
-    //   });
-    //   return;
-    // }
-    if (fetchBoardInput.password === "") {
-      blankError.password = "비밀번호가 비어있습니다.";
-      return;
-    }
-    if (fetchBoardInput.password !== "") {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
+  const editBtn = async (data: any) => {
     try {
       const myVariables: IMyVariables = {};
 
@@ -156,14 +115,11 @@ export default function WriteNewPage(props: IWriteNew) {
         myVariables.boardAddress = myBoardAddress;
       }
 
-      if (fetchBoardInput.title !== "")
-        myVariables.title = fetchBoardInput.title;
+      if (data.title !== "") myVariables.title = data.title;
 
-      if (fetchBoardInput.contents !== "")
-        myVariables.contents = fetchBoardInput.contents;
+      if (data.contents !== "") myVariables.contents = data.contents;
 
-      if (fetchBoardInput.youtubeUrl !== "")
-        myVariables.youtubeUrl = fetchBoardInput.youtubeUrl;
+      if (data.youtubeUrl !== "") myVariables.youtubeUrl = data.youtubeUrl;
 
       if (imageUrls) myVariables.images = imageUrls;
 
@@ -172,11 +128,16 @@ export default function WriteNewPage(props: IWriteNew) {
           updateBoardInput: {
             ...myVariables,
           },
-          password: fetchBoardInput.password,
+          password: data.password,
           boardId: String(router.query.boardid),
         },
       });
-      setIsOpen((prev) => !prev);
+      Modal.success({
+        content: "상품이 수정되었습니다.",
+        onOk() {
+          setIsOpen((prev) => !prev);
+        },
+      });
       router.push(`/boards/new/${router.query.boardid}`);
     } catch (error: any) {
       Modal.error({
@@ -187,19 +148,8 @@ export default function WriteNewPage(props: IWriteNew) {
       });
     }
   };
-  const Toggle = () => {
-    setIsOpen((prev) => !prev);
-  };
 
   const showModal = () => {
-    setIsModalVisible((prev) => !prev);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible((prev) => !prev);
-  };
-
-  const handleCancel = () => {
     setIsModalVisible((prev) => !prev);
   };
 
@@ -219,24 +169,21 @@ export default function WriteNewPage(props: IWriteNew) {
     <WriteNewPageUI
       editBtn={editBtn}
       isEdit={props.isEdit}
-      isActive={isActive}
       data={props.data}
-      SubitButton={SubitButton}
+      SubmitButton={SubmitButton}
       isOpen={isOpen}
       sumbitModal={sumbitModal}
       EditModal={EditModal}
-      Toggle={Toggle}
       showModal={showModal}
-      handleOk={handleOk}
-      handleCancel={handleCancel}
       isModalVisible={isModalVisible}
       handleComplete={handleComplete}
-      onChangeValue={onChangeValue}
       onChangeAddressValue={onChangeAddressValue}
       addressInput={addressInput}
-      blankError={blankError}
       onChangeFileUrl={onChangeFileUrl}
       imageUrls={imageUrls}
+      register={register}
+      handleSubmit={handleSubmit}
+      formState={formState}
     />
   );
 }

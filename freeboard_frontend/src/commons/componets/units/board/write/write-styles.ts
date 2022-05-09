@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Istyle } from "./write-typescript";
 
-export const BackGround = styled.div`
+export const BackGround = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
