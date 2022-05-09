@@ -73,7 +73,6 @@ export default function CommentAnswerListContainer(props: any) {
     setIsActive((prev) => !prev);
     setEditId(event.target.id);
   };
-  console.log(editId);
 
   const onClickEdit = async () => {
     try {

@@ -84,12 +84,10 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
             onChange={props.onChangeAddressValue}
             value={
               props.addressInput.address
-                ? props.addressInput.address
-                : props.data?.fetchBoard?.boardAddress.address
+                ? props.addressInput?.address
+                : props.data?.fetchBoard?.boardAddress?.address
             }
-            // value={props.data?.fetchBoard?.boardAddress?.address}
           />
-          {/* onClick={props.isEdit ? props.EditModal : props.sumbitModal} */}
           <s.AdressInput
             type="text"
             id="addressDetail"
@@ -97,7 +95,6 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
             value={props.data?.fetchBoard?.boardAddress?.addressDetail}
           />
         </s.AdressInputWrapper>
-        {/* <s.ErrorBox>{props.adressError}</s.ErrorBox> */}
         <s.LinkWrapper>
           <s.SubTitle>유튜브</s.SubTitle>
           <s.LinkInput

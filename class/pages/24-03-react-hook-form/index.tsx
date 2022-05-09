@@ -8,7 +8,10 @@ interface IFormValues {
 }
 
 export default function ReactHookFormPage() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState } = useForm();
+
+  // 버튼을 한번 누르면 ture로 변경
+  // formState.isSubmitting;
 
   const onClickSubmit = (data: IFormValues) => {
     console.log(data);
@@ -24,7 +27,7 @@ export default function ReactHookFormPage() {
       <br />
       내용: <input type="text" {...register("contents")} />
       <br />
-      <button>등록하기</button>
+      <button disabled={formState.isSubmitting}>등록하기</button>
     </form>
   );
 }
