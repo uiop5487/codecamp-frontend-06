@@ -1,12 +1,10 @@
 import * as s from "./comment.styles";
 import { ICommentUI } from "./comment.types";
-import CommentMapPage from "./comment.map";
-import InfiniteScroll from "react-infinite-scroller";
-import { v4 as uuidv4 } from "uuid";
+import CommentListContainer from "./commentlist/commentlist.container";
 
 const CommentUI = (props: ICommentUI) => {
   return (
-    <s.BackGround>
+    <s.BackGround onSubmit={props.handleSubmit(props.submitBtn)}>
       <s.HeaderWarrper>
         <div>box</div>
         <s.CommentHeader>댓글</s.CommentHeader>
@@ -15,52 +13,27 @@ const CommentUI = (props: ICommentUI) => {
         <s.WriterInput
           type="text"
           placeholder="작성자"
-          onChange={props.saveWriter}
-          value={props.writer}
+          {...props.register("writer")}
         />
         <s.PasswordInput
           type="text"
           placeholder="비밀번호"
-          onChange={props.savePassword}
-          value={props.password}
+          {...props.register("password")}
         />
-        <s.StarIcon onChange={props.handleChange} value={props.value} />
+        <s.StarIcon onChange={props.handleChange} value={props.ratingValue} />
       </s.InputWarrper>
       <s.CommentAreaWarrper>
         <s.CommentArea
           placeholder="어쩌구저쩌구"
-          onChange={props.saveContents}
-          value={props.contents}
+          {...props.register("contents")}
         />
         <s.SumbitWarrper>
-          <s.CommentAreaTextNum>0 / 100</s.CommentAreaTextNum>
-          <s.SumbitButton onClick={props.sumbitBtn}>등록하기</s.SumbitButton>
+          <s.CommentAreaTextNum>/ 100</s.CommentAreaTextNum>
+          <s.SumbitButton>등록하기</s.SumbitButton>
         </s.SumbitWarrper>
       </s.CommentAreaWarrper>
       <s.FooterWarrper>
-        <div style={{ height: "500px", overflow: "auto" }}>
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={props.onLoadMore}
-            hasMore={true}
-            useWindow={false}
-          >
-            {props.data?.fetchBoardComments.map((el: any) => (
-              <CommentMapPage
-                el={el}
-                key={uuidv4()}
-                data={props.data}
-                onClickDelete={props.onClickDelete}
-                showModal={props.showModal}
-                isModalVisible={props.isModalVisible}
-                Tog={props.Tog}
-                deletePasword={props.deletePasword}
-                isEdit={props.isEdit}
-                EdithandleChange={props.EdithandleChange}
-              />
-            ))}
-          </InfiniteScroll>
-        </div>
+        <CommentListContainer />
       </s.FooterWarrper>
     </s.BackGround>
   );

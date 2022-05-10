@@ -1,10 +1,10 @@
-import BestBoards from "../../src/commons/componets/units/board/bestboard/bestboardpresenter";
+import BestBoardsContainer from "../../src/commons/componets/units/board/bestboard/bestboardcontainer";
 import WriteBoardListContainer from "../../src/commons/componets/units/board/list/board-list-container";
 
 const WriteBoardList = () => {
   return (
     <div>
-      <BestBoards />
+      <BestBoardsContainer />
       <WriteBoardListContainer />
     </div>
   );

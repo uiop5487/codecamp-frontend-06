@@ -1,8 +1,8 @@
-import * as s from "./comment.styles";
+import * as s from "./commentlist.styles";
 import { Modal } from "antd";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import { UPDATE_BOARD_COMMENT } from "./comment.query";
 import { useMutation } from "@apollo/client";
+import { UPDATE_BOARD_COMMENT } from "../comment.query";
 
 const CommentMapPage = (props: any) => {
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
@@ -10,12 +10,12 @@ const CommentMapPage = (props: any) => {
   const [editContents, setEditContents] = useState("");
   const [editValue, setEditValue] = useState(0);
   const [editPassword, setEditPassword] = useState("");
-  const [, setEditWriter] = useState("");
   const [isId, setIsId] = useState("");
   const onClickDisplay = (event: MouseEvent<HTMLElement>) => {
     setIsActice(true);
     setIsId((event.target as any).id);
     if (isActice === true) {
+      setEditContents("");
       setIsActice(false);
     }
   };
@@ -28,25 +28,26 @@ const CommentMapPage = (props: any) => {
   const EdithandleChange = (editValue: number) => {
     setEditValue(editValue);
   };
+
   const onClickEdit = async () => {
-    await updateBoardComment({
-      variables: {
-        boardCommentId: isId,
-        password: editPassword,
-        updateBoardCommentInput: {
-          contents: editContents,
-          rating: Number(editValue),
+    try {
+      await updateBoardComment({
+        variables: {
+          boardCommentId: isId,
+          password: editPassword,
+          updateBoardCommentInput: {
+            contents: editContents || props.el.contents,
+            rating: editValue || props.el.rating,
+          },
         },
-      },
-    });
-    setEditWriter("");
-    setEditContents("");
-    setEditPassword("");
-    setEditValue(0);
-    Modal.success({
-      content: "수정되었습니다.",
-    });
-    setIsActice(false);
+      });
+      Modal.success({
+        content: "수정되었습니다.",
+      });
+      setIsActice(false);
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
   return (
     <div>
@@ -125,7 +126,12 @@ const CommentMapPage = (props: any) => {
                 />
               </div>
               <s.EditButtonWrapper>
-                <div>0 / 100</div>
+                <div>
+                  {editContents
+                    ? editContents.length
+                    : props.el.contents.length}
+                  / 100
+                </div>
                 <s.EditCommentButton onClick={onClickEdit}>
                   수정하기
                 </s.EditCommentButton>

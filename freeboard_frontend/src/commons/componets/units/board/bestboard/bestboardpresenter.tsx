@@ -1,36 +1,14 @@
-import { gql, useQuery } from "@apollo/client";
-import { useRouter } from "next/router";
 import * as s from "./bestboardstyles";
 import { v4 as uuidv4 } from "uuid";
+import { IBestBoardsPresenter } from "./bestboardtypes";
 
-const FETCH_BOARDS_OF_THE_BEST = gql`
-  query fetchBoardsOfTheBest {
-    fetchBoardsOfTheBest {
-      _id
-      writer
-      title
-      likeCount
-      createdAt
-      images
-    }
-  }
-`;
-
-const BestBoards = () => {
-  const { data } = useQuery(FETCH_BOARDS_OF_THE_BEST);
-  const router = useRouter();
-
-  const onClickMoveDetail = (event: any) => {
-    router.push(`/boards/new/${event.currentTarget.id}`);
-  };
-  console.log(data);
-
+const BestBoardsPresenter = (props: IBestBoardsPresenter) => {
   return (
     <s.BackGround>
       <s.Title>베스트 게시글</s.Title>
       <s.BoxWarrper>
-        {data?.fetchBoardsOfTheBest.map((el: any) => (
-          <s.Box key={uuidv4()} id={el._id} onClick={onClickMoveDetail}>
+        {props.data?.fetchBoardsOfTheBest.map((el: any) => (
+          <s.Box key={uuidv4()} id={el._id} onClick={props.onClickMoveDetail}>
             <s.ImgWraper>
               {el.images
                 .filter((e: string) => e)
@@ -67,4 +45,4 @@ const BestBoards = () => {
   );
 };
 
-export default BestBoards;
+export default BestBoardsPresenter;
