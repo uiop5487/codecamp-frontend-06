@@ -29,7 +29,7 @@ const WriteBoardListPresenter = (props: IBoardListUIProps) => {
                   {props.data.fetchBoards.length - index}
                 </s.BoardListBasicName>
                 <s.BoardListDetailName
-                  onClick={props.onClickMoveDetail}
+                  onClick={props.onClickMoveToPage(`/boards/new/${el._id}`)}
                   id={el._id}
                 >
                   {el.title}
@@ -45,7 +45,7 @@ const WriteBoardListPresenter = (props: IBoardListUIProps) => {
         <s.FooterWrapper>
           <s.CenterButton></s.CenterButton>
           <Pagination refetch={props.refetch} countdata={props.countdata} />
-          <s.SubmitButton onClick={props.onClickMoveNew}>
+          <s.SubmitButton onClick={props.onClickMoveToPage("/boards/new")}>
             게시글 작성
           </s.SubmitButton>
         </s.FooterWrapper>

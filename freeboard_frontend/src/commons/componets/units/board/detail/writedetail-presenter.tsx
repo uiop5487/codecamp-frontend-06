@@ -74,8 +74,14 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
         </s.LikeWrapper>
       </s.Wrapper>
       <s.WrapperFotter>
-        <s.ChangeBtn onClick={props.listButton}>목록으로</s.ChangeBtn>
-        <s.ChangeBtnCenter onClick={props.editButton}>
+        <s.ChangeBtn onClick={props.onClickMoveToPage("/boards")}>
+          목록으로
+        </s.ChangeBtn>
+        <s.ChangeBtnCenter
+          onClick={props.onClickMoveToPage(
+            `/boards/new/${props.router.query.boardid}/edit`
+          )}
+        >
           수정하기
         </s.ChangeBtnCenter>
         <s.ChangeBtn onClick={props.deleteButton}>삭제하기</s.ChangeBtn>

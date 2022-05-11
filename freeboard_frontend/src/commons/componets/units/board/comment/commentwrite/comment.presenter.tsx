@@ -1,6 +1,6 @@
+import CommentListContainer from "../commentlist/commentlist.container";
 import * as s from "./comment.styles";
 import { ICommentUI } from "./comment.types";
-import CommentListContainer from "./commentlist/commentlist.container";
 
 const CommentUI = (props: ICommentUI) => {
   return (

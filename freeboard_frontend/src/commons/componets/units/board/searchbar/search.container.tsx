@@ -1,12 +1,5 @@
-import { ChangeEvent } from "react";
 import SearchPresenter from "./search.presenter";
-
-interface ISearchContainer {
-  onChageSearch: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeEndDate: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeStartDate: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClickDateSearch: () => void;
-}
+import { ISearchContainer } from "./search.types";
 
 const SearchContainer = (props: ISearchContainer) => {
   return (

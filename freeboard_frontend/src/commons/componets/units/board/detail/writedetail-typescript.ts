@@ -1,9 +1,8 @@
 export interface IBoardWriteUIProps {
-  listButton: () => void;
-  editButton: () => void;
   deleteButton: () => void;
   onClickLike: () => void;
   onClickDisLike: () => void;
-  // onClickDelete: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClickMoveToPage: (path: any) => () => void;
   data: any;
+  router: any;
 }

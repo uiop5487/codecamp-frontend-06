@@ -14,6 +14,7 @@ import {
   IQuery,
   IQueryFetchBoardArgs,
 } from "../../../../types/generated/types";
+import { useMoveToPage } from "../../../commons/hooks/useMoveToPage";
 
 export default function DetailPageContain() {
   const router = useRouter();
@@ -29,10 +30,8 @@ export default function DetailPageContain() {
       variables: { boardId: String(router.query.boardid) },
     }
   );
+  const { onClickMoveToPage } = useMoveToPage();
 
-  // mutation{
-  //     deleteBoard(boardId: "623a1ddaa8255b0029883d03")
-  //   }
   const deleteButton = () => {
     deleteBoard({
       variables: { boardId: String(router.query.boardid) },
@@ -43,13 +42,6 @@ export default function DetailPageContain() {
         router.push("/boards");
       },
     });
-  };
-  const editButton = () => {
-    router.push(`/boards/new/${router.query.boardid}/edit`);
-  };
-
-  const listButton = () => {
-    router.push(`/boards/`);
   };
 
   const onClickLike = () => {
@@ -75,14 +67,15 @@ export default function DetailPageContain() {
       ],
     });
   };
+
   return (
     <DetailPageUI
       data={data}
       deleteButton={deleteButton}
-      editButton={editButton}
-      listButton={listButton}
       onClickLike={onClickLike}
       onClickDisLike={onClickDisLike}
+      onClickMoveToPage={onClickMoveToPage}
+      router={router}
     />
   );
 }

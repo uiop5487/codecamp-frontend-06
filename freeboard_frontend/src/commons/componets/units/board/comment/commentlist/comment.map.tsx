@@ -2,7 +2,7 @@ import * as s from "./commentlist.styles";
 import { Modal } from "antd";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { useMutation } from "@apollo/client";
-import { UPDATE_BOARD_COMMENT } from "../comment.query";
+import { UPDATE_BOARD_COMMENT } from "./commentlist.query";
 
 const CommentMapPage = (props: any) => {
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
