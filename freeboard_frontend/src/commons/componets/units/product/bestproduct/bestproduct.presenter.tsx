@@ -30,8 +30,6 @@ export default function BestProductPresenter(props: any) {
               ) : (
                 <s.DefaultImg>asdasd</s.DefaultImg>
               )}
-
-              {/* <s.BestImage></s.BestImage> */}
             </s.BestImageWrapper>
             <s.FooterWraper>
               <s.ItemTextWrapper>

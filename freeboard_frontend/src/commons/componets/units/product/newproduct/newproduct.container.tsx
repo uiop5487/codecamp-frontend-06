@@ -46,7 +46,6 @@ export default function NewProductContainer(props: any) {
       event.keyCode === 32 &&
       (event.target as HTMLInputElement).value !== " "
     ) {
-      // let aaa = ;
       setHashArr([...hashArr, "#" + (event.target as HTMLInputElement).value]);
       (event.target as HTMLInputElement).value = "";
     }

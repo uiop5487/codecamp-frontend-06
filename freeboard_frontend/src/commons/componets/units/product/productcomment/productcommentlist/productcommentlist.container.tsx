@@ -51,7 +51,6 @@ export default function ProdcutCommentListContainer() {
     if (!data) return;
     fetchMore({
       variables: {
-        // boardId: router.query.boardid,
         page: Math.ceil(data.fetchUseditemQuestions.length / 10) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {

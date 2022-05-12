@@ -19,7 +19,6 @@ export default function ProdcutCommentListItem(props: any) {
       useditemQuestionId: props.data._id,
     },
   });
-  console.log(data);
 
   const onClickShowEdit = (event: any) => {
     setQiestionId(event.target.id);

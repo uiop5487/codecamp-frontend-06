@@ -88,9 +88,12 @@ export default function ProductDetailPresenter(props: any) {
         )}
       </s.ContentsWrapper>
       <s.TagWrapper>
-        <s.Tag>{props.data?.fetchUseditem.tags[0]}</s.Tag>
+        {props.data?.fetchUseditem.tags.map((el) => (
+          <s.Tag key={el}>{el}</s.Tag>
+        ))}
+        {/* <s.Tag>{props.data?.fetchUseditem.tags[0]}</s.Tag>
         <s.Tag>{props.data?.fetchUseditem.tags[1]}</s.Tag>
-        <s.Tag>{props.data?.fetchUseditem.tags[2]}</s.Tag>
+        <s.Tag>{props.data?.fetchUseditem.tags[2]}</s.Tag> */}
       </s.TagWrapper>
       <s.MapWrapper>
         <MapDetail data={props.data} />

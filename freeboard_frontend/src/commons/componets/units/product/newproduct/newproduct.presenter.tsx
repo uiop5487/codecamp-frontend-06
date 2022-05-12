@@ -61,7 +61,6 @@ export default function NewProductPresenter(props: any) {
               type="text"
               onKeyUp={props.onChangeHashTag}
               placeholder="태그를 입력하고 스페이스를 눌러주세요!"
-              // defaultValue={props.data?.fetchUseditem.tags[0]}
             />
           </s.TagsWrapper>
           <s.HasgTagWrapper>
