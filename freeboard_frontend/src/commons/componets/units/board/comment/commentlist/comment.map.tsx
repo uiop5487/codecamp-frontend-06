@@ -3,6 +3,7 @@ import { Modal } from "antd";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_BOARD_COMMENT } from "./commentlist.query";
+import CommentListEditUI from "./commentlistedit.presenter";
 
 const CommentMapPage = (props: any) => {
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
@@ -49,6 +50,7 @@ const CommentMapPage = (props: any) => {
       console.log(error.message);
     }
   };
+
   return (
     <div>
       {isActice === false && (
@@ -91,54 +93,16 @@ const CommentMapPage = (props: any) => {
         </s.Footer>
       )}
       {isActice === true && (
-        <s.EditCommentBackGround>
-          <div>
-            <div>
-              <s.EditHeaderBoxWrapper>
-                <s.EditCommentWriterWrapper>
-                  <img src="/img/userimg.png"></img>
-                  <s.EditCommentWriter>{props.el.writer}</s.EditCommentWriter>
-                  <s.EditCommentPasswordInput
-                    type="text"
-                    placeholder="비밀번호"
-                    onChange={saveEditPassword}
-                    value={props.password}
-                  />
-                  <s.StarIcon
-                    defaultValue={props.el.rating}
-                    onChange={EdithandleChange}
-                  />
-                </s.EditCommentWriterWrapper>
-                <div>
-                  <s.DeleteImg
-                    src="/img/delete.png"
-                    onClick={onClickDisplay}
-                  ></s.DeleteImg>
-                </div>
-              </s.EditHeaderBoxWrapper>
-            </div>
-            <s.TextBoderSolid>
-              <div>
-                <s.EditCommentTextArea
-                  placeholder="어쩌구저쩌구"
-                  onChange={saveEditContents}
-                  defaultValue={props.el.contents}
-                />
-              </div>
-              <s.EditButtonWrapper>
-                <div>
-                  {editContents
-                    ? editContents.length
-                    : props.el.contents.length}
-                  / 100
-                </div>
-                <s.EditCommentButton onClick={onClickEdit}>
-                  수정하기
-                </s.EditCommentButton>
-              </s.EditButtonWrapper>
-            </s.TextBoderSolid>
-          </div>
-        </s.EditCommentBackGround>
+        <CommentListEditUI
+          saveEditContents={saveEditContents}
+          saveEditPassword={saveEditPassword}
+          EdithandleChange={EdithandleChange}
+          onClickEdit={onClickEdit}
+          editContents={editContents}
+          onClickDisplay={onClickDisplay}
+          el={props.el}
+          password={props.password}
+        />
       )}
     </div>
   );

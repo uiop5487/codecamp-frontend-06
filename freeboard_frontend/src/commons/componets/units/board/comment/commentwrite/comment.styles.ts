@@ -10,6 +10,7 @@ export const BackGround = styled.form`
   align-items: center;
   padding-top: 40px;
 `;
+
 export const StarIcon = styled(Rate)`
   margin-left: 20px;
 `;
