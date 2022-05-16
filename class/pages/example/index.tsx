@@ -1,9 +1,37 @@
+import styled from "@emotion/styled";
+import { Modal } from "antd";
+import { useState } from "react";
+
+const CustomModal = styled(Modal)`
+  .ant-modal-body {
+    height: 500px;
+  }
+`;
+
 export default function () {
-  const onClickGetId = (id) => (event) => {
-    console.log(id, event.target.value);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
   };
 
-  const getId = onClickGetId("any");
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
 
-  return <input onChange={getId} type="text" />;
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  return (
+    <div>
+      <button onClick={showModal}>open modal</button>
+      <CustomModal
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        title="모달 커스텀 테스트"
+      ></CustomModal>
+    </div>
+  );
 }

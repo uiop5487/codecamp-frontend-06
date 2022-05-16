@@ -3,7 +3,7 @@ import * as s from "./detail.styles";
 import { useRouter } from "next/router";
 import Dompurify from "dompurify";
 import ProductCommentWriteContainer from "../productcomment/productcommentwrite/productcommentwrite.container";
-import MapDetail from "../map/detailproductmap";
+import MapDetail from "../map/kakaomap";
 import { v4 as uuidv4 } from "uuid";
 
 export default function ProductDetailPresenter(props: any) {
@@ -88,15 +88,14 @@ export default function ProductDetailPresenter(props: any) {
         )}
       </s.ContentsWrapper>
       <s.TagWrapper>
-        {props.data?.fetchUseditem.tags.map((el) => (
+        {props.data?.fetchUseditem.tags.map((el: string) => (
           <s.Tag key={el}>{el}</s.Tag>
         ))}
-        {/* <s.Tag>{props.data?.fetchUseditem.tags[0]}</s.Tag>
-        <s.Tag>{props.data?.fetchUseditem.tags[1]}</s.Tag>
-        <s.Tag>{props.data?.fetchUseditem.tags[2]}</s.Tag> */}
       </s.TagWrapper>
       <s.MapWrapper>
-        <MapDetail data={props.data} />
+        <div style={{ width: 792, height: 360 }}>
+          <MapDetail data={props.data} />
+        </div>
       </s.MapWrapper>
       {props.data?.fetchUseditem?.seller?.name ===
       props.userData?.fetchUserLoggedIn?.name ? (

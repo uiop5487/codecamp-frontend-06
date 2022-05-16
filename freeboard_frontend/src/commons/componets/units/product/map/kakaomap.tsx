@@ -1,18 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function Map(props: any) {
-  const [isMap, setIsMap] = useState(false);
-
+export default function MapDetail(props: any) {
   useEffect(() => {
-    if (!props.address) setIsMap(true);
-  }, [props.address]);
-
-  useEffect(() => {
-    if (!isMap) return;
     const script = document.createElement("script");
     script.src =
       "//dapi.kakao.com/v2/maps/sdk.js?appkey=2cd360c3fd9a1af9fe28dba59f6c7fcd&autoload=false&libraries=services";
@@ -30,9 +23,12 @@ export default function Map(props: any) {
         // 담아도 되 안 담아도 됨
         const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
         const geocoder = new window.kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
+        // const aaa = props.data?.fetchUseditem.useditemAddress?.address
 
         geocoder.addressSearch(
-          `${props.address}`,
+          props.address
+            ? `${props.address}`
+            : props.data?.fetchUseditem.useditemAddress?.address,
           function (result: any, status: any) {
             // 정상적으로 검색이 완료됐으면
             if (status === window.kakao.maps.services.Status.OK) {
@@ -49,30 +45,29 @@ export default function Map(props: any) {
 
               // 인포윈도우로 장소에 대한 설명을 표시합니다
               const infowindow = new window.kakao.maps.InfoWindow({
-                content: `<div style="width:150px;text-align:center;padding:6px 0;">${props.address}</div>`,
+                content: `<div style="width:150px;text-align:center;padding:6px 0;">${
+                  props.address
+                    ? `${props.address}`
+                    : props.data?.fetchUseditem.useditemAddress?.address
+                }</div>`,
               });
               infowindow.open(map, marker);
 
               // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
               map.setCenter(coords);
-              props.setMapLatlng({
-                lat: result[0].y,
-                lng: result[0].x,
-              });
+
+              if (props.address) {
+                props.setMapLatlng({
+                  lat: result[0].y,
+                  lng: result[0].x,
+                });
+              }
             }
           }
         );
       });
     };
-  }, [props.address]);
+  }, [props.address, props.data]);
 
-  return (
-    <div>
-      <p style={{ margin: "-12px 0px 0px 0px" }}>
-        <em className="link"></em>
-      </p>
-      <div id="map" style={{ width: "384px", height: "269px" }}></div>
-      <div id="clickLatlng"></div>
-    </div>
-  );
+  return <div id="map" style={{ width: "100%", height: "100%" }}></div>;
 }

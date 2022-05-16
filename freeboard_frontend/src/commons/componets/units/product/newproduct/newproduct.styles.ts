@@ -88,7 +88,6 @@ export const LocationMapWrapper = styled.div`
 export const LocationMap = styled.div`
   width: 384px;
   height: 252px;
-  background-color: red;
 `;
 
 export const GpsWrapper = styled.div`

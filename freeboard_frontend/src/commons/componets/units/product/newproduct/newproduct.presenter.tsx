@@ -1,9 +1,10 @@
 import { Modal } from "antd";
 import DaumPostcode from "react-daum-postcode";
-import Map from "../map/newproductmap";
+// import Map from "../map/newproductmap";
 import UploadContainer from "./newprodcut.upload";
 import * as s from "./newproduct.styles";
 import { v4 as uuidv4 } from "uuid";
+import MapDetail from "../map/kakaomap";
 
 export default function NewProductPresenter(props: any) {
   return (
@@ -82,7 +83,12 @@ export default function NewProductPresenter(props: any) {
           <s.LocationMapWrapper>
             <s.InputText>거래위치</s.InputText>
             <s.LocationMap>
-              <Map address={props.address} setMapLatlng={props.setMapLatlng} />
+              <MapDetail
+                address={props.address}
+                setMapLatlng={props.setMapLatlng}
+                data={props.data}
+              />
+              {/* <Map address={props.address} setMapLatlng={props.setMapLatlng} /> */}
             </s.LocationMap>
           </s.LocationMapWrapper>
           <div>
