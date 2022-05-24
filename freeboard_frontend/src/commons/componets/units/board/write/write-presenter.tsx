@@ -111,14 +111,17 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
         <s.UploadWrapper>
           <s.SubTitle>사진 첨부</s.SubTitle>
           <s.UploadBtnWrapper>
-            {props.imageUrls?.map((el: any, index: number) => (
-              <UploadContainer
-                key={uuidv4()}
-                imageUrls={el}
-                index={index}
-                onChangeFileUrl={props.onChangeFileUrl}
-              />
-            ))}
+            <s.UploadBtn>
+              {props.imageUrls?.map((el: any, index: number) => (
+                <UploadContainer
+                  key={uuidv4()}
+                  imageUrls={el}
+                  index={index}
+                  onChangeFileUrl={props.onChangeFileUrl}
+                  onChangeEditFileUrl={props.onChangeEditFileUrl}
+                />
+              ))}
+            </s.UploadBtn>
           </s.UploadBtnWrapper>
         </s.UploadWrapper>
         <s.RadioBtnWrapper>

@@ -33,7 +33,7 @@ export default function NewProductContainer(props: any) {
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
   const [contents] = useState("");
   const [hashArr, setHashArr] = useState<String[]>([]);
-  const [imageUrls, setImageUrls] = useState(["", ""]);
+  const [imageUrls, setImageUrls] = useState([""]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [address, setAddress] = useState("");
   const [mapLatlng, setMapLatlng] = useState({
@@ -133,7 +133,11 @@ export default function NewProductContainer(props: any) {
     }
   };
 
-  const onChangeFileUrl = (imageUrl: any, index: number) => {
+  const onChangeFileUrl = (imageUrl: any) => {
+    setImageUrls((prev) => [imageUrl, ...prev]);
+  };
+
+  const onChangeEditFileUrl = (imageUrl: any, index: number) => {
     const fileUrl = [...imageUrls];
     fileUrl[index] = imageUrl;
     setImageUrls(fileUrl);
@@ -192,6 +196,7 @@ export default function NewProductContainer(props: any) {
       onChangeHashTag={onChangeHashTag}
       hashArr={hashArr}
       onClickTagDelete={onClickTagDelete}
+      onChangeEditFileUrl={onChangeEditFileUrl}
     />
   );
 }

@@ -42,7 +42,8 @@ export interface IWriteNewUI {
   sumbitModal: () => void;
   onChangeAddressValue: (event: ChangeEvent<HTMLInputElement>) => void;
   imageUrls: any;
-  onChangeFileUrl: (imageUrl: any, index: number) => void;
+  onChangeFileUrl: (imageUrl: any) => void;
+  onChangeEditFileUrl: (imageUrl: any, index: number) => void;
   handleSubmit: any;
   register: any;
   formState: any;

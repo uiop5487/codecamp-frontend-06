@@ -16,7 +16,7 @@ const UploadPresenter = (props: any) => {
       <s.UploadInput
         type="file"
         ref={props.fileRef}
-        onChange={props.onChangeFile}
+        onChange={props.imageUrls ? props.onChangeEditFile : props.onChangeFile}
       />
     </div>
   );

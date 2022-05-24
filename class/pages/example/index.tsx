@@ -1,37 +1,44 @@
+import { gql, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Modal } from "antd";
 import { useState } from "react";
 
-const CustomModal = styled(Modal)`
-  .ant-modal-body {
-    height: 500px;
+const Image = styled.div`
+  width: 200px;
+  height: 200px;
+  background-color: red;
+`;
+
+const Button = styled.div`
+  width: 200px;
+  height: 200px;
+  background-color: black;
+`;
+
+const UPLOAD_FILE = gql`
+  mutation uploadFile($file: Upload!) {
+    uploadFile(file: $file) {
+      url
+    }
   }
 `;
 
-export default function () {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+export default function UploadMultiple() {
+  const [uploadFile] = useMutation(UPLOAD_FILE);
+  const [image, setImage] = useState([""]);
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  const onChangeImageFile = async (event: any) => {
+    const file = [...event.target.files];
+    file.map(async (el) => {
+      const result = await uploadFile({
+        variables: { file: el },
+      });
+      setImage((prev) => [result.data.uploadFile.url, ...prev]);
+    });
   };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
   return (
     <div>
-      <button onClick={showModal}>open modal</button>
-      <CustomModal
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        title="모달 커스텀 테스트"
-      ></CustomModal>
+      <input type="file" onChange={onChangeImageFile} multiple />
+      {image.map((el) => (el ? <Image>{el}</Image> : <Button></Button>))}
     </div>
   );
 }

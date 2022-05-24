@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { ChangeEvent, useRef } from "react";
+import { useRef } from "react";
 import UploadPresenter from "./newprodcut.uploapresenter";
 import { UPLOAD_FILE } from "./newproduct.mutation";
 
@@ -11,12 +11,23 @@ const UploadContainer = (props: any) => {
     fileRef.current?.click();
   };
 
-  const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeFile = (event: any) => {
+    const file = [...event.target.files];
+    try {
+      file.map(async (el) => {
+        const result = await uploadFile({ variables: { file: el } });
+        props.onChangeFileUrl(result.data.uploadFile.url);
+      });
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
+  const onChangeEditFile = async (event: any) => {
     const file = event.target.files?.[0];
     try {
       const result = await uploadFile({ variables: { file } });
-      props.onChangeFileUrl(result.data.uploadFile.url, props.index);
-      console.log(result.data?.uploadFile.url);
+      props.onChangeEditFileUrl(result.data.uploadFile.url, props.index);
     } catch (error: any) {
       alert(error.message);
     }
@@ -28,6 +39,7 @@ const UploadContainer = (props: any) => {
       onClickImage={onClickImage}
       fileRef={fileRef}
       imageUrls={props.imageUrls}
+      onChangeEditFile={onChangeEditFile}
     />
   );
 };

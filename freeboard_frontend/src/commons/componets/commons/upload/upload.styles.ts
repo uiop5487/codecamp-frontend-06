@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
 
 export const UploadBtn = styled.button`
-  box-sizing: border-box;
-  width: 78px;
-  height: 78px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,7 +16,11 @@ export const UploadBtn = styled.button`
 
 export const UploadImg = styled.img`
   width: 78px;
-  height: 78px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-right: 24px;
 `;
 

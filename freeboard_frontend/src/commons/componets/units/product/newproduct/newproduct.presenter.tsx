@@ -1,10 +1,10 @@
 import { Modal } from "antd";
 import DaumPostcode from "react-daum-postcode";
 // import Map from "../map/newproductmap";
-import UploadContainer from "./newprodcut.upload";
 import * as s from "./newproduct.styles";
 import { v4 as uuidv4 } from "uuid";
 import MapDetail from "../map/kakaomap";
+import UploadContainer from "./newprodcut.upload";
 
 export default function NewProductPresenter(props: any) {
   return (
@@ -139,6 +139,7 @@ export default function NewProductPresenter(props: any) {
                 imageUrls={el}
                 index={index}
                 onChangeFileUrl={props.onChangeFileUrl}
+                onChangeEditFileUrl={props.onChangeEditFileUrl}
               />
             ))}
           </s.UploadButtonWrapper>

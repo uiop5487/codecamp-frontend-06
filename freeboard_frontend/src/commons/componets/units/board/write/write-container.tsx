@@ -46,7 +46,7 @@ export default function WriteNewPage(props: IWriteNew) {
     addressDetail: "",
     zipcode: "",
   });
-  const [imageUrls, setImageUrls] = useState(["", "", ""]);
+  const [imageUrls, setImageUrls] = useState([""]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -153,7 +153,11 @@ export default function WriteNewPage(props: IWriteNew) {
     setIsModalVisible((prev) => !prev);
   };
 
-  const onChangeFileUrl = (imageUrl: any, index: number) => {
+  const onChangeFileUrl = (imageUrl: any) => {
+    setImageUrls((prev) => [imageUrl, ...prev]);
+  };
+
+  const onChangeEditFileUrl = (imageUrl: any, index: number) => {
     const fileUrl = [...imageUrls];
     fileUrl[index] = imageUrl;
     setImageUrls(fileUrl);
@@ -184,6 +188,7 @@ export default function WriteNewPage(props: IWriteNew) {
       register={register}
       handleSubmit={handleSubmit}
       formState={formState}
+      onChangeEditFileUrl={onChangeEditFileUrl}
     />
   );
 }

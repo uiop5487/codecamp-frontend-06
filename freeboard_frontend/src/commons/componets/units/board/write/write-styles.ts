@@ -167,27 +167,13 @@ export const UploadBtnWrapper = styled.div`
   flex-direction: row;
 `;
 
-export const UploadBtn = styled.button`
+export const UploadBtn = styled.div`
   box-sizing: border-box;
-  width: 78px;
+  width: 100%;
   height: 78px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #bdbdbd;
-  font-size: 16px;
+  flex-direction: row;
   margin-right: 24px;
-  border: 1px solid black;
-  cursor: pointer;
-  display: ${(props: Istyle) => (props.imageActive ? "none" : "nomal")};
-`;
-
-export const UploadImg = styled.img`
-  width: 78px;
-  height: 78px;
-  margin-right: 24px;
-  display: ${(props: Istyle) => (props.imageActive ? "nomal" : "none")};
 `;
 
 export const Plus = styled.input`

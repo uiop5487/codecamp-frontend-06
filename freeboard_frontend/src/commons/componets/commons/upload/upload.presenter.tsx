@@ -13,7 +13,12 @@ const UploadPresenter = (props: any) => {
           +<s.Upload>Upload</s.Upload>
         </s.UploadBtn>
       )}
-      <s.Plus type="file" onChange={props.onChangeFile} ref={props.fileRef} />
+      <s.Plus
+        type="file"
+        onChange={props.imageUrls ? props.onChangeEditFile : props.onChangeFile}
+        ref={props.fileRef}
+        multiple
+      />
     </div>
   );
 };
