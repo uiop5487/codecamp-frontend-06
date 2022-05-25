@@ -1,4 +1,6 @@
+import { MouseEvent } from "react";
+
 export interface IBestBoardsPresenter {
-  onClickMoveDetail: (event: any) => void;
   data: any;
+  onClickMoveDetail: (event: MouseEvent<HTMLDivElement>) => void;
 }

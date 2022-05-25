@@ -1,26 +1,23 @@
 import * as s from "./bestboardstyles";
 import { v4 as uuidv4 } from "uuid";
 import { IBestBoardsPresenter } from "./bestboardtypes";
+import { IBoard } from "../../../../types/generated/types";
 
 const BestBoardsPresenter = (props: IBestBoardsPresenter) => {
   return (
     <s.BackGround>
       <s.Title>베스트 게시글</s.Title>
       <s.BoxWarrper>
-        {props.data?.fetchBoardsOfTheBest.map((el: any) => (
+        {props.data?.fetchBoardsOfTheBest.map((el: IBoard) => (
           <s.Box key={uuidv4()} id={el._id} onClick={props.onClickMoveDetail}>
             <s.ImgWraper>
-              {el.images
-                .filter((e: string) => e)
-                .reduce(
-                  (_: any, cur: string) => (
-                    <s.Img
-                      src={`https://storage.googleapis.com/${cur}`}
-                      key={uuidv4()}
-                    ></s.Img>
-                  ),
-                  []
-                )}
+              <s.Img
+                src={`https://storage.googleapis.com/${
+                  el.images?.filter((e: string) => e)[0]
+                    ? el.images?.filter((e: string) => e)[0]
+                    : "codecamp-file-storage/2022/4/27/눈이부시게.JPG"
+                }`}
+              ></s.Img>
             </s.ImgWraper>
             <s.TitleWrapper>
               <s.BoxTitle>{el.title}</s.BoxTitle>

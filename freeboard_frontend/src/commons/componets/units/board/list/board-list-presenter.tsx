@@ -1,7 +1,7 @@
 import * as s from "./board-list-styles";
 import { getDate } from "../../../commons/libraries/utils";
 import { BoardListEl, IBoardListUIProps } from "./board-list-typescript";
-import Pagination from "../../pagination/pagination";
+import Pagination from "../../../commons/pagination/pagination";
 import SearchContainer from "../searchbar/search.container";
 import { v4 as uuidv4 } from "uuid";
 

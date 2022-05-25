@@ -2,7 +2,7 @@ import * as s from "./write-styles";
 import { IWriteNewUI } from "./write-typescript";
 import { Modal } from "antd";
 import DaumPostcode from "react-daum-postcode";
-import UploadContainer from "../../../commons/upload/upload.container";
+import UploadContainer from "./upload/upload.container";
 import { v4 as uuidv4 } from "uuid";
 
 export default function WriteNewPageUI(props: IWriteNewUI) {
