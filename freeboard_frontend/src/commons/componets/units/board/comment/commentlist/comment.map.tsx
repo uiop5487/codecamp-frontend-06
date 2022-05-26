@@ -1,23 +1,25 @@
 import * as s from "./commentlist.styles";
 import { Modal } from "antd";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_BOARD_COMMENT } from "./commentlist.query";
 import CommentListEditUI from "./commentlistedit.presenter";
+import { IPropsCommentMap } from "./commentlist.types";
 
-const CommentMapPage = (props: any) => {
+const CommentMapPage = (props: IPropsCommentMap) => {
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
-  const [isActice, setIsActice] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [editContents, setEditContents] = useState("");
   const [editValue, setEditValue] = useState(0);
   const [editPassword, setEditPassword] = useState("");
   const [isId, setIsId] = useState("");
-  const onClickDisplay = (event: MouseEvent<HTMLElement>) => {
-    setIsActice(true);
-    setIsId((event.target as any).id);
-    if (isActice === true) {
+
+  const onClickDisplay = (id: string) => () => {
+    setIsActive(true);
+    setIsId(id);
+    if (isActive === true) {
       setEditContents("");
-      setIsActice(false);
+      setIsActive(false);
     }
   };
   const saveEditContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -45,7 +47,7 @@ const CommentMapPage = (props: any) => {
       Modal.success({
         content: "수정되었습니다.",
       });
-      setIsActice(false);
+      setIsActive(false);
     } catch (error: any) {
       console.log(error.message);
     }
@@ -53,7 +55,7 @@ const CommentMapPage = (props: any) => {
 
   return (
     <div>
-      {isActice === false && (
+      {isActive === false && (
         <s.Footer>
           <s.Fetch>
             <s.FetchWarrper>
@@ -69,13 +71,11 @@ const CommentMapPage = (props: any) => {
             <s.EditDelteBtnWarrper>
               <s.EditImg
                 src="/img/edit.png"
-                onClick={onClickDisplay}
-                id={props.el._id}
+                onClick={onClickDisplay(props.el._id)}
               ></s.EditImg>
               <s.DeleteImg
                 src="/img/delete.png"
-                onClick={props.showModal}
-                id={props.el._id}
+                onClick={props.showModal(props.el._id)}
               ></s.DeleteImg>
               {props.isModalVisible && (
                 <Modal
@@ -84,7 +84,7 @@ const CommentMapPage = (props: any) => {
                   onCancel={props.Tog}
                   title={"비밀번호를 입력하세요!!"}
                 >
-                  <input type="text" onChange={props.deletePasword} />
+                  <input type="password" onChange={props.deletePasword} />
                 </Modal>
               )}
             </s.EditDelteBtnWarrper>
@@ -92,7 +92,7 @@ const CommentMapPage = (props: any) => {
           <s.CreatedAt>{props.el.createdAt.slice(0, 10)}</s.CreatedAt>
         </s.Footer>
       )}
-      {isActice === true && (
+      {isActive === true && (
         <CommentListEditUI
           saveEditContents={saveEditContents}
           saveEditPassword={saveEditPassword}
@@ -101,7 +101,6 @@ const CommentMapPage = (props: any) => {
           editContents={editContents}
           onClickDisplay={onClickDisplay}
           el={props.el}
-          password={props.password}
         />
       )}
     </div>

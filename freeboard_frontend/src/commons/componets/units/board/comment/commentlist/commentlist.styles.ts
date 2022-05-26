@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Rate } from "antd";
-import { IIsEdit } from "../comment.types";
+import { IIsEdit } from "./commentlist.types";
 
 export const Footer = styled.div`
   padding-bottom: 20px;

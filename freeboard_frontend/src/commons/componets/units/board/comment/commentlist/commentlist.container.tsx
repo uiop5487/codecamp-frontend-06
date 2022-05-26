@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { IQuery } from "../../../../../types/generated/types";
 import CommentListPresenter from "./commentlist.presenter";
 import {
@@ -21,12 +21,12 @@ export default function CommentListContainer() {
   );
   const [dPassword, setDPassword] = useState("");
 
-  const deletePasword = (event: any) => {
+  const deletePasword = (event: ChangeEvent<HTMLInputElement>) => {
     setDPassword(event.target.value);
   };
 
-  const showModal = (event: any) => {
-    setDId(event.target.id);
+  const showModal = (id: string) => () => {
+    setDId(id);
     setIsModalVisible((prev) => !prev);
   };
 
@@ -73,6 +73,7 @@ export default function CommentListContainer() {
     });
     setIsModalVisible((prev) => !prev);
   };
+
   return (
     <CommentListPresenter
       deletePasword={deletePasword}

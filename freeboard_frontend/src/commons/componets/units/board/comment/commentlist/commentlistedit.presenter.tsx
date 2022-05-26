@@ -14,7 +14,6 @@ export default function CommentListEditUI(props: ICommentListEditUI) {
                 type="text"
                 placeholder="비밀번호"
                 onChange={props.saveEditPassword}
-                value={props.password}
               />
               <s.StarIcon
                 defaultValue={props.el.rating}
@@ -24,7 +23,7 @@ export default function CommentListEditUI(props: ICommentListEditUI) {
             <div>
               <s.DeleteImg
                 src="/img/delete.png"
-                onClick={props.onClickDisplay}
+                onClick={props.onClickDisplay(props.el._id)}
               ></s.DeleteImg>
             </div>
           </s.EditHeaderBoxWrapper>

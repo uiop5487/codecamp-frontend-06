@@ -4,15 +4,8 @@ import { KeyboardEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./newproduct.mutation";
 import NewProductPresenter from "./newproduct.presenter";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-const schema = yup.object({
-  name: yup.string().required("상품명은 필수 입력 사항입니다."),
-  remarks: yup.string().required("한줄요약은 필수 입력 사항입니다."),
-  contents: yup.string().required("상품설명은 필수 입력 사항입니다."),
-  price: yup.string().required("판매가격은 필수 입력 사항입니다."),
-});
+import { ProductCreateSchema } from "../../../commons/libraries/validation";
 
 export default function NewProductContainer(props: any) {
   const {
@@ -24,7 +17,7 @@ export default function NewProductContainer(props: any) {
     reset,
     getValues,
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(ProductCreateSchema),
     mode: "onChange",
   });
 

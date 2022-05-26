@@ -1,14 +1,24 @@
-import { ChangeEvent, MouseEvent } from "react";
+import { ChangeEvent } from "react";
+import { IBoardComment, IQuery } from "../../../../../types/generated/types";
 
 export interface ICommentListPresenter {
   onLoadMore: () => void;
-  data: any;
-  onClickDelete?: (event: MouseEvent<HTMLElement>) => void;
-  showModal: (event: any) => void;
+  data: Pick<IQuery, "fetchBoardComments"> | undefined;
+  onClickDelete: () => void;
+  showModal: (id: string) => () => void;
   isModalVisible: boolean;
-  Tog: any;
-  deletePasword: any;
+  Tog: () => void;
+  deletePasword: (event: ChangeEvent<HTMLInputElement>) => void;
   EdithandleChange?: (event: number) => void;
+}
+
+export interface IPropsCommentMap {
+  el: IBoardComment;
+  onClickDelete: () => void;
+  showModal: (id: string) => () => void;
+  isModalVisible: boolean;
+  Tog: () => void;
+  deletePasword: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface ICommentListEditUI {
@@ -17,7 +27,10 @@ export interface ICommentListEditUI {
   saveEditContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   EdithandleChange: (editValue: number) => void;
   onClickEdit: () => void;
-  onClickDisplay: (event: MouseEvent<HTMLElement>) => void;
+  onClickDisplay: (id: string) => () => void;
   editContents: string;
-  password: string;
+}
+
+export interface IIsEdit {
+  isEdit: boolean;
 }
