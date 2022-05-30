@@ -42,6 +42,13 @@ export default function ProductListContainer() {
     router.push(`/products/new/${event.currentTarget.id}`);
   };
 
+  // const defalut = data?.fetchUseditems || [""];
+  // const popular: (string | IUseditem)[] = defalut
+  //   .map((el) => el)
+  //   .sort((a, b) => b.pickedCount - a.pickedCount);
+
+  // console.log(popular, data?.fetchUseditems);
+
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(`${DATE}`) || "[]");
     setTodayDate(data);

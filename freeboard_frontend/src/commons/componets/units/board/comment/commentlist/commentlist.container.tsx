@@ -1,12 +1,13 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { IQuery } from "../../../../../types/generated/types";
 import CommentListPresenter from "./commentlist.presenter";
 import {
   DELETE_BOARD_COMMENT,
   FETCH_BOARD_COMMENTS,
 } from "./commentlist.query";
+import { IBoardCommentPasswordData } from "./commentlist.types";
 
 export default function CommentListContainer() {
   const router = useRouter();
@@ -19,11 +20,6 @@ export default function CommentListContainer() {
       variables: { boardId: String(router.query.boardid) },
     }
   );
-  const [dPassword, setDPassword] = useState("");
-
-  const deletePasword = (event: ChangeEvent<HTMLInputElement>) => {
-    setDPassword(event.target.value);
-  };
 
   const showModal = (id: string) => () => {
     setDId(id);
@@ -56,11 +52,11 @@ export default function CommentListContainer() {
     });
   };
 
-  const onClickDelete = () => {
+  const onClickDelete = (data: IBoardCommentPasswordData) => {
     deleteBoardComment({
       variables: {
         boardCommentId: dId,
-        password: dPassword,
+        password: data.password,
       },
       refetchQueries: [
         {
@@ -76,7 +72,6 @@ export default function CommentListContainer() {
 
   return (
     <CommentListPresenter
-      deletePasword={deletePasword}
       showModal={showModal}
       onClickDelete={onClickDelete}
       Tog={Tog}

@@ -28,7 +28,9 @@ const CommentUI = (props: ICommentUI) => {
           {...props.register("contents")}
         />
         <s.SumbitWarrper>
-          <s.CommentAreaTextNum>/ 100</s.CommentAreaTextNum>
+          <s.CommentAreaTextNum>
+            {props.watch("contents")?.length}/ 100
+          </s.CommentAreaTextNum>
           <s.SumbitButton>등록하기</s.SumbitButton>
         </s.SumbitWarrper>
       </s.CommentAreaWarrper>

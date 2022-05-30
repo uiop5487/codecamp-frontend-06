@@ -45,7 +45,6 @@ export default function NewProductContainer(props: any) {
   };
 
   const onClickSubmit = async (data: any) => {
-    console.log(parseFloat(mapLatlng.lat));
     try {
       const result = await createUseditem({
         variables: {
@@ -87,6 +86,7 @@ export default function NewProductContainer(props: any) {
   };
 
   const onChangeContents = (value: any) => {
+    console.log(value, "온체인지 콘텐츠");
     setValue("contents", value === "<p><br></p>" ? "" : value);
     trigger("contents");
   };

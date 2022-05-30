@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 const Comment = () => {
   const [ratingValue, setRatingValue] = useState(0);
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
-  const { register, handleSubmit, setValue } = useForm({
+  const { register, handleSubmit, setValue, watch } = useForm({
     mode: "onChange",
   });
   const router = useRouter();
@@ -59,6 +59,7 @@ const Comment = () => {
       ratingValue={ratingValue}
       handleSubmit={handleSubmit}
       register={register}
+      watch={watch}
     />
   );
 };

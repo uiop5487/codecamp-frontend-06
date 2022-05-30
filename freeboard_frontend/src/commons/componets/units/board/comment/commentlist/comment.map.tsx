@@ -4,7 +4,11 @@ import { ChangeEvent, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_BOARD_COMMENT } from "./commentlist.query";
 import CommentListEditUI from "./commentlistedit.presenter";
-import { IPropsCommentMap } from "./commentlist.types";
+import {
+  IBoardCommentPasswordData,
+  IPropsCommentMap,
+} from "./commentlist.types";
+import { useForm } from "react-hook-form";
 
 const CommentMapPage = (props: IPropsCommentMap) => {
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
@@ -13,6 +17,9 @@ const CommentMapPage = (props: IPropsCommentMap) => {
   const [editValue, setEditValue] = useState(0);
   const [editPassword, setEditPassword] = useState("");
   const [isId, setIsId] = useState("");
+  const { register, handleSubmit } = useForm<IBoardCommentPasswordData>({
+    mode: "onChange",
+  });
 
   const onClickDisplay = (id: string) => () => {
     setIsActive(true);
@@ -49,7 +56,10 @@ const CommentMapPage = (props: IPropsCommentMap) => {
       });
       setIsActive(false);
     } catch (error: any) {
-      console.log(error.message);
+      console.log(typeof error);
+      Modal.error({
+        content: error.message,
+      });
     }
   };
 
@@ -80,11 +90,11 @@ const CommentMapPage = (props: IPropsCommentMap) => {
               {props.isModalVisible && (
                 <Modal
                   visible={true}
-                  onOk={props.onClickDelete}
+                  onOk={handleSubmit(props.onClickDelete)}
                   onCancel={props.Tog}
                   title={"비밀번호를 입력하세요!!"}
                 >
-                  <input type="password" onChange={props.deletePasword} />
+                  <input type="password" {...register("password")} />
                 </Modal>
               )}
             </s.EditDelteBtnWarrper>

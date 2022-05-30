@@ -1,24 +1,26 @@
 import { ChangeEvent } from "react";
 import { IBoardComment, IQuery } from "../../../../../types/generated/types";
 
+export interface IBoardCommentPasswordData {
+  password: string;
+}
+
 export interface ICommentListPresenter {
   onLoadMore: () => void;
   data: Pick<IQuery, "fetchBoardComments"> | undefined;
-  onClickDelete: () => void;
+  onClickDelete: (data: IBoardCommentPasswordData) => void;
   showModal: (id: string) => () => void;
   isModalVisible: boolean;
   Tog: () => void;
-  deletePasword: (event: ChangeEvent<HTMLInputElement>) => void;
   EdithandleChange?: (event: number) => void;
 }
 
 export interface IPropsCommentMap {
   el: IBoardComment;
-  onClickDelete: () => void;
+  onClickDelete: (data: IBoardCommentPasswordData) => void;
   showModal: (id: string) => () => void;
   isModalVisible: boolean;
   Tog: () => void;
-  deletePasword: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface ICommentListEditUI {
