@@ -1,9 +1,10 @@
 import * as s from "./board-list-styles";
 import { getDate } from "../../../commons/libraries/utils";
-import { BoardListEl, IBoardListUIProps } from "./board-list-typescript";
+import { IBoardListUIProps } from "./board-list-typescript";
 import Pagination from "../../../commons/pagination/pagination";
 import SearchContainer from "../searchbar/search.container";
 import { v4 as uuidv4 } from "uuid";
+import { IBoard } from "../../../../types/generated/types";
 
 const WriteBoardListPresenter = (props: IBoardListUIProps) => {
   return (
@@ -23,10 +24,10 @@ const WriteBoardListPresenter = (props: IBoardListUIProps) => {
               <s.BoardListBasicTitle>작성자</s.BoardListBasicTitle>
               <s.BoardListBasicTitle>날짜</s.BoardListBasicTitle>
             </s.BoardListTilte>
-            {props.data?.fetchBoards.map((el: BoardListEl, index: number) => (
+            {props.data?.fetchBoards.map((el: IBoard, index: number) => (
               <s.BoardListDetail key={uuidv4()}>
                 <s.BoardListBasicName>
-                  {props.data.fetchBoards.length - index}
+                  {props.data ? props.data.fetchBoards?.length - index : index}
                 </s.BoardListBasicName>
                 <s.BoardListDetailName
                   onClick={props.onClickMoveToPage(`/boards/new/${el._id}`)}

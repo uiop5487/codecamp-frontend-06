@@ -4,7 +4,13 @@ import { useMutation } from "@apollo/client";
 import { CREATE_BOARD, UPDATE_BOARD } from "./write-mutation";
 import WriteNewPageUI from "./write-presenter";
 import { Modal } from "antd";
-import { IMyBoardAdress, IMyVariables, IWriteNew } from "./write-typescript";
+import {
+  IMyBoardAdress,
+  IMyVariables,
+  IWriteData,
+  IWriteEdit,
+  IWriteNew,
+} from "./write-typescript";
 import {
   IMutation,
   IMutationCreateBoardArgs,
@@ -19,7 +25,9 @@ import {
 
 export default function WriteNewPage(props: IWriteNew) {
   const router = useRouter();
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState } = useForm<
+    IWriteData | IWriteEdit
+  >({
     resolver: props.isEdit
       ? yupResolver(BoardEditSchema)
       : yupResolver(BoardCreateSchema),
@@ -59,7 +67,7 @@ export default function WriteNewPage(props: IWriteNew) {
     setIsOpen((prev) => !prev);
   };
 
-  const SubmitButton = async (data: any) => {
+  const SubmitButton = async (data: IWriteData) => {
     try {
       const myData: any = await createBoard({
         variables: {
@@ -91,7 +99,7 @@ export default function WriteNewPage(props: IWriteNew) {
     setIsOpen((prev) => !prev);
   };
 
-  const editBtn = async (data: any) => {
+  const editBtn = async (data: IWriteEdit) => {
     try {
       const myVariables: IMyVariables = {};
 
@@ -145,11 +153,11 @@ export default function WriteNewPage(props: IWriteNew) {
     setIsModalVisible((prev) => !prev);
   };
 
-  const onChangeFileUrl = (imageUrl: any) => {
+  const onChangeFileUrl = (imageUrl: string) => {
     setImageUrls((prev) => [imageUrl, ...prev]);
   };
 
-  const onChangeEditFileUrl = (imageUrl: any, index: number) => {
+  const onChangeEditFileUrl = (imageUrl: string, index: number) => {
     const fileUrl = [...imageUrls];
     fileUrl[index] = imageUrl;
     setImageUrls(fileUrl);

@@ -5,11 +5,12 @@ import CommentUI from "./comment.presenter";
 import { CREATE_BOARD_COMMENT, FETCH_BOARD_COMMENTS } from "./comment.query";
 import { Modal } from "antd";
 import { useForm } from "react-hook-form";
+import { ICommentData } from "./comment.types";
 
 const Comment = () => {
   const [ratingValue, setRatingValue] = useState(0);
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
-  const { register, handleSubmit, setValue, watch } = useForm({
+  const { register, handleSubmit, setValue, watch } = useForm<ICommentData>({
     mode: "onChange",
   });
   const router = useRouter();
@@ -18,7 +19,7 @@ const Comment = () => {
     setRatingValue(value);
   };
 
-  const submitBtn = async (commentData: any) => {
+  const submitBtn = async (commentData: ICommentData) => {
     try {
       const data = await createBoardComment({
         variables: {

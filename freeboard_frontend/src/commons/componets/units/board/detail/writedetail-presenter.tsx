@@ -48,7 +48,7 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
         </s.ContentsWrapper>
         <s.YoutubeWrapper>
           <ReactPlayer
-            url={props.data?.fetchBoard?.youtubeUrl}
+            url={props.data?.fetchBoard?.youtubeUrl || undefined}
             width={486}
             height={240}
           />

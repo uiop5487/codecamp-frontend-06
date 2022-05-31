@@ -6,11 +6,15 @@ const FoodImg = styled.img`
   height: 500px;
 `;
 
-const PublicApiUI = (props: any) => {
+interface IPublicApiUI {
+  foodUrl: string[];
+}
+
+const PublicApiUI = (props: IPublicApiUI) => {
   return (
     <div>
       <div>
-        {props.foodUrl.map((el: any, index: any) => (
+        {props.foodUrl.map((el: string, index: number) => (
           <>
             <FoodImg key={uuidv4()} src={el} />
             {(index + 1) % 3 === 0 && <br />}

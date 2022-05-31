@@ -4,11 +4,18 @@ import { ChangeEvent, useState } from "react";
 import { useQuery } from "@apollo/client";
 import _ from "lodash";
 import { useMoveToPage } from "../../../commons/hooks/useMoveToPage";
+import {
+  IQuery,
+  IQueryFetchBoardsArgs,
+} from "../../../../types/generated/types";
 
 const WriteBoardListContainer = () => {
-  const { data, refetch } = useQuery(FETCH_BOARDS);
+  const { data, refetch } = useQuery<
+    Pick<IQuery, "fetchBoards">,
+    IQueryFetchBoardsArgs
+  >(FETCH_BOARDS);
   const { data: countdata, refetch: countrefetch } =
-    useQuery(FETCH_BOARDS_COUNT);
+    useQuery<Pick<IQuery, "fetchBoardsCount">>(FETCH_BOARDS_COUNT);
   const [endDate, setEndDate] = useState("");
   const [startDate, setStartDate] = useState("");
   const { onClickMoveToPage } = useMoveToPage();

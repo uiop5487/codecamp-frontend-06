@@ -1,4 +1,19 @@
 import { ChangeEvent } from "react";
+import { IQuery } from "../../../../types/generated/types";
+
+export interface IWriteData {
+  writer: string;
+  password: string;
+  title: string;
+  contents: string;
+}
+
+export interface IWriteEdit {
+  title: string;
+  contents: string;
+  youtubeUrl: string;
+  password: string;
+}
 
 export interface Istyle {
   imageActive?: boolean | undefined;
@@ -6,9 +21,8 @@ export interface Istyle {
 }
 
 export interface IWriteNew {
-  // title: string;
   isEdit: boolean;
-  data?: any;
+  data?: Pick<IQuery, "fetchBoard"> | undefined;
 }
 
 export interface IInputEvent {}
