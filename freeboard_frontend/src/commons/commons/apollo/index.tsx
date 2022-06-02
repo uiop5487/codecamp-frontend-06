@@ -20,7 +20,6 @@ export default function ApolloSetting(props: IAplloSettingProps) {
 
   useEffect(() => {
     getAccessToken().then((newAccessToken) => setAccessToken(newAccessToken));
-    // setAccessToken(myLocalstorageAccessToken || "");
   }, []);
 
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {

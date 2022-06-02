@@ -22,6 +22,7 @@ import {
   BoardCreateSchema,
   BoardEditSchema,
 } from "../../../commons/libraries/validation";
+import { Address } from "react-daum-postcode";
 
 export default function WriteNewPage(props: IWriteNew) {
   const router = useRouter();
@@ -57,7 +58,8 @@ export default function WriteNewPage(props: IWriteNew) {
     });
   };
 
-  const handleComplete = (data: any) => {
+  const handleComplete = (data: Address) => {
+    console.log(data);
     addressInput.address = data.address;
     addressInput.zipcode = data.zonecode;
     setIsModalVisible((prev) => !prev);

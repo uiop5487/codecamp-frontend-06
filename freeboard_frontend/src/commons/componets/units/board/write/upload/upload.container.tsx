@@ -1,9 +1,10 @@
 import { useMutation } from "@apollo/client";
-import { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import UploadPresenter from "./upload.presenter";
 import { UPLOAD_FILE } from "./upload.qureies";
+import { IPropsUploadContainer } from "./upload.types";
 
-const UploadContainer = (props: any) => {
+const UploadContainer = (props: IPropsUploadContainer) => {
   const [uploadFile] = useMutation(UPLOAD_FILE);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -11,8 +12,9 @@ const UploadContainer = (props: any) => {
     fileRef.current?.click();
   };
 
-  const onChangeFile = (event: any) => {
-    const file = [...event.target.files];
+  const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = Object.values({ ...event.target.files });
+    console.log(file);
     try {
       file.map(async (el) => {
         const result = await uploadFile({ variables: { file: el } });
@@ -23,7 +25,7 @@ const UploadContainer = (props: any) => {
     }
   };
 
-  const onChangeEditFile = async (event: any) => {
+  const onChangeEditFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     try {
       const result = await uploadFile({ variables: { file } });

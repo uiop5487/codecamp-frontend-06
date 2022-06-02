@@ -22,7 +22,7 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
               id="writer"
               placeholder="이름을 적어주세요."
               {...props.register("writer")}
-              defaultValue={props.data?.fetchBoard.writer}
+              defaultValue={props.data?.fetchBoard.writer || undefined}
             />
             <s.ErrorBox>{props.formState.errors.writer?.message}</s.ErrorBox>
           </s.Name>
@@ -33,7 +33,6 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
               id="password"
               placeholder="비밀번호를 입력하세요"
               {...props.register("password")}
-              defaultValue={props.data?.fetchBoard.password}
             />
             <s.ErrorBox>{props.formState.errors.password?.message}</s.ErrorBox>
           </s.PassWord>
@@ -89,14 +88,16 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
             value={
               props.addressInput.address
                 ? props.addressInput?.address
-                : props.data?.fetchBoard?.boardAddress?.address
+                : props.data?.fetchBoard?.boardAddress?.address || undefined
             }
           />
           <s.AdressInput
             type="text"
             id="addressDetail"
             onChange={props.onChangeAddressValue}
-            value={props.data?.fetchBoard?.boardAddress?.addressDetail}
+            value={
+              props.data?.fetchBoard?.boardAddress?.addressDetail || undefined
+            }
           />
         </s.AdressInputWrapper>
         <s.LinkWrapper>
@@ -105,7 +106,7 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
             type="text"
             placeholder="링크를 복사해주세요."
             {...props.register("youtubeUrl")}
-            defaultValue={props.data?.fetchBoard?.youtubeUrl}
+            defaultValue={props.data?.fetchBoard?.youtubeUrl || undefined}
           />
         </s.LinkWrapper>
         <s.UploadWrapper>

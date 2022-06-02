@@ -56,25 +56,15 @@ export const PassWord = styled.div`
 export const WriterBox = styled.input`
   width: 486px;
   height: 52px;
-  /* color: #bdbdbd; */
+
   border: 1px solid #bdbdbd;
   box-sizing: border-box;
   padding: 10px;
 `;
 
-// export const WriterBox2 = styled.input`
-//     width: 486px;
-//     height: 52px;
-//     color: #bdbdbd;
-//     border: 1px solid #bdbdbd;
-//     box-sizing: border-box;
-//     padding: 10px;
-// `;
-
 export const SubtitleBox = styled.input`
   width: 996px;
   height: 52px;
-  /* color: #bdbdbd; */
   border: 1px solid #bdbdbd;
   box-sizing: border-box;
   padding: 10px;
@@ -83,7 +73,6 @@ export const SubtitleBox = styled.input`
 export const ContentBox = styled.textarea`
   width: 996px;
   height: 480px;
-  /* color: #bdbdbd; */
   border: 1px solid #bdbdbd;
   box-sizing: border-box;
   padding: 10px;

@@ -10,6 +10,7 @@ import { RecoilRoot } from "recoil";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import ApolloSetting from "../src/commons/commons/apollo";
+import Head from "next/head";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,14 +31,19 @@ function MyApp({ Component, pageProps }: AppProps) {
   // 모든 셋팅은 여기서
 
   return (
-    <RecoilRoot>
-      <ApolloSetting>
-        <Global styles={globalStyles} />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ApolloSetting>
-    </RecoilRoot>
+    <>
+      <Head>
+        <link rel="icon" href="/img/icon.webp" />
+      </Head>
+      <RecoilRoot>
+        <ApolloSetting>
+          <Global styles={globalStyles} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ApolloSetting>
+      </RecoilRoot>
+    </>
   );
 }
 

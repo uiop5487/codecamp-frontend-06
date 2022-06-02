@@ -1,6 +1,7 @@
 import * as s from "./upload.styles";
+import { IPropsUploadPresenter } from "./upload.types";
 
-const UploadPresenter = (props: any) => {
+const UploadPresenter = (props: IPropsUploadPresenter) => {
   return (
     <div>
       {props.imageUrls ? (

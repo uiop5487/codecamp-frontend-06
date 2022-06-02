@@ -1,4 +1,10 @@
 import { ChangeEvent } from "react";
+import { Address } from "react-daum-postcode";
+import {
+  FormState,
+  UseFormHandleSubmit,
+  UseFormRegister,
+} from "react-hook-form";
 import { IQuery } from "../../../../types/generated/types";
 
 export interface IWriteData {
@@ -6,9 +12,11 @@ export interface IWriteData {
   password: string;
   title: string;
   contents: string;
+  youtubeUrl: string;
 }
 
 export interface IWriteEdit {
+  writer: string;
   title: string;
   contents: string;
   youtubeUrl: string;
@@ -45,22 +53,22 @@ export interface IMyBoardAdress {
 export interface IWriteNewUI {
   addressInput: IMyBoardAdress;
   isEdit: boolean;
-  data?: any;
-  editBtn: (data: any) => void;
-  SubmitButton: (data: any) => void;
+  data?: Pick<IQuery, "fetchBoard"> | undefined;
+  editBtn: (data: IWriteEdit) => void;
+  SubmitButton: (data: IWriteData) => void;
   isOpen: boolean;
   EditModal: () => void;
   showModal: () => void;
   isModalVisible: boolean;
-  handleComplete: any;
+  handleComplete: (data: Address) => void;
   sumbitModal: () => void;
   onChangeAddressValue: (event: ChangeEvent<HTMLInputElement>) => void;
-  imageUrls: any;
-  onChangeFileUrl: (imageUrl: any) => void;
-  onChangeEditFileUrl: (imageUrl: any, index: number) => void;
-  handleSubmit: any;
-  register: any;
-  formState: any;
+  imageUrls: string[];
+  onChangeFileUrl: (imageUrl: string) => void;
+  onChangeEditFileUrl: (imageUrl: string, index: number) => void;
+  handleSubmit: UseFormHandleSubmit<IWriteData | IWriteEdit>;
+  register: UseFormRegister<IWriteData | IWriteEdit>;
+  formState: FormState<IWriteData | IWriteEdit>;
 }
 
 export interface IOnchangeValue {
@@ -76,5 +84,5 @@ export interface IMyVariables {
   contents?: string;
   youtubeUrl?: string;
   boardAddress?: object;
-  images?: any;
+  images?: string[];
 }
