@@ -1,7 +1,7 @@
 import * as s from "./login.styles";
-// import { ILoginPresenter } from "./login.types";
+import { ILoginPresenter } from "./login.types";
 
-const LoginPresenter = (props: any) => {
+const LoginPresenter = (props: ILoginPresenter) => {
   return (
     <s.Wrapper onSubmit={props.handleSubmit(props.onClickLogin)}>
       <s.MoveBoardWrapper>

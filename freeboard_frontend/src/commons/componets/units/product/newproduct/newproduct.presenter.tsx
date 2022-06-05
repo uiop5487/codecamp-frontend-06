@@ -5,8 +5,9 @@ import * as s from "./newproduct.styles";
 import { v4 as uuidv4 } from "uuid";
 import MapDetail from "../map/kakaomap";
 import UploadContainer from "./newprodcut.upload";
+import { INewProductPresenterProps } from "./newproduct.types";
 
-export default function NewProductPresenter(props: any) {
+export default function NewProductPresenter(props: INewProductPresenterProps) {
   return (
     <s.BackGround>
       <s.FormWrapper
@@ -51,7 +52,7 @@ export default function NewProductPresenter(props: any) {
             type="text"
             {...props.register("price")}
             placeholder="판매가격을 작성해주세요."
-            defaultValue={props.data?.fetchUseditem.price}
+            defaultValue={props.data?.fetchUseditem?.price || ""}
           />
           <s.Error>{props.formState.errors.price?.message}</s.Error>
         </s.InputWarpper>
@@ -71,7 +72,7 @@ export default function NewProductPresenter(props: any) {
                 <s.HashButton
                   type="button"
                   id={i}
-                  onClick={props.onClickTagDelete}
+                  onClick={props.onClickTagDelete(i)}
                 >
                   x
                 </s.HashButton>
@@ -115,7 +116,8 @@ export default function NewProductPresenter(props: any) {
                 type="txet"
                 {...props.register("useditemAddress.addressDetail")}
                 defaultValue={
-                  props.data?.fetchUseditem.useditemAddress.addressDetail
+                  props.data?.fetchUseditem?.useditemAddress?.addressDetail ||
+                  ""
                 }
               />
             </div>

@@ -6,8 +6,9 @@ import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./newproduct.mutation";
 import NewProductPresenter from "./newproduct.presenter";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ProductCreateSchema } from "../../../commons/libraries/validation";
+import { INewProductContainerProps, IPorductData } from "./newproduct.types";
 
-export default function NewProductContainer(props: any) {
+export default function NewProductContainer(props: INewProductContainerProps) {
   const {
     register,
     handleSubmit,
@@ -16,7 +17,7 @@ export default function NewProductContainer(props: any) {
     trigger,
     reset,
     getValues,
-  } = useForm({
+  } = useForm<IPorductData>({
     resolver: yupResolver(ProductCreateSchema),
     mode: "onChange",
   });
@@ -44,7 +45,7 @@ export default function NewProductContainer(props: any) {
     }
   };
 
-  const onClickSubmit = async (data: any) => {
+  const onClickSubmit = async (data: IPorductData) => {
     try {
       const result = await createUseditem({
         variables: {
@@ -85,13 +86,13 @@ export default function NewProductContainer(props: any) {
     setIsModalVisible((prev) => !prev);
   };
 
-  const onChangeContents = (value: any) => {
+  const onChangeContents = (value: string) => {
     console.log(value, "온체인지 콘텐츠");
     setValue("contents", value === "<p><br></p>" ? "" : value);
     trigger("contents");
   };
 
-  const onClickEdit = async (data: any) => {
+  const onClickEdit = async (data: IPorductData) => {
     if (
       data.name === props.data?.fetchUseditem?.name &&
       data.contents === props.data?.fetchUseditem?.contents &&
@@ -126,11 +127,11 @@ export default function NewProductContainer(props: any) {
     }
   };
 
-  const onChangeFileUrl = (imageUrl: any) => {
+  const onChangeFileUrl = (imageUrl: string) => {
     setImageUrls((prev) => [imageUrl, ...prev]);
   };
 
-  const onChangeEditFileUrl = (imageUrl: any, index: number) => {
+  const onChangeEditFileUrl = (imageUrl: string, index: number) => {
     const fileUrl = [...imageUrls];
     fileUrl[index] = imageUrl;
     setImageUrls(fileUrl);
@@ -150,18 +151,20 @@ export default function NewProductContainer(props: any) {
     setValue("tags", props.data?.fetchUseditem?.tags);
     setValue(
       "useditemAddress.addressDetail",
-      props.data?.fetchUseditem.useditemAddress.addressDetail
+      props.data?.fetchUseditem?.useditemAddress?.addressDetail
     );
-    setAddress(props.data?.fetchUseditem.useditemAddress.address);
+    if (!props.data?.fetchUseditem?.useditemAddress?.address) return;
+    setAddress(props.data?.fetchUseditem?.useditemAddress?.address);
     if (props.isEdit) {
-      const aaa = props.data?.fetchUseditem.tags;
-      setHashArr(aaa);
+      if (!props.data?.fetchUseditem?.tags) return;
+      const tags = props.data?.fetchUseditem?.tags;
+      setHashArr(tags);
     }
   }, [props.data]);
 
-  const onClickTagDelete = (event: any) => {
-    const aaa = hashArr.filter((_, i) => i !== Number(event.target.id));
-    setHashArr([...aaa]);
+  const onClickTagDelete = (index: number) => () => {
+    const tags = hashArr.filter((_, i) => i !== Number(index));
+    setHashArr([...tags]);
   };
 
   return (

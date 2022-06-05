@@ -5,6 +5,7 @@ import SignupPresenter from "./signup.presenter";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ISignupData } from "./signup.types";
 
 const schema = yup.object({
   email: yup
@@ -22,7 +23,7 @@ const schema = yup.object({
 const SignupContainer = () => {
   const router = useRouter();
   const [createUser] = useMutation(CREATE_USER);
-  const { register, formState, handleSubmit } = useForm({
+  const { register, formState, handleSubmit } = useForm<ISignupData>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
@@ -31,7 +32,7 @@ const SignupContainer = () => {
     router.push("/boards");
   };
 
-  const onClickSignup = async (data: any) => {
+  const onClickSignup = async (data: ISignupData) => {
     console.log(data);
     await createUser({
       variables: {

@@ -1,6 +1,7 @@
 import NewProductContainer from "../../../../../src/commons/componets/units/product/newproduct/newproduct.container";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { IQuery } from "../../../../../src/commons/types/generated/types";
 
 export const FETCH_USED_ITEM = gql`
   query fetchUseditem($useditemId: ID!) {
@@ -23,7 +24,7 @@ export const FETCH_USED_ITEM = gql`
 
 export default function ProductEditPage() {
   const router = useRouter();
-  const { data } = useQuery(FETCH_USED_ITEM, {
+  const { data } = useQuery<Pick<IQuery, "fetchUseditem">>(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.productId },
   });
   console.log(data?.fetchUseditem?.contents);

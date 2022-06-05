@@ -1,35 +1,29 @@
 import * as s from "./bestproduct.styles";
 import { v4 as uuidv4 } from "uuid";
+import { BestProductPresenterProps } from "./bestproduct.type";
+import { IUseditem } from "../../../../types/generated/types";
 
-export default function BestProductPresenter(props: any) {
+export default function BestProductPresenter(props: BestProductPresenterProps) {
   return (
     <s.Wrapper>
       <s.BestTitleWrapper>
         <s.BestTitle>베스트 상품</s.BestTitle>
       </s.BestTitleWrapper>
       <s.BestWrapper>
-        {props.data?.fetchUseditemsOfTheBest.map((el: any, i: any) => (
+        {props.data?.fetchUseditemsOfTheBest.map((el: IUseditem, i: number) => (
           <s.BestBoxWrapper
             key={uuidv4()}
             onClick={props.onClickMoveDetail(el)}
             id={el._id}
           >
             <s.BestImageWrapper>
-              {el.images[i] ? (
-                el.images
-                  .filter((e: string) => e)
-                  .reduce(
-                    (_: any, cur: any) => (
-                      <s.BestImage
-                        key={uuidv4()}
-                        src={`https://storage.googleapis.com/${cur}`}
-                      ></s.BestImage>
-                    ),
-                    []
-                  )
-              ) : (
-                <s.DefaultImg>asdasd</s.DefaultImg>
-              )}
+              <s.BestImage
+                src={`https://storage.googleapis.com/${
+                  el.images?.filter((e: string) => e)[0]
+                    ? el.images?.filter((e: string) => e)[0]
+                    : "codecamp-file-storage/2022/4/27/눈이부시게.JPG"
+                }`}
+              ></s.BestImage>
             </s.BestImageWrapper>
             <s.FooterWraper>
               <s.ItemTextWrapper>

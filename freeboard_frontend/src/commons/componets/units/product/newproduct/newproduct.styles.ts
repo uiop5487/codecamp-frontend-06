@@ -190,7 +190,7 @@ export const FooterWrapper = styled.div`
 `;
 
 interface IIsActive {
-  isActive: boolean;
+  isActive: boolean | string;
 }
 
 export const SubimtButton = styled.button`

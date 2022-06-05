@@ -7,6 +7,7 @@ import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ILoginData } from "./login.types";
 
 const schema = yup.object({
   email: yup
@@ -19,13 +20,13 @@ const schema = yup.object({
 const LoginContainer = () => {
   const [, setAccessToken] = useRecoilState(accessTokenState);
   const [LoginUser] = useMutation(LOGIN_USER);
-  const { register, formState, handleSubmit } = useForm({
+  const { register, formState, handleSubmit } = useForm<ILoginData>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
   const router = useRouter();
 
-  const onClickLogin = async (data: any) => {
+  const onClickLogin = async (data: ILoginData) => {
     console.log(data);
     try {
       const result = await LoginUser({

@@ -1,10 +1,11 @@
 import { useEffect } from "react";
+import { IKakaoMapProps } from "./kakaomap.type";
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function MapDetail(props: any) {
+export default function MapDetail(props: IKakaoMapProps) {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =

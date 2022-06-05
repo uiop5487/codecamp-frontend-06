@@ -1,7 +1,8 @@
 import * as s from "./signup.styles";
+import { ISignupPresenter } from "./signup.types";
 // import { ISignupPresenter } from "./signup.types";
 
-const SignupPresenter = (props: any) => {
+const SignupPresenter = (props: ISignupPresenter) => {
   return (
     <s.Wrapper onSubmit={props.handleSubmit(props.onClickSignup)}>
       <s.MoveBoardWrapper>
@@ -19,17 +20,17 @@ const SignupPresenter = (props: any) => {
         <div>
           <s.InputTitle>이름</s.InputTitle>
           <s.Input type="text" {...props.register("name")} />
-          <s.Error>{props.formState.errors.email?.name}</s.Error>
+          <s.Error>{props.formState.errors.name?.message}</s.Error>
         </div>
         <div>
           <s.InputTitle>비밀번호</s.InputTitle>
           <s.Input type="password" {...props.register("password")} />
-          <s.Error>{props.formState.errors.email?.password}</s.Error>
+          <s.Error>{props.formState.errors.password?.message}</s.Error>
         </div>
         <div>
           <s.InputTitle>비밀번호 확인</s.InputTitle>
           <s.Input type="password" {...props.register("passwordcheck")} />
-          <s.Error>{props.formState.errors.email?.passwordcheck}</s.Error>
+          <s.Error>{props.formState.errors.passwordcheck?.message}</s.Error>
         </div>
       </s.InputWrapper>
       <s.Button>회원가입</s.Button>
