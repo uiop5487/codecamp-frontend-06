@@ -1,9 +1,10 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import {
   IQuery,
   IQueryFetchUseditemsArgs,
+  IUseditem,
 } from "../../../../types/generated/types";
 import ProductListPresenter from "./productlist.presenter";
 import { FETCH_USED_ITEMS } from "./productlist.query";
@@ -26,28 +27,22 @@ export default function ProductListContainer() {
     router.push("/products/new");
   };
 
-  const onClickMoveDetail = (el: any) => (event: any) => {
-    const basket = JSON.parse(localStorage.getItem(`${DATE}`) || "[]");
+  const onClickMoveDetail =
+    (el: IUseditem) => (event: MouseEvent<HTMLDivElement>) => {
+      const basket = JSON.parse(localStorage.getItem(`${DATE}`) || "[]");
 
-    const temp = basket.filter((bel: any) => bel._id === el._id);
-    if (temp.length) {
+      const temp = basket.filter((bel: IUseditem) => bel._id === el._id);
+      if (temp.length) {
+        router.push(`/products/new/${event.currentTarget.id}`);
+        return;
+      }
+      const { __typename, ...rest } = el;
+      basket.push(rest);
+      localStorage.setItem(`${DATE}`, JSON.stringify(basket));
+      setAa((prev) => !prev);
+      console.log(aa);
       router.push(`/products/new/${event.currentTarget.id}`);
-      return;
-    }
-    const { __typename, ...rest } = el;
-    basket.push(rest);
-    localStorage.setItem(`${DATE}`, JSON.stringify(basket));
-    setAa((prev) => !prev);
-    console.log(aa);
-    router.push(`/products/new/${event.currentTarget.id}`);
-  };
-
-  // const defalut = data?.fetchUseditems || [""];
-  // const popular: (string | IUseditem)[] = defalut
-  //   .map((el) => el)
-  //   .sort((a, b) => b.pickedCount - a.pickedCount);
-
-  // console.log(popular, data?.fetchUseditems);
+    };
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(`${DATE}`) || "[]");

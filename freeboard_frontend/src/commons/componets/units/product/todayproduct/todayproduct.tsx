@@ -2,8 +2,9 @@ import * as s from "./todayproduct.styles";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { v4 as uuidv4 } from "uuid";
+import { ITodayProdcutProps } from "./todayproduct.types";
 
-export default function TodayProdcut(props: any) {
+export default function TodayProdcut(props: ITodayProdcutProps) {
   const [aa, setAa] = useState(false);
   const DATE = new Date().toISOString().slice(0, 10);
 
@@ -34,7 +35,7 @@ export default function TodayProdcut(props: any) {
             hasMore={true}
             useWindow={false}
           >
-            {props.todayData.map((el: any) => (
+            {props.todayData?.map((el: any) => (
               <s.ItemBox
                 key={uuidv4()}
                 id={el._id}

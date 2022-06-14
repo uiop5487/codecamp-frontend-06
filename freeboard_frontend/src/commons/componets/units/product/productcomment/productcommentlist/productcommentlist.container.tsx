@@ -1,6 +1,6 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { Reference, StoreObject, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 import {
   IQuery,
   IQueryFetchUseditemQuestionsArgs,
@@ -22,14 +22,14 @@ export default function ProdcutCommentListContainer() {
   });
   const [deleteUseditemQuestion] = useMutation(DELETE_USED_ITEM_QUESTION);
 
-  const onChangeContents = (event: any) => {
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
   };
 
-  const onClickDelete = (event: any) => {
+  const onClickDelete = (event: MouseEvent<HTMLImageElement>) => {
     deleteUseditemQuestion({
       variables: {
-        useditemQuestionId: event.target.id,
+        useditemQuestionId: (event.target as HTMLImageElement).id,
       },
       update(cache, { data }) {
         const deleteId = data.deleteUseditemQuestion;
@@ -37,7 +37,8 @@ export default function ProdcutCommentListContainer() {
           fields: {
             fetchUseditemQuestions: (prev, { readField }) => {
               const filterPrev = prev.filter(
-                (el: any) => readField("_id", el) !== deleteId
+                (el: Reference | StoreObject | undefined) =>
+                  readField("_id", el) !== deleteId
               );
               return [...filterPrev];
             },

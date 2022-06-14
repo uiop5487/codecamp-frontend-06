@@ -7,7 +7,7 @@ export interface IStateMap {
 }
 
 export interface IKakaoMapProps {
-  address: string;
+  address?: string;
   data: Pick<IQuery, "fetchUseditem"> | undefined;
-  setMapLatlng: Dispatch<SetStateAction<IStateMap>>;
+  setMapLatlng?: Dispatch<SetStateAction<IStateMap>>;
 }

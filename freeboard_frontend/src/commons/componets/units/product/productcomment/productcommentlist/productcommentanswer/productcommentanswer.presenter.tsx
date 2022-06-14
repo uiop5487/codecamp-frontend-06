@@ -1,6 +1,9 @@
 import * as s from "./productcommentanswer.styles";
+import { ICommentAnswerPresenterProps } from "./productcommentanswer.types";
 
-export default function CommentAnswerPresenter(props: any) {
+export default function CommentAnswerPresenter(
+  props: ICommentAnswerPresenterProps
+) {
   return (
     <div>
       {props.isAnswer ? (

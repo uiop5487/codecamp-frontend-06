@@ -1,5 +1,9 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import {
+  IQuery,
+  IQueryFetchUseditemArgs,
+} from "../../../../types/generated/types";
 import { useMoveToPage } from "../../../commons/hooks/useMoveToPage";
 import ProductDetailPresenter from "./detail.presenter";
 import {
@@ -14,13 +18,17 @@ export default function ProductDetailContainer() {
   const router = useRouter();
   const { onClickMoveToPage } = useMoveToPage();
   const [deleteUseditem] = useMutation(DELETE_USED_ITEM);
-  const { data } = useQuery(FETCH_USED_ITEM, {
-    variables: { useditemId: router.query.productId },
+  const { data } = useQuery<
+    Pick<IQuery, "fetchUseditem">,
+    IQueryFetchUseditemArgs
+  >(FETCH_USED_ITEM, {
+    variables: { useditemId: String(router.query.productId) },
   });
   const [createPointTransactionOfBuyingAndSelling] = useMutation(
     CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
   );
-  const { data: userData } = useQuery(FETCH_USER_LOGGED_IN);
+  const { data: userData } =
+    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
   const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
 
   const onClickEditPage = () => {
@@ -41,7 +49,7 @@ export default function ProductDetailContainer() {
     }
   };
 
-  const onClickPickedCount = (el: any) => async () => {
+  const onClickPickedCount = async () => {
     console.log(router.query.productId);
     try {
       await toggleUseditemPick({

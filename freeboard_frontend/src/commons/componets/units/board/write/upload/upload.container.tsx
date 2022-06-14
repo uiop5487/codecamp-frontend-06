@@ -14,7 +14,6 @@ const UploadContainer = (props: IPropsUploadContainer) => {
 
   const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
     const file = Object.values({ ...event.target.files });
-    console.log(file);
     try {
       file.map(async (el) => {
         const result = await uploadFile({ variables: { file: el } });

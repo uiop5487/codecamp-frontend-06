@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { IPaginationProps } from "./pagination.types";
 import PaginationPrecenter from "./paginationprecenter";
 
@@ -8,10 +8,9 @@ const Pagination = (props: IPaginationProps) => {
   const [current, setCurrent] = useState(1);
   const [isActive] = useState(false);
 
-  const onClickPage = (event: any) => {
-    const current = Number(event.target.id);
+  const onClickPage = (event: MouseEvent<HTMLDivElement>) => {
+    const current = Number((event.target as HTMLDivElement).id);
     setCurrent(current);
-    console.log(event.target.id);
     props.refetch({ page: current });
   };
 

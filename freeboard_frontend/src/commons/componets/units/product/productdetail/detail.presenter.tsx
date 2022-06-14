@@ -5,15 +5,18 @@ import Dompurify from "dompurify";
 import ProductCommentWriteContainer from "../productcomment/productcommentwrite/productcommentwrite.container";
 import MapDetail from "../map/kakaomap";
 import { v4 as uuidv4 } from "uuid";
+import { IProductDetailPresenterProps } from "./detail.types";
 
-export default function ProductDetailPresenter(props: any) {
+export default function ProductDetailPresenter(
+  props: IProductDetailPresenterProps
+) {
   const router = useRouter();
   const settings = {
     customPaging: function (i: any) {
       return (
         <s.ImgWrapper>
           <s.ImgBox
-            src={`https://storage.googleapis.com/${props.data.fetchUseditem.images[i]}`}
+            src={`https://storage.googleapis.com/${props.data?.fetchUseditem?.images?.[i]}`}
           />
         </s.ImgWrapper>
       );
@@ -32,7 +35,7 @@ export default function ProductDetailPresenter(props: any) {
         <s.UserWrapper>
           <s.UserIcon src="/img/userimg.png"></s.UserIcon>
           <s.UserDetailWrapper>
-            <s.UserName>{props.data?.fetchUseditem.seller.name}</s.UserName>
+            <s.UserName>{props.data?.fetchUseditem?.seller?.name}</s.UserName>
             <s.CreatedAt>
               {props.data?.fetchUseditem.createdAt.slice(0, 10)}
             </s.CreatedAt>
@@ -57,7 +60,7 @@ export default function ProductDetailPresenter(props: any) {
         <s.HeartIconWrapper>
           <s.HeartIcon
             src="/img/hearticon.png"
-            onClick={props.onClickPickedCount(props.data?.fetchUseditem)}
+            onClick={props.onClickPickedCount}
           ></s.HeartIcon>
           <s.HeartCount>{props.data?.fetchUseditem.pickedCount}</s.HeartCount>
         </s.HeartIconWrapper>
@@ -80,7 +83,9 @@ export default function ProductDetailPresenter(props: any) {
         {typeof window !== "undefined" ? (
           <s.Contents
             dangerouslySetInnerHTML={{
-              __html: Dompurify.sanitize(props.data?.fetchUseditem.contents),
+              __html: Dompurify.sanitize(
+                String(props.data?.fetchUseditem?.contents)
+              ),
             }}
           ></s.Contents>
         ) : (
@@ -88,7 +93,7 @@ export default function ProductDetailPresenter(props: any) {
         )}
       </s.ContentsWrapper>
       <s.TagWrapper>
-        {props.data?.fetchUseditem.tags.map((el: string) => (
+        {props.data?.fetchUseditem?.tags?.map((el: string) => (
           <s.Tag key={el}>{el}</s.Tag>
         ))}
       </s.TagWrapper>

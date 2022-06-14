@@ -1,9 +1,12 @@
 import ProdcutCommentListContainer from "../productcommentlist/productcommentlist.container";
 import * as s from "./productcommentwrite.styles";
+import { IProductCommentWritePresenterProps } from "./productcommentwrite.types";
 // import InfiniteScroll from "react-infinite-scroller";
 // import { v4 as uuidv4 } from "uuid";
 
-export default function ProductCommentWritePresenter(props: any) {
+export default function ProductCommentWritePresenter(
+  props: IProductCommentWritePresenterProps
+) {
   return (
     <s.BackGround onSubmit={props.handleSubmit(props.onClickSubmit)}>
       <s.HeaderWarrper>

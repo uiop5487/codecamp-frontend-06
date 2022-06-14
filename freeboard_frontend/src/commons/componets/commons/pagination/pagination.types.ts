@@ -1,10 +1,14 @@
+import { RefetchQueriesFunction } from "@apollo/client";
+import { MouseEvent } from "react";
+import { IQuery } from "../../../types/generated/types";
+
 export interface IPaginationProps {
-  countdata: any;
-  refetch: any;
+  countdata: Pick<IQuery, "fetchBoardsCount">;
+  refetch: RefetchQueriesFunction;
 }
 
 export interface IPaginationPrecenter {
-  onClickPage: (event: any) => void;
+  onClickPage: (event: MouseEvent<HTMLDivElement>) => void;
   onClickPrevPage: () => void;
   onClickNextPage: () => void;
   startPage: number;

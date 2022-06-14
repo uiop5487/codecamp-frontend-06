@@ -1,6 +1,7 @@
 import * as s from "./nav.styles";
 import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
+import { MouseEvent } from "react";
 
 const NAVICATION_MENUS = [
   { name: "파베게시판", page: "/boards/firebase" },
@@ -13,9 +14,9 @@ const NAVICATION_MENUS = [
 const NavPage = () => {
   const router = useRouter();
 
-  const onClickMenu = (event: any) => {
+  const onClickMenu = (event: MouseEvent<HTMLDivElement>) => {
     if (event.target) {
-      router.push(event.target.id);
+      router.push((event.target as HTMLDivElement).id);
     }
   };
 

@@ -57,7 +57,7 @@ export default function MapDetail(props: IKakaoMapProps) {
               // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
               map.setCenter(coords);
 
-              if (props.address) {
+              if (props.setMapLatlng) {
                 props.setMapLatlng({
                   lat: result[0].y,
                   lng: result[0].x,

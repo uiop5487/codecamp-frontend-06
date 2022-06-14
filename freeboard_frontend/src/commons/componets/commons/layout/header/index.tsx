@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../../commons/store";
 import {
@@ -113,8 +113,8 @@ const HeaderPage = () => {
     setIsModalVisible(false);
   };
 
-  const onChangePay = (event: any) => {
-    setAmount(event.target.value);
+  const onChangePay = (event: ChangeEvent<HTMLSelectElement>) => {
+    setAmount(Number(event.target.value));
   };
 
   return (

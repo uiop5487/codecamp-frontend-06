@@ -1,5 +1,5 @@
-import { useMutation } from "@apollo/client";
-import { useState } from "react";
+import { Reference, StoreObject, useMutation } from "@apollo/client";
+import { ChangeEvent, MouseEvent, useState } from "react";
 import CommentAnswerPresenter from "../productcommentanswer/productcommentanswer.presenter";
 import { CREATE_USED_ITEM_QUESTION_ANSWER } from "../productcommentlist.qurey";
 import * as s from "./prductcommentanswerlist.styles";
@@ -7,8 +7,11 @@ import {
   DELETE_USED_ITEM_QUESTION_ANSWER,
   UPDATE_USED_ITEM_QUESTION_ANSWER,
 } from "./procutcommentanswerlist.query";
+import { CommentAnswerListContainerProps } from "./productcommentanswerlist.types";
 
-export default function CommentAnswerListContainer(props: any) {
+export default function CommentAnswerListContainer(
+  props: CommentAnswerListContainerProps
+) {
   const [isAnswer, setIsAnswer] = useState(false);
   const [contents, setContents] = useState("");
   const [isActive, setIsActive] = useState(true);
@@ -27,7 +30,7 @@ export default function CommentAnswerListContainer(props: any) {
     setIsAnswer((prev) => !prev);
   };
 
-  const onChangeContents = (event: any) => {
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
   };
 
@@ -48,10 +51,10 @@ export default function CommentAnswerListContainer(props: any) {
     }
   };
 
-  const onClickDelete = (event: any) => {
+  const onClickDelete = (event: MouseEvent<HTMLImageElement>) => {
     deleteUseditemQuestionAnswer({
       variables: {
-        useditemQuestionAnswerId: event.target.id,
+        useditemQuestionAnswerId: (event.target as HTMLImageElement).id,
       },
       update(cache, { data }) {
         const deleteId = data.deleteUseditemQuestionAnswer;
@@ -59,7 +62,8 @@ export default function CommentAnswerListContainer(props: any) {
           fields: {
             fetchUseditemQuestionAnswers: (prev, { readField }) => {
               const filterPrev = prev.filter(
-                (el: any) => readField("_id", el) !== deleteId
+                (el: Reference | StoreObject | undefined) =>
+                  readField("_id", el) !== deleteId
               );
               return [...filterPrev];
             },
@@ -69,9 +73,9 @@ export default function CommentAnswerListContainer(props: any) {
     });
   };
 
-  const onClickShowEdit = (event: any) => {
+  const onClickShowEdit = (event: MouseEvent<HTMLImageElement>) => {
     setIsActive((prev) => !prev);
-    setEditId(event.target.id);
+    setEditId((event.target as HTMLImageElement).id);
   };
 
   const onClickEdit = async () => {

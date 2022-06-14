@@ -4,15 +4,18 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import ProductCommentWritePresenter from "./productcommentwrite.presenter";
 import { CREATE_USED_ITEM_QUESTION } from "./productcommentwrite.qurey";
+import { ICommentData } from "./productcommentwrite.types";
 
 export default function ProductCommentWriteContainer() {
   const [createUseditemQuestion] = useMutation(CREATE_USED_ITEM_QUESTION);
   const router = useRouter();
-  const { register, handleSubmit, formState, setValue } = useForm({
-    mode: "onChange",
-  });
+  const { register, handleSubmit, formState, setValue } = useForm<ICommentData>(
+    {
+      mode: "onChange",
+    }
+  );
 
-  const onClickSubmit = async (data: any) => {
+  const onClickSubmit = async (data: ICommentData) => {
     if (!data.contents) return;
     try {
       const result = await createUseditemQuestion({

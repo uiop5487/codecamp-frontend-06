@@ -8,13 +8,24 @@ import {
 } from "./productcommentlist.qurey";
 import * as s from "./productcommentlist.styles";
 import { v4 as uuidv4 } from "uuid";
+import {
+  IQuery,
+  IQueryFetchUseditemQuestionAnswersArgs,
+  IUseditemQuestionAnswer,
+} from "../../../../../types/generated/types";
+import { IProdcutCommentListItemProps } from "./productcommentlist.types";
 
-export default function ProdcutCommentListItem(props: any) {
+export default function ProdcutCommentListItem(
+  props: IProdcutCommentListItemProps
+) {
   const [isActive, setIsActive] = useState(false);
   const [isAnswer, setIsAnswer] = useState(false);
   const [updateUseditemQuestion] = useMutation(UPDATE_USED_ITEM_QUESTION);
   const [questionId, setQiestionId] = useState("");
-  const { data } = useQuery(FETCH_USED_ITEM_QUESTION_ANSWERS, {
+  const { data } = useQuery<
+    Pick<IQuery, "fetchUseditemQuestionAnswers">,
+    IQueryFetchUseditemQuestionAnswersArgs
+  >(FETCH_USED_ITEM_QUESTION_ANSWERS, {
     variables: {
       useditemQuestionId: props.data._id,
     },
@@ -84,13 +95,15 @@ export default function ProdcutCommentListItem(props: any) {
               setIsAnswer={setIsAnswer}
               dataid={props.data._id}
             />
-            {data?.fetchUseditemQuestionAnswers?.map((el: any) => (
-              <CommentAnswerListContainer
-                key={uuidv4()}
-                data={el}
-                dataid={props.data._id}
-              />
-            ))}
+            {data?.fetchUseditemQuestionAnswers?.map(
+              (el: IUseditemQuestionAnswer) => (
+                <CommentAnswerListContainer
+                  key={uuidv4()}
+                  data={el}
+                  dataid={props.data._id}
+                />
+              )
+            )}
           </s.Footer>
         </s.FooterWarrper>
       )}

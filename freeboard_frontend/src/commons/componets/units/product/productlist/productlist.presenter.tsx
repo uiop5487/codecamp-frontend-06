@@ -2,8 +2,11 @@ import * as s from "./productlist.styles";
 import InfiniteScroll from "react-infinite-scroller";
 import TodayProdcut from "../todayproduct/todayproduct";
 import { v4 as uuidv4 } from "uuid";
+import { IProductListPresenterProps } from "./productlist.types";
 
-export default function ProductListPresenter(props: any) {
+export default function ProductListPresenter(
+  props: IProductListPresenterProps
+) {
   return (
     <s.Wrapper>
       <s.HeaderWrapper>

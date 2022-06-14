@@ -66,14 +66,10 @@ export default function NewProductPresenter(props: INewProductPresenterProps) {
             />
           </s.TagsWrapper>
           <s.HasgTagWrapper>
-            {props.hashArr?.map((el: any, i: any) => (
+            {props.hashArr?.map((el: String, i: number) => (
               <s.HashItemWrapper key={uuidv4()}>
                 <s.HashTag>{el}</s.HashTag>
-                <s.HashButton
-                  type="button"
-                  id={i}
-                  onClick={props.onClickTagDelete(i)}
-                >
+                <s.HashButton type="button" onClick={props.onClickTagDelete(i)}>
                   x
                 </s.HashButton>
               </s.HashItemWrapper>
@@ -89,7 +85,6 @@ export default function NewProductPresenter(props: INewProductPresenterProps) {
                 setMapLatlng={props.setMapLatlng}
                 data={props.data}
               />
-              {/* <Map address={props.address} setMapLatlng={props.setMapLatlng} /> */}
             </s.LocationMap>
           </s.LocationMapWrapper>
           <div>
@@ -135,7 +130,7 @@ export default function NewProductPresenter(props: INewProductPresenterProps) {
         <s.UploadWrapper>
           <s.InputText>사진첨부</s.InputText>
           <s.UploadButtonWrapper>
-            {props.imageUrls?.map((el: any, index: number) => (
+            {props.imageUrls?.map((el: String, index: number) => (
               <UploadContainer
                 key={uuidv4()}
                 imageUrls={el}

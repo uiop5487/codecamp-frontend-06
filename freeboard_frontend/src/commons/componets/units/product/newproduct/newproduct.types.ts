@@ -1,4 +1,10 @@
-import { Dispatch, KeyboardEvent, SetStateAction } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  KeyboardEvent,
+  RefObject,
+  SetStateAction,
+} from "react";
 import { Address } from "react-daum-postcode";
 import {
   FormState,
@@ -34,25 +40,40 @@ export interface INewProductPresenterProps {
   register: UseFormRegister<IPorductData>;
   handleSubmit: UseFormHandleSubmit<IPorductData>;
   onClickSubmit: (data: IPorductData) => void;
-  imageUrls: string[];
+  onClickTagDelete: (index: number) => () => void;
+  onChangeEditFileUrl: (imageUrl: string, index: number) => void;
   onChangeFileUrl: (imageUrl: string) => void;
-  formState: FormState<IPorductData>;
   onClickEdit: (data: IPorductData) => void;
-  data: Pick<IQuery, "fetchUseditem"> | undefined;
-  isEdit: boolean;
   onChangeContents: (value: string) => void;
-  contents: string;
-  isModalVisible: boolean;
   showModal: () => void;
   handleOk: () => void;
   handleComplete: (data: Address) => void;
-  address: string;
   setAddress: Dispatch<SetStateAction<string>>;
   getValues: UseFormGetValues<IPorductData>;
   setMapLatlng: Dispatch<SetStateAction<IStateMap>>;
-  mapLatlng: IStateMap;
   onChangeHashTag: (event: KeyboardEvent<HTMLInputElement>) => void;
+  imageUrls: string[];
+  formState: FormState<IPorductData>;
+  data: Pick<IQuery, "fetchUseditem"> | undefined;
+  isEdit: boolean;
+  contents: string;
+  isModalVisible: boolean;
+  address: string;
+  mapLatlng: IStateMap;
   hashArr: String[];
-  onClickTagDelete: (index: number) => () => void;
+}
+
+export interface IUploadContainerProps {
+  onChangeFileUrl: (imageUrl: string) => void;
   onChangeEditFileUrl: (imageUrl: string, index: number) => void;
+  index: number;
+  imageUrls: String;
+}
+
+export interface IUploadPresenterProps {
+  imageUrls: String;
+  onClickImage: () => void;
+  onChangeFile: (event: ChangeEvent<HTMLInputElement>) => void;
+  fileRef: RefObject<HTMLInputElement>;
+  onChangeEditFile: (event: ChangeEvent<HTMLInputElement>) => void;
 }

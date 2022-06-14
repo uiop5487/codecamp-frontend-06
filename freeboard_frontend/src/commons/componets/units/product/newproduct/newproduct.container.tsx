@@ -7,6 +7,7 @@ import NewProductPresenter from "./newproduct.presenter";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ProductCreateSchema } from "../../../commons/libraries/validation";
 import { INewProductContainerProps, IPorductData } from "./newproduct.types";
+import { Address } from "react-daum-postcode";
 
 export default function NewProductContainer(props: INewProductContainerProps) {
   const {
@@ -56,6 +57,7 @@ export default function NewProductContainer(props: INewProductContainerProps) {
             tags: [...hashArr],
             useditemAddress: {
               address: data.useditemAddress.address,
+              addressDetail: data.useditemAddress.addressDetail,
               lat: parseFloat(mapLatlng.lat),
               lng: parseFloat(mapLatlng.lng),
             },
@@ -78,7 +80,7 @@ export default function NewProductContainer(props: INewProductContainerProps) {
     setIsModalVisible((prev) => !prev);
   };
 
-  const handleComplete = (data: any) => {
+  const handleComplete = (data: Address) => {
     console.log(data);
     setAddress(data.address);
     setValue("useditemAddress.address", data.address);
