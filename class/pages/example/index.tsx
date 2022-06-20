@@ -3,6 +3,7 @@
 // // import { useState } from "react";
 
 import { ChangeEvent, useState } from "react";
+import ReactQuill from "react-quill";
 
 // import { gql, useQuery } from "@apollo/client";
 // import { useEffect, useState } from "react";
@@ -72,30 +73,39 @@ import { ChangeEvent, useState } from "react";
 //   );
 // }
 
-export default function Example() {
-  const [state, setState] = useState("");
+// export default function Example() {
+//   const [state, setState] = useState("");
 
-  const onChangeDate = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value.length >= 11) {
-      return;
-    }
-    setState(event.target.value);
-    if (event.target.value.length === 4) {
-      setState((prev) => prev + ".");
-    }
-    if (event.target.value.length === 7) {
-      setState((prev) => prev + ".");
-    }
-  };
+//   const onChangeDate = (event: ChangeEvent<HTMLInputElement>) => {
+//     if (event.target.value.length >= 11) {
+//       return;
+//     }
+//     setState(event.target.value);
+//     if (event.target.value.length === 4) {
+//       setState((prev) => prev + ".");
+//     }
+//     if (event.target.value.length === 7) {
+//       setState((prev) => prev + ".");
+//     }
+//   };
 
+//   return (
+//     <div>
+//       <input
+//         type="text"
+//         value={state || ""}
+//         onChange={onChangeDate}
+//         placeholder="0000.00.00"
+//       />
+//     </div>
+//   );
+// }
+
+export default function aaa() {
   return (
     <div>
-      <input
-        type="text"
-        value={state || ""}
-        onChange={onChangeDate}
-        placeholder="0000.00.00"
-      />
+      <div></div>
+      <ReactQuill />
     </div>
   );
 }
