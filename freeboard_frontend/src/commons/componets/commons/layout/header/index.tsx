@@ -6,6 +6,7 @@ import { accessTokenState } from "../../../../commons/store";
 import {
   CREATE_POINT_TRANSACTION_OF_LOADING,
   FETCH_USER_LOGGED_IN,
+  LOGOUT_USER,
 } from "./header.query";
 import * as s from "./header.styles";
 import { Modal } from "antd";
@@ -14,14 +15,16 @@ declare const window: typeof globalThis & {
   IMP: any;
 };
 
-const HeaderPage = () => {
+export default function HeaderPage() {
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [accessToken] = useRecoilState(accessTokenState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [amount, setAmount] = useState(500);
   const [createPointTransactionOfLoading] = useMutation(
     CREATE_POINT_TRANSACTION_OF_LOADING
   );
+  const [logoutUser] = useMutation(LOGOUT_USER);
+  const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -57,7 +60,7 @@ const HeaderPage = () => {
         buyer_tel: "010-4242-4242",
         buyer_addr: "서울특별시 강남구 신사동",
         buyer_postcode: "01181",
-        m_reditect_url: "http://localhost:3000/28-01-quiz/login-success",
+        // m_reditect_url: "http://localhost:3000/28-01-quiz/login-success", // 모바일웹 사용시 경로 지정
       },
       async (rsp: any) => {
         // callback
@@ -97,8 +100,10 @@ const HeaderPage = () => {
     router.push(`/logins/signup`);
   };
 
-  const onClickMoveBasket = () => {
-    router.push(`/mypage/basket`);
+  const onClickLogout = async () => {
+    await logoutUser();
+    setIsLogin((prev) => !prev);
+    setAccessToken("");
   };
 
   const onClickMoveMyPage = () => {
@@ -117,19 +122,12 @@ const HeaderPage = () => {
     setAmount(Number(event.target.value));
   };
 
+  const onClickIsLogout = () => {
+    setIsLogin((prev) => !prev);
+  };
+
   return (
     <s.Wrapper>
-      {/* <Head>
-        <script
-          type="text/javascript"
-          src="https://code.jquery.com/jquery-1.12.4.min.js"
-        ></script>
-        <script
-          type="text/javascript"
-          src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
-        ></script>
-      </Head> */}
-
       <s.HeaderTextWrapper>
         <s.HeaderImg src="/img/headericon.png" onClick={onClickMovePage} />
         <s.HeaderText onClick={onClickMovePage}>만리장성</s.HeaderText>
@@ -153,12 +151,12 @@ const HeaderPage = () => {
             <div>{data?.fetchUserLoggedIn.userPoint.amount}P</div>
           </s.PointText>
           <div>
-            <s.BasketButton onClick={onClickMoveBasket}>
-              장바구니
-            </s.BasketButton>
+            <s.BasketButton onClick={showModal}>충전하기</s.BasketButton>
           </div>
           <div>
-            <s.PaymentButton onClick={showModal}>충전하기</s.PaymentButton>
+            <s.PaymentButton onClick={onClickIsLogout}>
+              로그아웃
+            </s.PaymentButton>
           </div>
         </s.TrueWrapper>
       )}
@@ -181,8 +179,17 @@ const HeaderPage = () => {
           </s.PaymentSelection>
         </s.PaymentWrapper>
       </s.CutomModal>
+      {isLogin && (
+        <Modal
+          visible={true}
+          onOk={onClickLogout}
+          onCancel={onClickIsLogout}
+          okText="넹"
+          cancelText="아니용"
+        >
+          <div>정말 로그아웃 하시겠습니까?</div>
+        </Modal>
+      )}
     </s.Wrapper>
   );
-};
-
-export default HeaderPage;
+}

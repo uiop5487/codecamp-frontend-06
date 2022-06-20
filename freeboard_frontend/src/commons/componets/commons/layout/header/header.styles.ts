@@ -76,6 +76,10 @@ export const UserName = styled.div`
   font-size: 16px;
   padding-left: 15px;
   cursor: pointer;
+  :hover {
+    color: darkred;
+    font-weight: 900;
+  }
 `;
 
 export const UserIcon = styled.img`

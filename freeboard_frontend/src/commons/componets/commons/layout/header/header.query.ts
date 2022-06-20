@@ -21,3 +21,9 @@ export const CREATE_POINT_TRANSACTION_OF_LOADING = gql`
     }
   }
 `;
+
+export const LOGOUT_USER = gql`
+  mutation logoutUser {
+    logoutUser
+  }
+`;
