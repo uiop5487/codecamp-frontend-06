@@ -10,7 +10,14 @@ export default function ProdcutCommentListPresenter(
   return (
     <div>
       {props.data?.fetchUseditemQuestions ? (
-        <div style={{ width: "1200px", height: "500px", overflow: "auto" }}>
+        <div
+          style={{
+            width: "1200px",
+            height:
+              props.data?.fetchUseditemQuestions.length >= 4 ? "500px" : "100%",
+            overflow: "auto",
+          }}
+        >
           <InfiniteScroll
             pageStart={0}
             loadMore={props.onLoadMore}

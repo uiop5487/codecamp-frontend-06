@@ -7,7 +7,7 @@ import { Modal } from "antd";
 import { useForm } from "react-hook-form";
 import { ICommentData } from "./comment.types";
 
-const Comment = () => {
+export default function Comment() {
   const [ratingValue, setRatingValue] = useState(0);
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
   const { register, handleSubmit, setValue, watch } = useForm<ICommentData>({
@@ -63,6 +63,4 @@ const Comment = () => {
       watch={watch}
     />
   );
-};
-
-export default Comment;
+}

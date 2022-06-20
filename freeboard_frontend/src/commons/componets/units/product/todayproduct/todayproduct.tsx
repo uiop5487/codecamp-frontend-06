@@ -49,17 +49,14 @@ export default function TodayProdcut(props: ITodayProdcutProps) {
                   <s.LikeCount>{el.pickedCount}</s.LikeCount>
                 </s.LikeIconWrapper>
                 <s.ItemImageWrapper>
-                  {el.images
-                    .filter((e: string) => e)
-                    .reduce(
-                      (_: any, cur: any) => (
-                        <s.ItemImage
-                          key={uuidv4()}
-                          src={`https://storage.googleapis.com/${cur}`}
-                        ></s.ItemImage>
-                      ),
-                      []
-                    )}
+                  <s.ItemImage
+                    key={uuidv4()}
+                    src={`https://storage.googleapis.com/${
+                      el.images.filter((e: string) => e)[0]
+                        ? el.images.filter((e: string) => e)[0]
+                        : "codecamp-file-storage/2022/6/20/noimage.png"
+                    }`}
+                  ></s.ItemImage>
                 </s.ItemImageWrapper>
                 <s.ItemNameWrapper>
                   <s.ItemName>{el.name}</s.ItemName>

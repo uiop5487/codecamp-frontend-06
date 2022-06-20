@@ -19,3 +19,7 @@ export interface IProdcutCommentListItemProps {
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onLoadMore: () => void;
 }
+
+export interface IProductCommentData {
+  contents: string;
+}

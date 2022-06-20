@@ -15,9 +15,15 @@ export default function ProductDetailPresenter(
     customPaging: function (i: any) {
       return (
         <s.ImgWrapper>
-          <s.ImgBox
-            src={`https://storage.googleapis.com/${props.data?.fetchUseditem?.images?.[i]}`}
-          />
+          {(props.data?.fetchUseditem?.images && (
+            <s.ImgBox
+              src={`https://storage.googleapis.com/${props.data?.fetchUseditem?.images?.[i]}`}
+            />
+          )) || (
+            <s.ImgWrapper>
+              <s.ImgBox src="/img/noimage.png" />
+            </s.ImgWrapper>
+          )}
         </s.ImgWrapper>
       );
     },
@@ -67,13 +73,17 @@ export default function ProductDetailPresenter(
       </s.HeaderWrapper2>
       <s.CrouselWrapper>
         <s.SliderCarousel {...settings}>
-          {props.data?.fetchUseditem.images
-            ?.filter((el: string) => el)
-            .map((el: string) => (
-              <s.Carousel key={uuidv4()}>
-                <s.CarouselImg src={`https://storage.googleapis.com/${el}`} />
-              </s.Carousel>
-            ))}
+          {props.data?.fetchUseditem.images &&
+            props.data?.fetchUseditem.images
+              ?.filter((el: string) => el)
+              .map((el: string) => (
+                <s.Carousel key={uuidv4()}>
+                  <s.CarouselImg src={`https://storage.googleapis.com/${el}`} />
+                </s.Carousel>
+              ))}
+          <s.Carousel key={uuidv4()}>
+            <s.CarouselImg src="/img/noimage.png" />
+          </s.Carousel>
         </s.SliderCarousel>
       </s.CrouselWrapper>
       <s.ImgWrapper>
@@ -94,14 +104,16 @@ export default function ProductDetailPresenter(
       </s.ContentsWrapper>
       <s.TagWrapper>
         {props.data?.fetchUseditem?.tags?.map((el: string) => (
-          <s.Tag key={el}>{el}</s.Tag>
+          <s.Tag key={uuidv4()}>{el}</s.Tag>
         ))}
       </s.TagWrapper>
-      <s.MapWrapper>
-        <div style={{ width: 792, height: 360 }}>
-          <MapDetail data={props.data} />
-        </div>
-      </s.MapWrapper>
+      {props.data?.fetchUseditem.useditemAddress?.address && (
+        <s.MapWrapper>
+          <div style={{ width: 792, height: 360 }}>
+            <MapDetail data={props.data} />
+          </div>
+        </s.MapWrapper>
+      )}
       {props.data?.fetchUseditem?.seller?.name ===
       props.userData?.fetchUserLoggedIn?.name ? (
         <s.ButtonWrapper>

@@ -1,10 +1,12 @@
-import { RefetchQueriesFunction } from "@apollo/client";
+import { ApolloQueryResult } from "@apollo/client";
 import { MouseEvent } from "react";
-import { IQuery } from "../../../types/generated/types";
+import { IQuery, IQueryFetchBoardsArgs } from "../../../types/generated/types";
 
 export interface IPaginationProps {
-  countdata: Pick<IQuery, "fetchBoardsCount">;
-  refetch: RefetchQueriesFunction;
+  countdata: Pick<IQuery, "fetchBoardsCount"> | undefined;
+  refetch: (
+    variables?: Partial<IQueryFetchBoardsArgs> | undefined
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
 }
 
 export interface IPaginationPrecenter {

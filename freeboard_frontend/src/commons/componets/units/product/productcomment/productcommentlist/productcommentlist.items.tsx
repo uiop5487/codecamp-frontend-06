@@ -13,7 +13,11 @@ import {
   IQueryFetchUseditemQuestionAnswersArgs,
   IUseditemQuestionAnswer,
 } from "../../../../../types/generated/types";
-import { IProdcutCommentListItemProps } from "./productcommentlist.types";
+import {
+  IProdcutCommentListItemProps,
+  IProductCommentData,
+} from "./productcommentlist.types";
+import { useForm } from "react-hook-form";
 
 export default function ProdcutCommentListItem(
   props: IProdcutCommentListItemProps
@@ -30,22 +34,26 @@ export default function ProdcutCommentListItem(
       useditemQuestionId: props.data._id,
     },
   });
+  const { register, handleSubmit } = useForm<IProductCommentData>({
+    mode: "onChange",
+  });
 
   const onClickShowEdit = (event: any) => {
     setQiestionId(event.target.id);
     setIsActive((prev) => !prev);
   };
 
-  const onClickEdit = () => {
-    if (!props.contents) {
-      alert("수정한 내용이 없습니다!!");
-      return;
-    }
-    updateUseditemQuestion({
+  const onClickEdit = async (data: IProductCommentData) => {
+    // console.log("엘레레레레");
+    // if (!props.contents) {
+    //   alert("수정한 내용이 없습니다!!");
+    //   return;
+    // }
+    await updateUseditemQuestion({
       variables: {
         useditemQuestionId: questionId,
         updateUseditemQuestionInput: {
-          contents: props.contents,
+          contents: data.contents || props.data.contents,
         },
       },
     });
@@ -56,6 +64,8 @@ export default function ProdcutCommentListItem(
   const onClickShowAnswer = () => {
     setIsAnswer((prev) => !prev);
   };
+
+  console.log(isActive);
 
   return (
     <div>
@@ -130,13 +140,16 @@ export default function ProdcutCommentListItem(
               <div>
                 <s.EditCommentTextArea
                   placeholder="어쩌구저쩌구"
-                  onChange={props.onChangeContents}
+                  {...register("contents")}
                   defaultValue={props.data.contents}
                 />
               </div>
               <s.EditButtonWrapper>
                 <div>0 / 100</div>
-                <s.EditCommentButton onClick={onClickEdit}>
+                <s.EditCommentButton
+                  type="submit"
+                  onClick={handleSubmit(onClickEdit)}
+                >
                   수정하기
                 </s.EditCommentButton>
               </s.EditButtonWrapper>

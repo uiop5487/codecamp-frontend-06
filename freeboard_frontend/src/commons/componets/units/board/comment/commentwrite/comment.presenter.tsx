@@ -2,7 +2,7 @@ import CommentListContainer from "../commentlist/commentlist.container";
 import * as s from "./comment.styles";
 import { ICommentUI } from "./comment.types";
 
-const CommentUI = (props: ICommentUI) => {
+export default function CommentUI(props: ICommentUI) {
   return (
     <s.BackGround onSubmit={props.handleSubmit(props.submitBtn)}>
       <s.HeaderWarrper>
@@ -16,7 +16,7 @@ const CommentUI = (props: ICommentUI) => {
           {...props.register("writer")}
         />
         <s.PasswordInput
-          type="text"
+          type="password"
           placeholder="비밀번호"
           {...props.register("password")}
         />
@@ -39,6 +39,4 @@ const CommentUI = (props: ICommentUI) => {
       </s.FooterWarrper>
     </s.BackGround>
   );
-};
-
-export default CommentUI;
+}

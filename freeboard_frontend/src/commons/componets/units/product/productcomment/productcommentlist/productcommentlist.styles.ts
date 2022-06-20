@@ -227,7 +227,7 @@ export const EditButtonWrapper = styled.div`
   border-top: 1px solid black;
 `;
 
-export const EditCommentButton = styled.div`
+export const EditCommentButton = styled.button`
   width: 91px;
   height: 52px;
   background-color: black;

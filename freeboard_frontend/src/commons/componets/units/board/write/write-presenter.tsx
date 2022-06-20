@@ -29,7 +29,7 @@ export default function WriteNewPageUI(props: IWriteNewUI) {
           <s.PassWord>
             <s.SubTitle>비밀번호</s.SubTitle>
             <s.WriterBox
-              type="text"
+              type="password"
               id="password"
               placeholder="비밀번호를 입력하세요"
               {...props.register("password")}

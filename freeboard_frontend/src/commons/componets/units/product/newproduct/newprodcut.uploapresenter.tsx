@@ -18,6 +18,7 @@ const UploadPresenter = (props: IUploadPresenterProps) => {
         type="file"
         ref={props.fileRef}
         onChange={props.imageUrls ? props.onChangeEditFile : props.onChangeFile}
+        multiple
       />
     </div>
   );

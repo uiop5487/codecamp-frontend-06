@@ -195,7 +195,6 @@ export const CarouselImg = styled.img`
 `;
 
 export const ImgWrapper = styled.a`
-  width: 384px;
   display: flex;
   flex-direction: row;
   padding-bottom: 80px;
@@ -215,7 +214,7 @@ export const ImgBoxX = styled.div`
 
 export const ContentsWrapper = styled.div`
   width: 100%;
-  height: 108px;
+  height: 100%;
   padding-bottom: 40px;
 `;
 

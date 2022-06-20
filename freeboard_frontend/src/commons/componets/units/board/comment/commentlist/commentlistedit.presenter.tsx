@@ -11,7 +11,7 @@ export default function CommentListEditUI(props: ICommentListEditUI) {
               <img src="/img/userimg.png"></img>
               <s.EditCommentWriter>{props.el.writer}</s.EditCommentWriter>
               <s.EditCommentPasswordInput
-                type="text"
+                type="password"
                 placeholder="비밀번호"
                 onChange={props.saveEditPassword}
               />

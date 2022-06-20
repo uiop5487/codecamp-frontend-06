@@ -1,10 +1,16 @@
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { IPaginationProps } from "./pagination.types";
 import PaginationPrecenter from "./paginationprecenter";
 
 const Pagination = (props: IPaginationProps) => {
   const [startPage, setStartPage] = useState(1);
-  const lastPage = Math.ceil(props.countdata?.fetchBoardsCount / 10);
+  const [lastPage, setLastPage] = useState(0);
+  // const lastPage = Math.ceil(props.countdata?.fetchBoardsCount / 10);
+  useEffect(() => {
+    if (props.countdata?.fetchBoardsCount) {
+      setLastPage(Math.ceil(props.countdata?.fetchBoardsCount / 10));
+    }
+  }, [props.countdata]);
   const [current, setCurrent] = useState(1);
   const [isActive] = useState(false);
 

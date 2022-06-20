@@ -168,7 +168,7 @@ export default function NewProductContainer(props: INewProductContainerProps) {
     const tags = hashArr.filter((_, i) => i !== Number(index));
     setHashArr([...tags]);
   };
-
+  console.log(imageUrls);
   return (
     <NewProductPresenter
       register={register}

@@ -25,6 +25,14 @@ export default function CommentAnswerContainer(
             contents,
           },
         },
+        // refetchQueries: [
+        //   {
+        //     query: FETCH_USED_ITEM_QUESTION_ANSWERS,
+        //     variables: {
+        //       useditemQuestionId: props.dataid,
+        //     },
+        //   },
+        // ],
         update(cache, { data }) {
           cache.modify({
             fields: {

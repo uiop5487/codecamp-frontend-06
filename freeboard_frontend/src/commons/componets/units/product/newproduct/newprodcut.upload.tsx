@@ -13,7 +13,7 @@ const UploadContainer = (props: IUploadContainerProps) => {
   };
 
   const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = [Object.values({ ...event.target.files })];
+    const file = Object.values({ ...event.target.files });
     try {
       file.map(async (el) => {
         const result = await uploadFile({ variables: { file: el } });
