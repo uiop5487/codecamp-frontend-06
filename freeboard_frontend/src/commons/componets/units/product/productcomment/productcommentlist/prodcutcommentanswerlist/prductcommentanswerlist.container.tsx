@@ -1,7 +1,7 @@
 import { Reference, StoreObject, useMutation } from "@apollo/client";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import CommentAnswerPresenter from "../productcommentanswer/productcommentanswer.presenter";
-import { CREATE_USED_ITEM_QUESTION_ANSWER } from "../productcommentlist.qurey";
+// import CommentAnswerPresenter from "../productcommentanswer/productcommentanswer.presenter";
+// import { CREATE_USED_ITEM_QUESTION_ANSWER } from "../productcommentlist.qurey";
 import * as s from "./prductcommentanswerlist.styles";
 import {
   DELETE_USED_ITEM_QUESTION_ANSWER,
@@ -12,44 +12,44 @@ import { CommentAnswerListContainerProps } from "./productcommentanswerlist.type
 export default function CommentAnswerListContainer(
   props: CommentAnswerListContainerProps
 ) {
-  const [isAnswer, setIsAnswer] = useState(false);
+  // const [isAnswer, setIsAnswer] = useState(false);
   const [contents, setContents] = useState("");
   const [isActive, setIsActive] = useState(true);
   const [editId, setEditId] = useState("");
   const [deleteUseditemQuestionAnswer] = useMutation(
     DELETE_USED_ITEM_QUESTION_ANSWER
   );
-  const [createUseditemQuestionAnswer] = useMutation(
-    CREATE_USED_ITEM_QUESTION_ANSWER
-  );
+  // const [createUseditemQuestionAnswer] = useMutation(
+  //   CREATE_USED_ITEM_QUESTION_ANSWER
+  // );
   const [updateUseditemQuestionAnswer] = useMutation(
     UPDATE_USED_ITEM_QUESTION_ANSWER
   );
 
-  const onClickShowAnswer = () => {
-    setIsAnswer((prev) => !prev);
-  };
+  // const onClickShowAnswer = () => {
+  //   setIsAnswer((prev) => !prev);
+  // };
 
   const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
   };
 
-  const onClickSumbit = async () => {
-    try {
-      const result = await createUseditemQuestionAnswer({
-        variables: {
-          useditemQuestionId: props.dataid,
-          createUseditemQuestionAnswerInput: {
-            contents,
-          },
-        },
-      });
-      alert("등록 되었습니다.");
-      console.log(result);
-    } catch (error: any) {
-      alert(error.message);
-    }
-  };
+  // const onClickSumbit = async () => {
+  //   try {
+  //     const result = await createUseditemQuestionAnswer({
+  //       variables: {
+  //         useditemQuestionId: props.dataid,
+  //         createUseditemQuestionAnswerInput: {
+  //           contents,
+  //         },
+  //       },
+  //     });
+  //     alert("등록 되었습니다.");
+  //     console.log(result);
+  //   } catch (error: any) {
+  //     alert(error.message);
+  //   }
+  // };
 
   const onClickDelete = (event: MouseEvent<HTMLImageElement>) => {
     deleteUseditemQuestionAnswer({
@@ -84,7 +84,7 @@ export default function CommentAnswerListContainer(
         variables: {
           useditemQuestionAnswerId: editId,
           updateUseditemQuestionAnswerInput: {
-            contents,
+            contents: contents || props?.data?.contents,
           },
         },
       });
@@ -114,10 +114,10 @@ export default function CommentAnswerListContainer(
               </s.UserWrapper>
             </s.HeaderWrapper>
             <s.IconWrapper>
-              <s.AnswerIcon
+              {/* <s.AnswerIcon
                 onClick={onClickShowAnswer}
                 src="/img/answericon.png"
-              ></s.AnswerIcon>
+              ></s.AnswerIcon> */}
               <s.AnswerIcon
                 onClick={onClickShowEdit}
                 src="/img/edit.png"
@@ -130,11 +130,11 @@ export default function CommentAnswerListContainer(
               ></s.AnswerIcon>
             </s.IconWrapper>
           </s.Wrapper>
-          <CommentAnswerPresenter
+          {/* <CommentAnswerPresenter
             isAnswer={isAnswer}
             onChangeContents={onChangeContents}
             onClickSumbit={onClickSumbit}
-          />
+          /> */}
         </div>
       ) : (
         <s.Wrapper>

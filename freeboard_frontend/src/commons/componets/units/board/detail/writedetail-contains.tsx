@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Modal } from "antd";
 import {
   FETCH_BOARD,
@@ -11,26 +11,35 @@ import DetailPageUI from "./writedetail-presenter";
 import {
   IMutation,
   IMutationDeleteBoardArgs,
-  IQuery,
-  IQueryFetchBoardArgs,
+  // IQuery,
+  // IQueryFetchBoardArgs,
 } from "../../../../types/generated/types";
 import { useMoveToPage } from "../../../commons/hooks/useMoveToPage";
+// import { useEffect, useState } from "react";
+import { IBoardPageProps } from "./writedetail-typescript";
 
-export default function DetailPageContain() {
+export default function DetailPageContain(props: IBoardPageProps) {
+  console.log(props);
+  const { onClickMoveToPage } = useMoveToPage();
   const router = useRouter();
+  // const [boardid, setBoardId] = useState("");
+  // useEffect(() => {
+  //   // console.log(window.location, "쿼리파라미터");
+  //   const { boardid } = router.query;
+  //   if (boardid) setBoardId(String(boardid));
+  // }, [router.query]);
   const [likeBoard] = useMutation(LIKE_BOARD);
   const [dislikeBoard] = useMutation(DISLIKE_BOARD);
   const [deleteBoard] = useMutation<
     Pick<IMutation, "deleteBoard">,
     IMutationDeleteBoardArgs
   >(DELETE_BOARD);
-  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
-    FETCH_BOARD,
-    {
-      variables: { boardId: String(router.query.boardid) },
-    }
-  );
-  const { onClickMoveToPage } = useMoveToPage();
+  // const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
+  //   FETCH_BOARD,
+  //   {
+  //     variables: { boardId: boardid },
+  //   }
+  // );
 
   const deleteButton = () => {
     deleteBoard({
@@ -70,7 +79,7 @@ export default function DetailPageContain() {
 
   return (
     <DetailPageUI
-      data={data}
+      data={props.data}
       deleteButton={deleteButton}
       onClickLike={onClickLike}
       onClickDisLike={onClickDisLike}

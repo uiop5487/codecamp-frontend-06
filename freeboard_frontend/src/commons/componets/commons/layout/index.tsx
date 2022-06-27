@@ -17,15 +17,17 @@ const Body = styled.div`
 `;
 
 const HIDDEN_HEADERS = ["/", "/logins/login/", "/logins/signup/"];
+const HIDDEN_BANNERS = ["/mypage/", "/mypage/basket/"];
 
 const Layout = (props: any) => {
   const router = useRouter();
   const isHidden = HIDDEN_HEADERS.includes(router.asPath);
+  const isBanner = HIDDEN_BANNERS.includes(router.asPath);
 
   return (
     <Wrapper>
       {!isHidden && <HeaderPage />}
-      {!isHidden && <BannerPage />}
+      {!isBanner && !isHidden && <BannerPage />}
       {!isHidden && <NavPage />}
       <Body>{props.children}</Body>
       {!isHidden && <FooterPage />}

@@ -162,6 +162,12 @@ export const EditImg = styled.img`
   cursor: pointer;
 `;
 
+export const AnswerImg = styled.img`
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+`;
+
 export const DeleteImg = styled.img`
   width: 18px;
   height: 18px;

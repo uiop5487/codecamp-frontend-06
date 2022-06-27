@@ -12,10 +12,10 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
           <s.WriterBox>
             <s.WriterImg src="/img/userimg.png"></s.WriterImg>
             <s.WriterDetailBox>
-              <s.Writer>{props.data?.fetchBoard.writer}</s.Writer>
+              <s.Writer>{props.data?.writer}</s.Writer>
               <s.CreateDate>
                 Date:
-                {props.data?.fetchBoard.createdAt.slice(0, 10)}
+                {props.data?.createdAt.slice(0, 10)}
               </s.CreateDate>
             </s.WriterDetailBox>
           </s.WriterBox>
@@ -24,7 +24,7 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
               <s.Link src="/img/link.png"></s.Link>
               <Tooltip
                 placement="topRight"
-                title={`${props.data?.fetchBoard?.boardAddress?.address} ${props.data?.fetchBoard?.boardAddress?.addressDetail}`}
+                title={`${props.data?.boardAddress?.address} ${props.data?.boardAddress?.addressDetail}`}
               >
                 <s.Location src="/img/location.png"></s.Location>
               </Tooltip>
@@ -33,9 +33,9 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
         </s.WriterWrapper>
         <s.DivedLile></s.DivedLile>
         <s.ContentsWrapper>
-          <s.BoardTitle>{props.data?.fetchBoard.title}</s.BoardTitle>
+          <s.BoardTitle>{props.data?.title}</s.BoardTitle>
           <div>
-            {props.data?.fetchBoard.images
+            {props.data?.images
               ?.filter((el: string) => el)
               .map((el: string) => (
                 <s.ContetsImg
@@ -44,11 +44,11 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
                 ></s.ContetsImg>
               ))}
           </div>
-          <s.Contets>{props.data?.fetchBoard.contents}</s.Contets>
+          <s.Contets>{props.data?.contents}</s.Contets>
         </s.ContentsWrapper>
         <s.YoutubeWrapper>
           <ReactPlayer
-            url={props.data?.fetchBoard?.youtubeUrl || undefined}
+            url={props.data?.youtubeUrl || undefined}
             width={486}
             height={240}
           />
@@ -60,16 +60,14 @@ export default function DetailPageUI(props: IBoardWriteUIProps) {
               src="/img/like.png"
               onClick={props.onClickLike}
             ></s.LikeImg>
-            <s.LikeCount>{props.data?.fetchBoard.likeCount}</s.LikeCount>
+            <s.LikeCount>{props.data?.likeCount}</s.LikeCount>
           </s.LikeBox>
           <s.DisLikeBox>
             <s.DisLikeImg
               src="/img/dislike.png"
               onClick={props.onClickDisLike}
             ></s.DisLikeImg>
-            <s.DisLikeCount>
-              {props.data?.fetchBoard.dislikeCount}
-            </s.DisLikeCount>
+            <s.DisLikeCount>{props.data?.dislikeCount}</s.DisLikeCount>
           </s.DisLikeBox>
         </s.LikeWrapper>
       </s.Wrapper>

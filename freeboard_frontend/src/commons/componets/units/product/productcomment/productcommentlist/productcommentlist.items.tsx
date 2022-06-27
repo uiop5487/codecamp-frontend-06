@@ -83,10 +83,10 @@ export default function ProdcutCommentListItem(
                 </s.WriterFetchHeader>
               </s.FetchWarrper>
               <s.EditDelteBtnWarrper>
-                <img
+                <s.AnswerImg
                   onClick={onClickShowAnswer}
                   src="/img/answericon.png"
-                ></img>
+                ></s.AnswerImg>
                 <s.EditImg
                   src="/img/edit.png"
                   onClick={onClickShowEdit}

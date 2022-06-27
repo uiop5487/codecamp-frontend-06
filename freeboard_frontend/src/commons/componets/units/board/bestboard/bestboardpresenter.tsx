@@ -15,7 +15,7 @@ const BestBoardsPresenter = (props: IBestBoardsPresenter) => {
                 src={`https://storage.googleapis.com/${
                   el.images?.filter((e: string) => e)[0]
                     ? el.images?.filter((e: string) => e)[0]
-                    : "codecamp-file-storage/2022/4/27/눈이부시게.JPG"
+                    : "codecamp-file-storage/2022/6/20/noimage.png"
                 }`}
               ></s.Img>
             </s.ImgWraper>
