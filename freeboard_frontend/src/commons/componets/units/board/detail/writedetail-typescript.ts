@@ -1,4 +1,5 @@
 import { NextRouter } from "next/router";
+import { IQuery } from "../../../../types/generated/types";
 
 export interface IServerSideProps {
   writer: string;
@@ -20,7 +21,7 @@ export interface IBoardWriteUIProps {
   onClickLike: () => void;
   onClickDisLike: () => void;
   onClickMoveToPage: (path: string) => () => void;
-  data: IServerSideProps;
+  data: Pick<IQuery, "fetchBoard"> | undefined;
   router: NextRouter;
 }
 
