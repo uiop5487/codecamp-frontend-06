@@ -1,22 +1,52 @@
-import { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
+import { useEffect, useState } from "react";
 // import Head from "next/head";
 
 declare const window: typeof globalThis & {
   IMP: any;
 };
 
+export const CHARGE_PAYMENT = gql`
+  mutation chargePayment($impUid: String!, $amount: Int!) {
+    chargePayment(impUid: $impUid, amount: $amount) {
+      id
+      amount
+      user {
+        id
+        email
+      }
+    }
+  }
+`;
+
 export default function PamentPage() {
   // 최소 결제금액이 100원
   const [amount] = useState(100);
+  const [chargePayment] = useMutation(CHARGE_PAYMENT);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://code.jquery.com/jquery-1.12.4.min.js";
+    script.type = "text/javascript";
+
+    document.head.appendChild(script);
+  }, []);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
+    script.type = "text/javascript";
+    document.head.appendChild(script);
+  }, []);
 
   const requestPay = () => {
     const IMP = window.IMP; // 생략 가능
-    IMP.init("imp78525002"); // 가맹점 식별코드
+    IMP.init("imp16640611"); // 가맹점 식별코드
     // IMP.request_pay(param, callback) 결제창 호출
     IMP.request_pay(
       {
         // param
-        pg: "html5_inicis",
+        pg: "nice",
         pay_method: "card",
         // 주석을 해주게 되면 랜덤으로 생성
         // merchant_uid: "ORD20180131-0000011",
@@ -29,12 +59,18 @@ export default function PamentPage() {
         buyer_postcode: "01181",
         m_reditect_url: "http://localhost:3000/28-01-payment",
       },
-      (rsp: any) => {
+      async (rsp: any) => {
         // callback
         if (rsp.success) {
           // 결제 성공 시 로직,
           console.log(rsp);
-
+          const result = await chargePayment({
+            variables: {
+              impUid: rsp.imp_uid,
+              amount: rsp.paid_amount,
+            },
+          });
+          console.log(result);
           // 백엔드에 결제관련 데이터 넘겨주기(=> 즉, 뮤테이션 실행하기)
           // ex, createPointTransactionOfLoading
         } else {

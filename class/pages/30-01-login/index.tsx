@@ -6,10 +6,8 @@ import { accessTokenState } from "../../src/commons/store";
 
 // 토큰 만료시간 5초
 const LOGIN_USER = gql`
-  mutation loginUserExample($email: String!, $password: String!) {
-    loginUserExample(email: $email, password: $password) {
-      accessToken
-    }
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password)
   }
 `;
 
@@ -35,7 +33,7 @@ export default function LoginPage() {
         password,
       },
     });
-    const accessToken = result.data.loginUserExample.accessToken;
+    const accessToken = result.data;
     setAccessToken(accessToken);
     console.log(accessToken);
     alert("로그인에 성공하였습니다.");

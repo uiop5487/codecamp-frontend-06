@@ -5,16 +5,14 @@ import { useRecoilState } from "recoil";
 import { accessTokenState, userInfoState } from "../../src/commons/store";
 
 const LOGIN_USER = gql`
-  mutation loginUser($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
-      accessToken
-    }
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password)
   }
 `;
 
 const FETCH_USER_LOGGED_IN = gql`
-  query fetchUserLoggedIn {
-    fetchUserLoggedIn {
+  query fetchLoginUser {
+    fetchLoginUser {
       email
       name
     }
@@ -22,7 +20,7 @@ const FETCH_USER_LOGGED_IN = gql`
 `;
 
 export default function LoginPage() {
-  const [, setAccessToken] = useRecoilState(accessTokenState);
+  // const [, setAccessToken] = useRecoilState(accessTokenState);
   const [, setUserInfo] = useRecoilState(userInfoState);
   const router = useRouter();
   const [loginUser] = useMutation(LOGIN_USER);
@@ -48,7 +46,7 @@ export default function LoginPage() {
         ...values,
       },
     });
-    const accessToken = result.data.loginUser.accessToken;
+    const accessToken = result;
     console.log(accessToken);
 
     // 2. 유저정보 받아오기
@@ -61,7 +59,7 @@ export default function LoginPage() {
         },
       },
     });
-    const userInfo = resultUserInfo.data.fetchUserLoggedIn;
+    const userInfo = resultUserInfo.data;
     console.log(userInfo);
 
     // 3. 글로벌스테이트에 저장하기

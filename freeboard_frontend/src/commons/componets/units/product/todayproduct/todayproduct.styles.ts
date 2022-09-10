@@ -2,15 +2,17 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   position: fixed;
-  top: 500px;
+  top: 400px;
   left: 1700px;
   width: 196px;
   height: 505px;
-  border: 1px solid #bdbdbd;
+  /* border: 1px solid #bdbdbd; */
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
 `;
 
 export const Body = styled.div`

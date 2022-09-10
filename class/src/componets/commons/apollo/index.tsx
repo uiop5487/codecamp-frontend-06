@@ -10,6 +10,7 @@ import { ReactNode, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { getAccessToken } from "../../../commons/libraries/getAccessToken";
 import { accessTokenState } from "../../../commons/store";
+import { WebSocketLink } from "apollo-link-ws";
 
 interface IApolloSetting {
   children: ReactNode;
@@ -83,11 +84,20 @@ export default function ApolloSetting(props: IApolloSetting) {
   // 업로드 설정을 하고 변수에 담아 따로 uri에 넣어준다.
   // 이후에 나오는 링크들을 담아 연결시켜줘야 하기 때문에 배열에 담아 넣어준다.
   const uploadlink = createUploadLink({
-    uri: "https://backend06.codebootcamp.co.kr/graphql",
-    headers: { Authorization: `Bearer ${accessToken}` },
+    uri: "http://localhost:4000/graphql",
+    headers: {
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhYUBhYWEuY29tIiwic3ViIjoiMjRlOWNlY2EtNTllNy00MmE4LTgyM2YtNjVjNDVjNGM0YzNmIiwiaWF0IjoxNjYyNjIwMjUxLCJleHAiOjE2NjI2MzQ2NTF9.aogZTlHkK7tBkYTRXBNrEWEglW2thuqmhDVeF1b5Tf8`,
+    },
     // 중요한 정보를 포함 여부
     credentials: "include",
   });
+
+  // const wsLink = new WebSocketLink({
+  //   uri: `ws://localhost:4000/graphql/`,
+  //   options: {
+  //     reconnect: true,
+  //   },
+  // });
 
   const client = new ApolloClient({
     // 에러링크도 추가

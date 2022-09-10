@@ -13,7 +13,7 @@ const LOGIN_USER = gql`
 `;
 
 export default function LoginPage() {
-  const [, setAccessToken] = useRecoilState(accessTokenState);
+  // const [, setAccessToken] = useRecoilState(accessTokenState);
   const router = useRouter();
   const [loginUser] = useMutation(LOGIN_USER);
 

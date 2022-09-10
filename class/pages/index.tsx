@@ -1,8 +1,14 @@
 // import Head from 'next/head'
 import Image from "next/image";
+import { useRecoilState } from "recoil";
+import { visitedPageState } from "../src/commons/store";
+import { useMoveToPage } from "../src/componets/commons/hooks/useMoveToPage";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const [aaa] = useRecoilState(visitedPageState);
+  const { visitedPage, onClickMoveToPage } = useMoveToPage();
+  console.log("aaa: ", aaa);
   return (
     <div className={styles.container}>
       {/* <Head>
@@ -15,7 +21,7 @@ export default function Home() {
         <h1 className={styles.title}>
           hello Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-
+        <button onClick={onClickMoveToPage("/example")}>이동</button>
         <p className={styles.description}>
           Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>

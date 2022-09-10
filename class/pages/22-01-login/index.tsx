@@ -5,15 +5,13 @@ import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../src/commons/store";
 
 const LOGIN_USER = gql`
-  mutation loginUser($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
-      accessToken
-    }
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password)
   }
 `;
 
 export default function LoginPage() {
-  const [, setAccessToken] = useRecoilState(accessTokenState);
+  // const [, setAccessToken] = useRecoilState(accessTokenState);
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +32,7 @@ export default function LoginPage() {
         password,
       },
     });
-    const accessToken = result.data.loginUser.accessToken;
+    const accessToken = result.data.login;
     setAccessToken(accessToken);
     console.log(accessToken);
     alert("로그인에 성공하였습니다.");
